@@ -1,4 +1,10 @@
 class Stay < ApplicationRecord
+
+  # VALIDATIONS AND ASSOCIATIONS
   belongs_to :user
   belongs_to :hotel
+
+  validates :start_booking_date, :end_booking_date, :checked_in, :checked_out, presence: true
+  # END VALIDATIONS AND ASSOCIATIONS
+
 end
