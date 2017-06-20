@@ -10,10 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619144716) do
+ActiveRecord::Schema.define(version: 20170620163844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hotels", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_hotels_on_deleted_at", using: :btree
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "category"
+    t.integer  "hotel_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_locations_on_deleted_at", using: :btree
+    t.index ["hotel_id"], name: "index_locations_on_hotel_id", using: :btree
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "from"
+    t.json     "content"
+    t.integer  "stay_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_messages_on_deleted_at", using: :btree
+    t.index ["stay_id"], name: "index_messages_on_stay_id", using: :btree
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "number"
+    t.string   "room_type"
+    t.integer  "hotel_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
+    t.index ["hotel_id"], name: "index_rooms_on_hotel_id", using: :btree
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "start_time"
+    t.string   "end_time"
+    t.integer  "price"
+    t.integer  "hotel_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_services_on_deleted_at", using: :btree
+    t.index ["hotel_id"], name: "index_services_on_hotel_id", using: :btree
+  end
+
+  create_table "stays", force: :cascade do |t|
+    t.string   "start_booking_date"
+    t.string   "end_booking_date"
+    t.string   "checked_in"
+    t.string   "checked_out"
+    t.integer  "user_id"
+    t.integer  "hotel_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_stays_on_deleted_at", using: :btree
+    t.index ["hotel_id"], name: "index_stays_on_hotel_id", using: :btree
+    t.index ["user_id"], name: "index_stays_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -28,8 +101,19 @@ ActiveRecord::Schema.define(version: 20170619144716) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "passport"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "locations", "hotels"
+  add_foreign_key "messages", "stays"
+  add_foreign_key "rooms", "hotels"
+  add_foreign_key "services", "hotels"
+  add_foreign_key "stays", "hotels"
+  add_foreign_key "stays", "users"
 end
