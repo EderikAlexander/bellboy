@@ -1,5 +1,9 @@
 class Message < ApplicationRecord
 
+  # GEM PARANOIA
+  acts_as_paranoid
+  # END GEM PARANOIA
+
   # VALIDATIONS AND ASSOCIATIONS
   belongs_to :stay
 

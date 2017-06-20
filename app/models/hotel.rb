@@ -1,4 +1,7 @@
 class Hotel < ApplicationRecord
+  # GEM PARANOIA
+  acts_as_paranoid
+  # END GEM PARANOIA
 
   # VALIDATIONS AND ASSOCIATIONS
   has_many :services, dependent: :destroy
