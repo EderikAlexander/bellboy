@@ -7,6 +7,7 @@ def index
 end
 
 def show
+  # @stay = Stay.find(params[:id])
 
 end
 

@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   root to: 'stays#index'
 
-  resources :stays, only: [:index, :new]
+  resources :stays, only: [:index, :new] do
+    resources :hotels, only: [:show] do
+      resources :services, only: [:index, :show]
+    end
+  end
 
   devise_for :users,
     controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
@@ -12,5 +16,4 @@ Rails.application.routes.draw do
 
   # attachinary route
   mount Attachinary::Engine => "/attachinary"
-
 end

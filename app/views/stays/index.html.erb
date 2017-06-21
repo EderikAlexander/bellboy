@@ -5,14 +5,17 @@
   <h1>welcome to your stays</h1>
 
   <% @stays.each do |stay| %>
-    <p><%= stay.id %></p>
-    <p><%= stay.start_booking_date %></p>
-    <p><%= stay.end_booking_date %></p>
+    <%= link_to stay_hotel_path(stay, stay.hotel) do  %>
+      <p>stay id: <%= stay.id %></p>
+      <p>start booking: <%= stay.start_booking_date %></p>
+      <p>end booking: <%= stay.end_booking_date %></p>
+      <p>hotel: <%= stay.hotel.name %></p>
+
+      <p>------------------------------------------------------</p>
+    <% end %>
   <% end %>
 
-  <h2>static stays</h2>
-  <p>stay 1, hotel miramar</p>
-  <p>stay 2, hotel moven pick</p>
+
 
 <% else %>
 
