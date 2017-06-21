@@ -11,7 +11,6 @@ class Service < ApplicationRecord
   belongs_to :hotel
 
   validates :title, :description, :start_time, :end_time, presence: true
-  validates :price, numericality: true
   validates :title, uniqueness: true
   # END VALIDATIONS AND ASSOCIATIONS
 end
