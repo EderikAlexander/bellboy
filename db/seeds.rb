@@ -34,16 +34,17 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 # ROOM TYPES
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
-puts "Starting seeding process..."
-puts "Cleaning the database..."
+
+puts "Starting seeding proces..."
+
 # DESTROY ALL (OVERIDING THE PARANOIA GEM)
-# Service.really_destroy!
-# Location.really_destroy!
-# Room.really_destroy!
-# Message.really_destroy!
-# Hotel.really_destroy!
-# User.really_destroy!
-# Stay.really_destroy!
+Service.really_destroy!
+Location.really_destroy!
+Room.really_destroy!
+Message.really_destroy!
+Stay.really_destroy!
+User.really_destroy!
+Hotel.really_destroy!
 
 # SEEDING PROCESS #
 
