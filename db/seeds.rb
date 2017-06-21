@@ -5,6 +5,7 @@ HOTEL_LIST = [ { name: "Room Mate Emma Hotel", address: "Carrer del Rosselló, 2
  { name: "Room Mate Anna Hotel", address: "Carrer d'Aragó, 271, 08007 Barcelona", city: "Barcelona" },
  { name: "Room Mate Gerard", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", city: "Barcelona" } ]
 
+# CREATE LOCATIONS
 LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 08013 Barcelona", category: "Sight seeing" },
  { name: "Park Güell", address: "Carrer d'Olot, 7 08024 Barcelona", category: "Sight seeing" },
  { name: "La Rambla", address: "Rambla dels Caputxins, 1807 08002 Barcelona", category: "Sight seeing" },
@@ -15,10 +16,18 @@ LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 
  { name: "Hertz", address: "Avinguda Diagonal, 622, 08023 Barcelona", category: "Rentals" },
  { name: "Moto Rent", address: "Carrer de Roger de Llúria, 31, 08009 Barcelona", category: "Rentals" }
 ]
-# CREATE LOCATIONS
 
 # CREATE SERVICES
-# MISSING
+# SERVICE_LIST = [ { title: "Sagrada Familia", description: "Carrer de la Marina, 253 08013 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
+#  { title: "Park Güell", description: "Carrer d'Olot, 7 08024 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
+#  { title: "La Rambla", description: "Rambla dels Caputxins, 1807 08002 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
+#  { title: "Tickets", description: "Av. del Paraŀlel, 164, 08015 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
+#  { title: "Tapas 24", description: "Carrer de la Diputació, 269, 08007 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
+#  { title: "El atril", description: "Carrer dels Carders, 23, 08003 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
+#  { title: "EuropeCar", description: "Gran Via de les Corts Catalanes, 680, 08010 Barcelona", end_time: "Rentals", start_time: "13:00", price: "100" },
+#  { title: "Hertz", description: "Avinguda Diagonal, 622, 08023 Barcelona", end_time: "Rentals", start_time: "13:00" },
+#  { title: "Moto Rent", description: "Carrer de Roger de Llúria, 31, 08009 Barcelona", end_time: "Rentals", start_time: "13:00", price: "100" }
+# ]
 
 # MESSAGE LIST
 MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
@@ -46,11 +55,20 @@ Stay.all.with_deleted.each { |i| i.really_destroy! }
 User.all.with_deleted.each { |i| i.really_destroy! }
 Hotel.all.with_deleted.each { |i| i.really_destroy! }
 
-# SEEDING PROCESS #
+# SEEDING PROCESS
 
 # CREATE AND SAVE HOTEL
 hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
 hotel.save
+
+# CREATE LOCATIONS AND SAVE
+
+LOCATION_LIST.each do |attraction|
+  location = Location.new(attraction)
+  location.hotel = hotel
+  location.save
+end
+
 
   3.times do
 
