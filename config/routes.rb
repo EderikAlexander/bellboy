@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   mount Facebook::Messenger::Server, at: 'webhooks/messenger'
   # End of Facebook Messenger route
 
+  # attachinary route
+  mount Attachinary::Engine => "/attachinary"
+
+
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

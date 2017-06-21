@@ -17,7 +17,10 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'paranoia', "~> 2.2"
-
+gem 'cloudinary', '1.1.7'
+gem 'attachinary', github: 'assembler/attachinary'
+gem 'jquery-fileupload-rails'
+gem 'coffee-rails'
 # GEMS used for Messenger FB Chat
 gem 'facebook-messenger'
 # End of GEMS used by Messenger FB Chat
