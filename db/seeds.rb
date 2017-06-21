@@ -38,13 +38,13 @@ ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 puts "Starting seeding proces..."
 
 # DESTROY ALL (OVERIDING THE PARANOIA GEM)
-Service.really_destroy!
-Location.really_destroy!
-Room.really_destroy!
-Message.really_destroy!
-Stay.really_destroy!
-User.really_destroy!
-Hotel.really_destroy!
+Service.all.with_deleted.each { |i| i.really_destroy! }
+Location.all.with_deleted.each { |i| i.really_destroy! }
+Room.all.with_deleted.each { |i| i.really_destroy! }
+Message.all.with_deleted.each { |i| i.really_destroy! }
+Stay.all.with_deleted.each { |i| i.really_destroy! }
+User.all.with_deleted.each { |i| i.really_destroy! }
+Hotel.all.with_deleted.each { |i| i.really_destroy! }
 
 # SEEDING PROCESS #
 
@@ -77,7 +77,7 @@ hotel.save
     stay.hotel = hotel
 
     # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
-    if checked_in < Date.Today
+    if checked_in < Date.today
       # WELCOME MESSAGE
         message_welcome = Message.new(stay_id: stay.id, from: "bot", content: MESSAGE_LIST[0][:welcome]) # NEED TO PASS A JSON AS CONTENT:
         message_welcome.save
