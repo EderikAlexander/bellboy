@@ -4,8 +4,12 @@ class Service < ApplicationRecord
   acts_as_paranoid
   # END GEM PARANOIA
 
+  #cloudiary photo
+  has_attachment :photo
+
   # VALIDATIONS AND ASSOCIATIONS
   belongs_to :hotel
+
   validates :title, :description, :start_time, :end_time, presence: true
   validates :price, numericality: true
   validates :title, uniqueness: true

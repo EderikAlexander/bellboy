@@ -16,14 +16,24 @@ gem 'jquery-rails'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
-gem 'paranoia', "~> 2.2"
 
 # GEM used to signin/up with facebook
 gem 'omniauth-facebook'
 
+# GEM to avoid deleting real database (creates deleted_at column)
+gem 'paranoia', "~> 2.2"
+gem 'cloudinary', '1.1.7'
+gem 'attachinary', github: 'assembler/attachinary'
+gem 'jquery-fileupload-rails'
+gem 'coffee-rails'
+
 # GEMS used for Messenger FB Chat
 gem 'facebook-messenger'
 # End of GEMS used by Messenger FB Chat
+
+# GEM for seeds
+gem 'faker'
+# End of GEM for seeds
 
 
 group :development, :test do

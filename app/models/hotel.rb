@@ -3,6 +3,9 @@ class Hotel < ApplicationRecord
   acts_as_paranoid
   # END GEM PARANOIA
 
+  #cloudiary photo
+  has_attachment :photo
+
   # VALIDATIONS AND ASSOCIATIONS
   has_many :services, dependent: :destroy
   has_many :rooms, dependent: :destroy

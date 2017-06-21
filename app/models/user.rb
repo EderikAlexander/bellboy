@@ -4,6 +4,9 @@ class User < ApplicationRecord
   acts_as_paranoid
   # END GEM PARANOIA
 
+  #cloudiary photo
+  has_attachment :photo
+
   # VALIDATIONS AND ASSOCIATIONS FROM DEVISE GEM
 
   # Include default devise modules. Others available are:
@@ -17,6 +20,10 @@ class User < ApplicationRecord
 
   # VALIDATIONS AND ASSOCIATIONS
   validates :first_name, :last_name, presence: true
+  has_many :stays
+  has_many :messages, through: :stays
+  has_many :hotels, through: :stays
+  has_many :rooms, through: :stays
 
   # END VALIDATIONS AND ASSOCIATIONS FROM
 
