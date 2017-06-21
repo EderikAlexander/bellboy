@@ -1,8 +1,13 @@
 
+# CREATE AND SAVE HOTEL
 hotel = Hotel.new(name: "Room Mate Emma Hotel", address: "Carrer del Rosselló, 205, 08008 Barcelona", city: "Barcelona")
+hotel.save
 
   3.times do
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", facebook_id: Faker::Number.number(15))
+
+  # CREATE USER
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890") # facebook_id: Faker::Number.number(15)
+  user.save
 
   # ASIGN STAY TO USER
   rand(1..3).times do
@@ -14,28 +19,28 @@ hotel = Hotel.new(name: "Room Mate Emma Hotel", address: "Carrer del Rosselló, 
     checked_out = end_booking_date if end_booking_date < Date.today
 
     # CREATE STAY INSTANCE
-    stay = Stay.new(start_booking_date, end_booking_date, checked_in, checked_out)
+    stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
 
     # ASIGN STAY INSTANCE TO USER
-    user.stay = stay
+    stay.user = user
 
     # ASIGN STAY INSTANCE TO HOTEL
-    hotel.stay = stay
+    stay.hotel = hotel
+
+    # CREATE AND ASIGN ROOM
+    room = Room.new(number: rand(100..2000), room_type: ["Single", "Double", "Triple", "Suite", "Studio"].sample)
+    room.hotel = hotel
+    room.save
+
+    # ASIGN ROOM TO STAY
+     stay.room = room
 
     # SAVE STAY
     stay.save
     end
 
-    # SAVE USER
-    user.save
   end
 
-  # CREATE AND ASIGN ROOM
-  room = Room.new(number: rand(100..2000), room_type: ["Single", "Double", "Triple", "Suite", "Studio"].sample)
-  stay.room = room
-
-# SAVE HOTEL
-hotel.save
 
 
 

@@ -6,9 +6,9 @@ class Room < ApplicationRecord
 
   # VALIDATIONS AND ASSOCIATIONS
   belongs_to :hotel
-
-  #. TO DO GUESTS
-
+  has_many :stays
+  # Guest = Alias Then through and the origin table
+  has_many :guests, through: :stays, source: :user
   validates :number, :room_type, presence: true
   validates :number, numericality: { only_integer: true }
   validates :room_type, inclusion: { in: [ "Single", "Double", "Triple", "Suite", "Studio" ] }
