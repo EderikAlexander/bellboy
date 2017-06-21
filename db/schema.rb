@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20170621131525) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.datetime "deleted_at"
+    t.integer  "room_id"
     t.index ["deleted_at"], name: "index_stays_on_deleted_at", using: :btree
     t.index ["hotel_id"], name: "index_stays_on_hotel_id", using: :btree
     t.index ["user_id"], name: "index_stays_on_user_id", using: :btree
