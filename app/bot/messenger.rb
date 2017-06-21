@@ -11,4 +11,5 @@ Bot.on :message do |message|
   message.attachments # => [ { 'type' => 'image', 'payload' => { 'url' => 'https://www.example.com/1.jpg' } } ]
 
   message.reply(text: 'Hello, human!')
+  message.reply(text: 'Hello, human!')
 end
