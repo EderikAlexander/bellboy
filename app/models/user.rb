@@ -4,6 +4,9 @@ class User < ApplicationRecord
   acts_as_paranoid
   # END GEM PARANOIA
 
+  #cloudiary photo
+  has_attachment :photo
+
   # VALIDATIONS AND ASSOCIATIONS FROM DEVISE GEM
 
   # Include default devise modules. Others available are:
