@@ -88,6 +88,8 @@ GEM
     facebook-messenger (1.0.0)
       httparty (~> 0.13, >= 0.13.7)
       rack (>= 1.6.4)
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -234,6 +236,7 @@ DEPENDENCIES
   coffee-rails
   devise
   facebook-messenger
+  faker
   figaro
   font-awesome-sass
   jbuilder (~> 2.0)
