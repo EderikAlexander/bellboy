@@ -35,7 +35,7 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
 
-puts "Starting seeding proces..."
+puts "Starting seeding process..."
 
 # DESTROY ALL (OVERIDING THE PARANOIA GEM)
 Service.all.with_deleted.each { |i| i.really_destroy! }
@@ -64,36 +64,17 @@ hotel.save
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
     end_booking_date = start_booking_date + rand(1..15)
-    checked_in = start_booking_date - rand(0..5) if start_booking_date < Date.today || rand(0..9) < 5
+    checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
     checked_out = end_booking_date if end_booking_date < Date.today
 
     # CREATE STAY INSTANCE
     stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
-
     # ASIGN STAY INSTANCE TO USER
     stay.user = user
 
     # ASIGN STAY INSTANCE TO HOTEL
     stay.hotel = hotel
 
-    # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
-    if checked_in < Date.today
-      # WELCOME MESSAGE
-        message_welcome = Message.new(stay_id: stay.id, from: "bot", content: MESSAGE_LIST[0][:welcome]) # NEED TO PASS A JSON AS CONTENT:
-        message_welcome.save
-        stay.message = message_welcome
-
-      # RANDOM MESSAGES
-      rand(1..10).times do
-        random = rand(1..12)
-        message_user = Message.new(stay_id: stay.id, from: "user", content: MESSAGE_LIST[random][:question]) # NEED TO PASS A JSON AS CONTENT:
-        message_user.save
-        message_bot = Message.new(stay_id: stay.id, from: "bot", content: MESSAGE_LIST[random][:answer]) # NEED TO PASS A JSON AS CONTENT:
-        message_bot.save
-        stay.message = message_user
-        stay.message = message_bot
-      end
-    end
 
     # CREATE AND ASIGN ROOM
     room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
@@ -105,8 +86,28 @@ hotel.save
 
     # SAVE STAY
     stay.save
+
+    # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
+    unless checked_in.blank?
+
+      # WELCOME MESSAGE
+      msg = Message.new(from: "bot", content: MESSAGE_LIST[0][:welcome])
+      msg.stay = stay
+      msg.save
+
+      # RANDOM MESSAGES
+        rand(1..10).times do
+          random = rand(1..7)
+          msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
+          msg_user.stay = stay
+          msg_user.save
+          msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
+          msg_bot.stay = stay
+          msg_bot.save
+        end
     end
+  end
 
   end
 
-puts "Finished seeding process..."
+puts "Finished seeding process!"
