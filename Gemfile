@@ -18,6 +18,9 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'paranoia', "~> 2.2"
 
+# GEM used to signin/up with facebook
+gem 'omniauth-facebook'
+
 # GEMS used for Messenger FB Chat
 gem 'facebook-messenger'
 # End of GEMS used by Messenger FB Chat
