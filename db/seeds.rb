@@ -17,17 +17,15 @@ LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 
  { name: "Moto Rent", address: "Carrer de Roger de Llúria, 31, 08009 Barcelona", category: "Rentals" }
 ]
 
+
+
 # CREATE SERVICES
-# SERVICE_LIST = [ { title: "Sagrada Familia", description: "Carrer de la Marina, 253 08013 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
-#  { title: "Park Güell", description: "Carrer d'Olot, 7 08024 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
-#  { title: "La Rambla", description: "Rambla dels Caputxins, 1807 08002 Barcelona", end_time: "Sight seeing", start_time: "13:00", price: "100" },
-#  { title: "Tickets", description: "Av. del Paraŀlel, 164, 08015 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
-#  { title: "Tapas 24", description: "Carrer de la Diputació, 269, 08007 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
-#  { title: "El atril", description: "Carrer dels Carders, 23, 08003 Barcelona", end_time: "Restaurants", start_time: "13:00", price: "100" },
-#  { title: "EuropeCar", description: "Gran Via de les Corts Catalanes, 680, 08010 Barcelona", end_time: "Rentals", start_time: "13:00", price: "100" },
-#  { title: "Hertz", description: "Avinguda Diagonal, 622, 08023 Barcelona", end_time: "Rentals", start_time: "13:00" },
-#  { title: "Moto Rent", description: "Carrer de Roger de Llúria, 31, 08009 Barcelona", end_time: "Rentals", start_time: "13:00", price: "100" }
-# ]
+SERVICE_LIST = [ { title: "Restaurant", description: "Welcome to BRAVO24 where Catalan chef Carles Abellán cooks up the true essence of each local ingredient in its freshest.", end_time: "23:00", start_time: "19:00" },
+ { title: "Massage", description: "Boasts a brisk rub of freshly-grated ginger root and warm detoxifying essential oils, a cozy warming foil wrap, a 20-minute soak and a 100-minute body-melting massage.", end_time: "21:00", start_time: "10:00", price: 200 },
+ { title: "Swimming Pool", description: "Take it outside to the terrace where perfect cocktails, light fare, small dishes, snacks, and tapas are inspired by Barcelona with a modern twist.", end_time: "23:00", start_time: "7:00" },
+ { title: "Entertainment Room", description: "The best way to find game room ideas is to take a cue from your favorite activities and the things you do for fun.", end_time: "22:00", start_time: "18:00" },
+ { title: "Transportation", description: "The journey time from the airport to the centre is between 20 to 30 minutes depending on the time of day.", end_time: "00:00", start_time: "23:59" }
+]
 
 # MESSAGE LIST
 MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
@@ -62,12 +60,19 @@ hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
 hotel.save
 
 # CREATE LOCATIONS AND SAVE
-
 LOCATION_LIST.each do |attraction|
   location = Location.new(attraction)
   location.hotel = hotel
   location.save
 end
+
+# CREATE SERVICE AND SAVE
+SERVICE_LIST.each do |type|
+  service = Service.new(type)
+  service.hotel = hotel
+  service.save
+end
+
 
 
   3.times do
