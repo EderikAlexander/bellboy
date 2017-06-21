@@ -88,13 +88,10 @@ GEM
     facebook-messenger (1.0.0)
       httparty (~> 0.13, >= 0.13.7)
       rack (>= 1.6.4)
-
-    faraday (0.12.1)
-      multipart-post (>= 1.2, < 3)
-
     faker (1.7.3)
       i18n (~> 0.5)
-
+    faraday (0.12.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
