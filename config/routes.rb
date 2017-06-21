@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :stays, only: [:index, :new] do
     resources :hotels, only: [:show] do
       resources :services, only: [:index, :show]
+      resources :locations, only: [:index, :show]
     end
   end
 

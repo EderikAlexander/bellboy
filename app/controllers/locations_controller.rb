@@ -1,11 +1,12 @@
 class LocationsController < ApplicationController
 
-def index
+  def index
+    @stay = Stay.find(params[:stay_id])
+    @hotel = Hotel.find(params[:hotel_id])
+    @locations = Location.all
+  end
 
-end
-
-def show
-
-end
-
+  def show
+    @location = Location.find(params[:id])
+  end
 end
