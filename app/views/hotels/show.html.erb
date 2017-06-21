@@ -1,0 +1,7 @@
+<h1><%= @hotel.name %></h1>
+
+<p>hotel address: <%= @hotel.address %></p>
+<p>number of rooms: <%= @hotel.rooms.count %> </p>
+
+<%= link_to "services", stay_hotel_services_path(@stay, @hotel) %>
+<%= link_to "local tips", stay_hotel_locations_path(@stay, @hotel) %>

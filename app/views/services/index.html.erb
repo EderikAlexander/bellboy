@@ -1,0 +1,13 @@
+<h1>services from hotel</h1>
+
+  <% @services.each do |service| %>
+    <%= link_to stay_hotel_service_path(@stay, @hotel, service) do  %>
+      <p> <%= service.title %> </p>
+      <p> <%= service.description %> </p>
+      <p> <%= service.end_time %> </p>
+      <p> <%= service.start_time %> </p>
+      <p>-----------------------------------------</p>
+    <% end %>
+  <% end %>
+
+
