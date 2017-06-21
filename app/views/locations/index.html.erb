@@ -1,1 +1,9 @@
-index.html.erb
+<h1>local tips for a given stay, in a given hotel</h1>
+
+<% @locations.each do |location| %>
+  <%= link_to stay_hotel_location_path(@stay, @hotel, location) do  %>
+    <p><%= location.name %></p>
+  <% end %>
+<% end %>
+
+<%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>

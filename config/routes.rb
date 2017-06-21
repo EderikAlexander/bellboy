@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
 
-  # Facebook Messenger route (NEEDS TO BE AT THE TOP, OTHERWISE ERROR 502 POPS UP)
-  mount Facebook::Messenger::Server, at: 'webhooks/messenger'
-  # End of Facebook Messenger route
+  root to: 'stays#index'
+
+  resources :stays, only: [:index, :new] do
+    resources :hotels, only: [:show] do
+      resources :services, only: [:index, :show]
+      resources :locations, only: [:index, :show]
+    end
+  end
+
   devise_for :users,
     controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  
+
+  # Facebook Messenger route (NEEDS TO BE AT THE TOP, OTHERWISE ERROR 502 POPS UP)
+  mount Facebook::Messenger::Server, at: 'webhooks/messenger'
+
   # attachinary route
   mount Attachinary::Engine => "/attachinary"
-
-  root to: 'pages#home'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
 end
