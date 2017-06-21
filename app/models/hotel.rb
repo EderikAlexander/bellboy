@@ -1,4 +1,7 @@
 class Hotel < ApplicationRecord
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   # GEM PARANOIA
   acts_as_paranoid
   # END GEM PARANOIA
