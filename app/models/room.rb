@@ -6,7 +6,8 @@ class Room < ApplicationRecord
 
   # VALIDATIONS AND ASSOCIATIONS
   belongs_to :hotel
-  belongs_to :user ### MISSING (PENDING VALIDATION)
+
+  #. TO DO GUESTS
 
   validates :number, :room_type, presence: true
   validates :number, numericality: { only_integer: true }

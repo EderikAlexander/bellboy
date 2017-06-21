@@ -28,8 +28,21 @@ Hotel.really_destroy!
 # SEEDING PROCESS
 hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
 
-# CREATE LOCATIONS
 
+
+# ############################################################################ NEED TO CHANGE THE LOCATIONS
+
+# CREATE LOCATIONS
+LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer del Rosselló, 205, 08008 Barcelona", category: "Sight seeing" },
+               { name: "Park Güell", address: "Carrer de Fontanella, 7, 08010 Barcelona", category: "Sight seeing" },
+               { name: "La Rambla", address: "Carrer de Mallorca, 288, 08037 Barcelona", category: "Sight seeing" },
+               { name: "Tickets", address: "Carrer d'Aragó, 271, 08007 Barcelona", category: "Restaurants" },
+               { name: "Tapas 24", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", category: "Restaurants" },
+               { name: "El atril", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", category: "Restaurants" }
+               { name: "EuropeCar", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", category: "Rentals" },
+               { name: "Hertz", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", category: "Rentals" },
+               { name: "Moto Rent", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", category: "Rentals" }
+              ]
 
 # CREATE SERVICES
 
@@ -39,13 +52,13 @@ hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
 
 # CREATE USERS
 
-10.times do |_user|
+10.times do
 
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: 1234567890, facebook_id: Faker::Number.number(15))
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", facebook_id: Faker::Number.number(15))
 
 
   # ASIGN STAY TO USER
-  rand(1..3).times do |_stay|
+  rand(1..3).times do
 
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
@@ -62,10 +75,11 @@ hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
       # ASIGN STAY INSTANCE TO HOTEL
       hotel.stay = stay
 
-    # CREATE MESSAGES
+    # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
+    if checked_in < Date.Today
       # WELCOME MESSAGE
-        message_welcome = Message.new(stay_id: stay.id, from: "bot", content: MESSAGE[:question]) # NEED TO PASS A JSON AS CONTENT:
-        user.message = message_welcome
+        message_welcome = Message.new(stay_id: stay.id, from: "bot", content: MESSAGE[:welcome]) # NEED TO PASS A JSON AS CONTENT:
+        stay.message = message_welcome
 
       # RANDOM MESSAGES
       rand(1..10).times do |_message|
@@ -75,10 +89,10 @@ hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
         user.message = message_user
         user.message = message_bot
       end
-
+    end
     # ASIGN ROOM TO USER (MISSING IN THE ASSOCIATIONS)
     room = Room.new(number: rand(100..2000), room_type: ROOM_TYPE_LIST[rand(0..4)])
-    user.room = room
+    hotel.room = room
 
   end
 end
