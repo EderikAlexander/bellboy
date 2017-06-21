@@ -7,6 +7,13 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
+    <% if user_signed_in? %>
+      <%= current_user.email %>
+      <%= link_to "sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <p> not logged in </p>
+    <% end %>
+
     <!-- Search form -->
     <form action="" class="navbar-wagon-search">
       <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
