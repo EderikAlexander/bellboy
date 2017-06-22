@@ -20,10 +20,14 @@ class User < ApplicationRecord
 
   # VALIDATIONS AND ASSOCIATIONS
   validates :first_name, :last_name, presence: true
+  has_many :hotels_as_owner, foreign_key: :user_id, class_name: 'Hotel', dependent: :destroy
   has_many :stays
   has_many :messages, through: :stays
   has_many :hotels, through: :stays
   has_many :rooms, through: :stays
+
+  has_many :bookings
+  has_many :services, through: :bookings
 
   # END VALIDATIONS AND ASSOCIATIONS FROM
 

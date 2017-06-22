@@ -1,5 +1,11 @@
-<h1>info for one selected location</h1>
+<%= content_for :nav_title, "back" %>
+<%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/locations" %>
+<%= content_for :link, hreff %>
 
 <p><%= @location.name %></p>
 <p><%= @location.address %></p>
 <p><%= @location.category %></p>
+
+
+
+

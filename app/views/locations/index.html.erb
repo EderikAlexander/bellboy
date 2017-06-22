@@ -1,14 +1,22 @@
-<!-- <h1>local tips for a given stay, in a given hotel</h1>
 
 
+<%= content_for :nav_title, "Locations" %>
 
 <%# @locations.each do |location| %>
   <%#= link_to stay_hotel_location_path(@stay, @hotel, location) do  %>
-    <p><%#= location.name %></p>
+    <!-- <p><%#= location.name %></p> -->
   <%# end %>
 <%# end %>
- -->
-<div id="map" style="width: 100%; height: 1000px;"></div>
+
+<div>
+    <%= link_to "All", stay_hotel_locations_path(@stay, @hotel), class: "btn btn-danger"  %>
+    <%= link_to "Restaurants", stay_hotel_locations_path(@stay, @hotel, filter: "restaurant"), class: "btn btn-primary" %>
+    <%= link_to "Rentals", stay_hotel_locations_path(@stay, @hotel, filter: "rentals"), class: "btn btn-primary" %>
+    <%= link_to "Sights", stay_hotel_locations_path(@stay, @hotel, filter: "Sight+seeing"), class: "btn btn-primary"  %>
+  </div>
+<div id="map" style="width: 100%; height: 700px; padding-top: 0;">
+
+</div>
 
 
 
@@ -37,20 +45,35 @@
 ];
 
     $(document).ready(function() {
+
+
+       var locations = <%= raw @hash.to_json %>
+
+
       var handler = Gmaps.build('Google');
       handler.buildMap({
         internal: { id: 'map' },
         provider: {
+          scrollwheel: false,
+          zoomControl: false,
           zoom: 15,
           center: new google.maps.LatLng(<%= raw @hotel.latitude %>, <%= raw @hotel.longitude %>),
           mapTypeId: google.maps.MapTypeId.ROADMAP ,
           styles: styledMapType,
         }
 
-
-
        }, function() {
-        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        var hotel_loc = {
+      lat: <%=  @hotel.latitude %>,
+      lng: <%= @hotel.longitude %>,
+      picture: {
+        url: "http://germanyiswunderbar.com/wp-content/uploads/map-marker-hotel.png",
+        width:  130,
+        height: 150
+      },
+      infowindow: "<%= @hotel.name %>"
+    }
+        markers = handler.addMarkers(locations.concat(hotel_loc));
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
         if (markers.length == 0) {
@@ -58,7 +81,8 @@
         } else if (markers.length == 1) {
           handler.getMap().setZoom(14);
         }
-      });
+      })
+
     });
   </script>
 <% end %>

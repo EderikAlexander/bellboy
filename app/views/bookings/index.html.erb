@@ -1,0 +1,17 @@
+<h1>Bookings control</h1>
+
+<% @bookings.each do |booking| %>
+  <p>booking id: <%= booking.id %> </p>
+  <p>start date-time: <%= booking.start_datetime %> </p>
+  <p>end date-time: <%= booking.end_datetime %> </p>
+  <p>user id: <%= booking.user_id %> </p>
+  <p>service id: <%= booking.service_id %> </p>
+
+  <% if @hotel.can_manage?(current_user) %>
+    <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
+  <% end %>
+
+  <p>-------------------------------------------------</p>
+<% end %>
+
+
