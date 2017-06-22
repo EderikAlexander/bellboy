@@ -1,4 +1,5 @@
-<h1><%= @hotel.name %></h1>
+<%= content_for :nav_title, "Hotel" %>
+
 
 <p>hotel address: <%= @hotel.address %></p>
 <p>number of rooms: <%= @hotel.rooms.count %> </p>

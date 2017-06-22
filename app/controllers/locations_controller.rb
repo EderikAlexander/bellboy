@@ -18,6 +18,8 @@ class LocationsController < ApplicationController
   end
 
   def show
+    @stay = Stay.find(params[:stay_id])
+    @hotel = Hotel.find(params[:hotel_id])
     @location = Location.find(params[:id])
   end
 end

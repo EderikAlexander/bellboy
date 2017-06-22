@@ -9,8 +9,15 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
   <body>
+  <% if user_signed_in? %>
+    <style>
+      body{
+        padding-top: 50px;
+      }
+    </style>
     <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
+  <% end %>
+    <%#= render 'shared/flashes' %>
     <%= yield %>
     <%#= render 'shared/bottom-navbar' %>
 
@@ -19,6 +26,7 @@
   <%= javascript_include_tag "https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js" %>
 
     <%= javascript_include_tag 'application' %>
+
     <%= cloudinary_js_config %>
     <%= yield(:after_js) %>
   </body>
