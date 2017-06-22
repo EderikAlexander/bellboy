@@ -1,0 +1,7 @@
+<%= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
+  <%= f.input :start_datetime, as: :datetime %>
+  <%= f.input :end_datetime, as: :datetime %>
+  <%= f.submit "submit", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
