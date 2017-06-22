@@ -1,17 +1,21 @@
-<div class="navbar-wagon-right navbar-fixed-bottom ">
+<div id="tab-bar" class="navbar-wagon navbar-wagon-right navbar-fixed-bottom ">
 
 
   <%= link_to home do %>
-    <i class="fa fa-home lg"> </i>
+    <i class="tab-bar-item fa fa-home lg"> </i>
     <% end %>
 
 <%= link_to services do %>
-    <i class="fa fa-th-list lg"> </i>
+    <i class="tab-bar-item fa fa-th-list lg"> </i>
     <% end %>
 
     <%= link_to locations do %>
-    <i class="fa fa-map-marker lg"> </i>
+    <i class="tab-bar-item fa fa-map-marker lg"> </i>
     <% end %>
+
+    <%#= link_to profile/booking_page do %>
+    <i class="tab-bar-item fa fa-user lg"> </i>
+    <%# end %>
 
 
 </div>
