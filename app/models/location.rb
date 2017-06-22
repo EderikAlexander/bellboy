@@ -14,7 +14,7 @@ class Location < ApplicationRecord
   belongs_to :hotel
 
   validates :name, :address, presence: true
-  validates :category, inclusion: { in: [ "Restaurants", "Rentals", "Sight seeing"] }
+  validates :category, inclusion: { in: [ "Restaurants", "Rentals", "Sights", "beaches"] }
   # END VALIDATIONS AND ASSOCIATIONS
 
 end
