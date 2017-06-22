@@ -41,6 +41,8 @@
       handler.buildMap({
         internal: { id: 'map' },
         provider: {
+          scrollwheel: false,
+          zoomControl: false,
           zoom: 15,
           center: new google.maps.LatLng(<%= raw @hotel.latitude %>, <%= raw @hotel.longitude %>),
           mapTypeId: google.maps.MapTypeId.ROADMAP ,
