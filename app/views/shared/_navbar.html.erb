@@ -1,11 +1,10 @@
-<div class="navbar-wagon">
+
+<div id = "top-bar" class="navbar-wagon">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand" do %>
-    <%= image_tag "logo.png" %>
-  <% end %>
+
 
   <!-- Right Navigation -->
-  <div class="navbar-wagon-right hidden-xs hidden-sm">
+  <div class="navbar-wagon-right hidden-xs hidden-sm hidden-md hidden-lg">
 
     <% if user_signed_in? %>
       <%= current_user.email %>
@@ -71,8 +70,12 @@
   </div>
 
   <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-wagon-item hidden-md hidden-lg">
-    <div class="dropdown">
+
+  <div class="navbar-wagon-item hidden-md hidden-lg" style="left: 10px; color: white;">
+    <p><%= link_to "Stays", stays_path, style: "color: white;" %></p>
+
+
+    <div class="dropdown hidden-xs hidden-sm hidden-md hidden-lg">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <li><a href="#">Some mobile link</a></li>
