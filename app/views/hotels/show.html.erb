@@ -8,3 +8,41 @@
 <%= link_to "local tips", stay_hotel_locations_path(@stay, @hotel) %>
 
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
+<!-- <p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button> -->
+
+<!-- <p id="demo"></p>
+
+<%#= content_for(:after_js) do %>
+ <script>
+ $(function(){
+    getLocation();
+ });
+      var x = document.getElementById("demo");
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+      function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+        console.log(position.coords.longitue)
+      }
+
+      $.ajax({
+          type: "GET",
+          url: "api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude,
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(jqXHR) {
+            console.error(jqXHR.responseText);
+          }
+        });
+    </script> -->
+
+<%# end %>

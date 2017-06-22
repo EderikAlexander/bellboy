@@ -6,7 +6,6 @@
 
 <%= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
 
-
 <h1>Bookings control</h1>
 
 <% @bookings.each do |booking| %>
@@ -18,3 +17,5 @@
   <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
   <p>-------------------------------------------------</p>
 <% end %>
+
+
