@@ -1,0 +1,15 @@
+<h1>create new service</h1>
+
+<%= simple_form_for([@stay, @hotel, @service]) do |f| %>
+  <%= f.input :title, as: :text %>
+  <%= f.input :description, as: :text %>
+  <%= f.input :start_time, as: :string %>
+  <%= f.input :end_time, as: :string %>
+  <%= f.input :price, as: :text %>
+
+  <%= f.submit "submit", class: "btn btn-primary" %>
+<% end %>
+
+<%#= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
+
+

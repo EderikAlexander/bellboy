@@ -6,3 +6,4 @@
 <p> <%= @service.start_time %> </p>
 
 <%= link_to "book", new_stay_hotel_service_booking_path(@stay, @hotel, @service) %>
+<%= link_to "see all services", stay_hotel_services_path(@stay, @hotel) %>
