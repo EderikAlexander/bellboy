@@ -11,107 +11,65 @@ class Message < ApplicationRecord
   validates :from, presence: true
   # END VALIDATIONS AND ASSOCIATIONS
 
+  # MESSAGE LIST
+    MESSAGE = { welcome: "Welcome to the " ,
+               wifi: "The wifi password is: RoomMate2017.",
+               breakfast: "Starts at 8:00 am and ends at 11:00 am.",
+               laundry: "Yes, do you want us to pick up your laundry?",
+               room: "Your room number is ",
+               events: "Yes we do in the third floor.",
+               swimming: "It opens at 1:00 pm and closes at 9:00 pm.",
+               attraction: "La sagrada familia! and Park Guell.",
+               help: ". Can I help you with something else?",
+              }
+
   # CHAT BOT METHODS
   class << self
 
-    def bot_welcome(stay, message, statement)
-    # Welcome message + Options
-    data = {
-      text: statement,
-      quick_replies:[
-        {
-          content_type: "text",
-          title: "WIFI",
-          payload:"WIFI_PATH",
-          },
-          {
-            content_type:"text",
-            title: "SERVICE",
-            payload: "SERVICE_PATH",
-          },
-          {
-            content_type:"text",
-            title: "SIGHTS",
-            payload: "SIGHTS_PATH",
-          }
-        ]
-      }
+    def welcome(stay, message, statement)
 
-      # Trigger Welcome message
-      message.reply(data)
-
-      # Save Message
-      Message.create(content: data, from: "bot", stay: stay)
-    end
-
-      def bot_services(stay, message, statement)
-    # Welcome message + Options
-    data = {
-      text: statement,
-      quick_replies:[
-        {
-          content_type: "text",
-          title: "RESTAURANTS",
-          payload:"REST_PATH",
-          },
-          {
-            content_type:"text",
-            title: "LOCA",
-            payload: "LOCA_PATH",
-          },
-          {
-            content_type:"text",
-            title: "RENTALS",
-            payload: "RENT_PATH",
-          }
-        ]
-      }
-
-      # Trigger Welcome message
-      message.reply(data)
-
-      # Save Message
-      Message.create(content: data, from: "bot", stay: stay)
-    end
-
-    # Easy replies
-    def bot_msg(stay, message, statement)
       data = {
-        text: statement
-      }
+          attachment:{
+            type: "template",
+            payload: {
+              template_type: "generic",
+              elements: [
+                 {
+                  title: "Welcome to the #{stay.hotel.name}",
+                  image_url: "https://room-matehotels.com/images/img/general/slide_inicio/slide_01.jpg",
+                  subtitle: "I am here to help enjoy and profit your stay.",
+                  default_action: {
+                    type: "web_url",
+                    url: "www.bellboy.site",
+                    messenger_extensions: true,
+                    webview_height_ratio: "tall",
+                    fallback_url: "www.bellboy.site"
+                  },
+                  buttons:[
+                    {
+                      type: "postback",
+                      title: "Start Chatting",
+                      payload: "START_CHATTING_PAYLOAD"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
 
+      # Trigger Welcome message
       message.reply(data)
-      Message.create(content: data, from: "bot", stay: stay)
-    end
 
-    def display_slider_service(stay, message)
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)b
 
-        service = stay.hotel.services
-      # Create a JSON with all the services
-      service.each do |s|
-        message.typing_on
-        reply = message.reply(text: s.title)
-        # reply = message.reply(text: s.description)
-      end
-      # Message.create(content: reply.to_hash, from: "bot", stay: stay)
-    end
-
-    def display_slider_sights(stay, message, cat)
-
-        sights = stay.hotel.locations
-      # Create a JSON with all the services
-      sights.each do |s|
-        # message.typing_on
-        if s.category == cat
-        reply = message.reply(text: s.name )
-        end
-        # reply = message.reply(text: s.description)
-      end
-      # Message.create(content: reply.to_hash, from: "bot", stay: stay)
     end
 
   end
+
 end
+
 
 
 
