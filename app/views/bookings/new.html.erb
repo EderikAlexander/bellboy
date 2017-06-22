@@ -5,3 +5,16 @@
 <% end %>
 
 <%= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
+
+
+<h1>Bookings control</h1>
+
+<% @bookings.each do |booking| %>
+  <p>booking id: <%= booking.id %> </p>
+  <p>start date-time: <%= booking.start_datetime %> </p>
+  <p>end date-time: <%= booking.end_datetime %> </p>
+  <p>user id: <%= booking.user_id %> </p>
+  <p>service id: <%= booking.service_id %> </p>
+  <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
+  <p>-------------------------------------------------</p>
+<% end %>

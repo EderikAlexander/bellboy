@@ -29,14 +29,15 @@ gem 'jquery-fileupload-rails'
 gem 'coffee-rails'
 gem "gmaps4rails"
 
-
 # GEMS used for Messenger FB Chat
 gem 'facebook-messenger'
 # End of GEMS used by Messenger FB Chat
 
 # GEM for seeds
 gem 'faker'
-# End of GEM for seeds
+
+# GEM for pundit
+gem 'pundit'
 
 
 

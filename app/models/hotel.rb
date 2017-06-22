@@ -17,8 +17,14 @@ class Hotel < ApplicationRecord
   has_many :users, through: :stays
   has_many :messages, through: :stays
 
+  belongs_to :user
+
   validates :name, :address, :city, presence: true
   validates :name, uniqueness: { scope: [:address, :city] }
   # END VALIDATIONS AND ASSOCIATIONS
+
+  def can_manage?(current_user)
+    self.user_id and self.user == current_user
+  end
 
 end

@@ -1,8 +1,12 @@
 <%= content_for :nav_title, "Services" %>
 
-  <form action="services/search" class="form-inline form-group" >
-    <input type="text" name="title" class="form-control" placeholder="Search for service">
-    <input type="submit" value="Submit">
+  <% if @hotel.can_manage?(current_user) %>
+    <%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
+  <% end %>
+
+<form action="services/search" class="form-inline form-group" >
+  <input type="text" name="title" class="form-control" placeholder="Search for service">
+  <input type="submit" value="Submit">
 </form>
 
   <% @services.each do |service| %>
@@ -11,9 +15,13 @@
       <p> <%= service.description %> </p>
       <p> <%= service.end_time %> </p>
       <p> <%= service.start_time %> </p>
+
+      <% if @hotel.can_manage?(current_user) %>
+        <%= link_to "delete service", stay_hotel_service_path(@stay, @hotel, service), method: :delete %>
+      <% end %>
+
       <p>-----------------------------------------</p>
     <% end %>
   <% end %>
-
 
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>

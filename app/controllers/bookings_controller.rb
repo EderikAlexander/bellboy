@@ -59,7 +59,7 @@ class BookingsController < ApplicationController
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])
     @service = Service.find(params[:service_id])
-    redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
+    redirect_to stay_hotel_service_path(@stay, @hotel, @service)
   end
 
   private
