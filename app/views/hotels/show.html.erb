@@ -12,9 +12,12 @@
 
 <button onclick="getLocation()">Try It</button> -->
 
-<!-- <p id="demo"></p>
+<h1 id="city"></h1>
+<h2 id = "temp"> </h2>
+<p id="demo"></p>
 
-<%#= content_for(:after_js) do %>
+
+<%= content_for(:after_js) do %>
  <script>
  $(function(){
     getLocation();
@@ -26,23 +29,39 @@
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
+
       }
       function showPosition(position) {
         x.innerHTML = "Latitude: " + position.coords.latitude +
         "<br>Longitude: " + position.coords.longitude;
         console.log(position.coords.longitue)
-      }
-
-      $.ajax({
+        $.ajax({
           type: "GET",
-          url: "api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude,
+          url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ","+ position.coords.longitude + "&sensor=true",
           success: function(data) {
-            console.log(data);
+            console.log(data.results[0].address_components[2].long_name)
+            var city = data.results[0].address_components[2].long_name
+            $('#city').append("City: " + city)
           },
           error: function(jqXHR) {
             console.error(jqXHR.responseText);
           }
         });
-    </script> -->
+        $.ajax({
+          type: "GET",
+          url: "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=9a2b4f85c1cbe3e539c0e6564f72075e",
+          success: function(data) {
+            var temperature = data.main.temp-273.15
+            $('#temp').append( "temperature: " + temperature + " degrees celcius")
+          },
+          error: function(jqXHR) {
+            console.error(jqXHR.responseText);
+          }
+        });
 
-<%# end %>
+      }
+
+
+    </script>
+
+<% end %>
