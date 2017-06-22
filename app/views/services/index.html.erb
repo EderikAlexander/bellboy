@@ -1,4 +1,4 @@
-<h1>services from hotel</h1>
+<%= content_for :nav_title, "Services" %>
 
   <% if @hotel.can_manage?(current_user) %>
     <%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
