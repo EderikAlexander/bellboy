@@ -25,6 +25,9 @@ class User < ApplicationRecord
   has_many :hotels, through: :stays
   has_many :rooms, through: :stays
 
+  has_many :bookings
+  has_many :services, through: :bookings
+
   # END VALIDATIONS AND ASSOCIATIONS FROM
 
   # facebook sign in sign up

@@ -10,6 +10,8 @@ class Service < ApplicationRecord
   # VALIDATIONS AND ASSOCIATIONS
   belongs_to :hotel
 
+  has_many :bookings, dependent: :destroy
+
   validates :title, :description, :start_time, :end_time, presence: true
   validates :title, uniqueness: true
   # END VALIDATIONS AND ASSOCIATIONS
