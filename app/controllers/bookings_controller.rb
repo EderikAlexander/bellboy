@@ -31,11 +31,15 @@ class BookingsController < ApplicationController
 
     booked = isTableBooked(@service, start_datetime_tobook, end_datetime_tobook)
 
-    @booking.save
-
+    # used for the _path method
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])
-    redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
+    if booked
+      render 'new'
+    else
+      @booking.save
+      redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
+    end
   end
 
   def isTableBooked(service, start_datetime_tobook, end_datetime_tobook)
