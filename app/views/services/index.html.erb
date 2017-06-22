@@ -1,6 +1,8 @@
 <h1>services from hotel</h1>
 
-<%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
+  <% if @hotel.can_manage?(current_user) %>
+    <%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
+  <% end %>
 
 <form action="services/search" class="form-inline form-group" >
   <input type="text" name="title" class="form-control" placeholder="Search for service">
@@ -13,7 +15,11 @@
       <p> <%= service.description %> </p>
       <p> <%= service.end_time %> </p>
       <p> <%= service.start_time %> </p>
-      <%= link_to "delete service", stay_hotel_service_path(@stay, @hotel, service), method: :delete %>
+
+      <% if @hotel.can_manage?(current_user) %>
+        <%= link_to "delete service", stay_hotel_service_path(@stay, @hotel, service), method: :delete %>
+      <% end %>
+
       <p>-----------------------------------------</p>
     <% end %>
   <% end %>

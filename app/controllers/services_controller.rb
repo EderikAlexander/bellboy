@@ -29,6 +29,8 @@ class ServicesController < ApplicationController
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])
     @service = Service.find(params[:id])
+    @bookings = @service.bookings
+    @booking = Booking.new
   end
 
   def destroy
@@ -56,9 +58,6 @@ class ServicesController < ApplicationController
       # Flat.find_by(name: params[:name]) << @flats
     end
   end
-
-
-
 
   private
   def service_params

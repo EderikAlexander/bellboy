@@ -6,7 +6,11 @@
   <p>end date-time: <%= booking.end_datetime %> </p>
   <p>user id: <%= booking.user_id %> </p>
   <p>service id: <%= booking.service_id %> </p>
-  <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
+
+  <% if @hotel.can_manage?(current_user) %>
+    <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
+  <% end %>
+
   <p>-------------------------------------------------</p>
 <% end %>
 
