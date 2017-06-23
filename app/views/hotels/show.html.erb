@@ -1,25 +1,59 @@
+<div id="loading">
+
+<br>
+<br>
+<br>
+<%= image_tag "ajax-loader.gif", width: 50 , id: "loading-image" %>
+</div>
+
+
 <%= content_for :nav_title, "Hotel" %>
 
 
-<p>hotel address: <%= @hotel.address %></p>
-<p>number of rooms: <%= @hotel.rooms.count %> </p>
 
-<%= link_to "services", stay_hotel_services_path(@stay, @hotel) %>
-<%= link_to "local tips", stay_hotel_locations_path(@stay, @hotel) %>
+<% time = Time.now %>
+
+<h1>Hotel name: <%= @hotel.name %></h1>
+<h2>Hotel address: <%= @hotel.address %></h2>
+<h3>Room number: <%= @stay.room.number %> </h3>
+<h3>Room type: <%= @stay.room.room_type %> </h3>
+<h4>Time: <%= time.hour > 12? time.hour - 12 : time.hour %>:<%= time.min %> </h4>
+
+
+
 
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
 <!-- <p>Click the button to get your coordinates.</p>
 
 <button onclick="getLocation()">Try It</button> -->
 
-<h1 id="city"></h1>
-<h2 id = "temp"> </h2>
-<p id="demo"></p>
 
+<div class="city-info">
+
+
+  <h1>City: <span id="city"></span></h1>
+  <h1><%= Date.today.strftime("%A")[0..2] %>: <span id="td" ></span></h1>
+  <h1><%= (Date.today + 1).strftime("%A")[0..2] %>: <span id="tmrw" ></span></h1>
+  <h1><%= (Date.today + 2).strftime("%A")[0..2] %>: <span id="after" ></span></h1>
+  <h1><%= (Date.today + 3).strftime("%A")[0..2] %>: <span id="later" ></span></h1>
+  <h1><%= (Date.today + 4).strftime("%A")[0..2] %>: <span id="last" ></span></h1>
+</div>
 
 <%= content_for(:after_js) do %>
  <script>
+
  $(function(){
+
+//   if( $('#city').isempty())         // use this if you are using id to check
+// {
+//      $('#loading').show()
+// } else {
+//   $('loading').hide()
+// }
+        $("#loading-image").show();
+
+
+
     getLocation();
  });
       var x = document.getElementById("demo");
@@ -32,29 +66,61 @@
 
       }
       function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
         console.log(position.coords.longitue)
         $.ajax({
           type: "GET",
           url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ","+ position.coords.longitude + "&sensor=true",
           success: function(data) {
+            $("#loading-image").hide();
+            $("#loading").hide();
             console.log(data.results[0].address_components[2].long_name)
             var city = data.results[0].address_components[2].long_name
             $('#city').append("City: " + city)
           },
           error: function(jqXHR) {
+            $("#loading-image").hide();
+            $("#loading").hide();
             console.error(jqXHR.responseText);
           }
         });
+
+
+
         $.ajax({
           type: "GET",
-          url: "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=9a2b4f85c1cbe3e539c0e6564f72075e",
+          // url: "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=9a2b4f85c1cbe3e539c0e6564f72075e",
+          url: "http://api.openweathermap.org/data/2.5/forecast?lat="+ position.coords.latitude +"&lon=" + position.coords.longitude + "&appid=9a2b4f85c1cbe3e539c0e6564f72075e",
           success: function(data) {
-            var temperature = data.main.temp-273.15
-            $('#temp').append( "temperature: " + temperature + " degrees celcius")
+
+            $("#loading-image").hide();
+            $("#loading").hide();
+
+            console.log(data.list[0].main.temp - 273.15)
+            var week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+            // var Today = week[now.getDay()];
+
+
+            var tempToday = data.list[1].main.temp - 273.15;
+            var tempTmrw = data.list[2].main.temp - 273.15;
+            var tempAfter = data.list[3].main.temp - 273.15;
+            var tempLater = data.list[4].main.temp - 273.15;
+            var tempLast = data.list[5].main.temp - 273.15;
+
+            $('#td').append(parseInt(tempToday) + "°C");
+            $('#tmrw').append(parseInt(tempTmrw) + "°C");
+            $('#after').append(parseInt(tempAfter) + "°C");
+            $('#later').append(parseInt(tempLater) + "°C");
+            $('#last').append(parseInt(tempLast) + "°C");
+
+            // var temperature = data.main.temp-273.15
+            // $('#temp').append( "temperature: " + temperature + " degrees celcius")
+
+
           },
           error: function(jqXHR) {
+            $("#loading-image").hide();
+            $("#loading").hide();
             console.error(jqXHR.responseText);
           }
         });

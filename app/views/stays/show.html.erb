@@ -1,0 +1,11 @@
+<%= content_for :nav_title, "Your Stay" %>
+
+
+
+<p>checkied in: <%= @stay.checked_in %></p></p>
+<p>checked out: <%= @stay.checked_out %></p>
+<p>user: <%= @stay.user.first_name %> <%= @stay.user.last_name  %></p>
+<p>hotel: <%= @stay.hotel.name %></p>
+
+
+<%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @stay.hotel), services: stay_hotel_services_path(@stay, @stay.hotel), locations: stay_hotel_locations_path(@stay, @stay.hotel)  %>
