@@ -78,7 +78,7 @@ end
 1.times do
 
   # CREATE USER
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: "987221848047540")
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: "1357624897606588")
   user.save
 
   # ASIGN STAY TO USER
