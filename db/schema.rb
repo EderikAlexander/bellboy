@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20170622125407) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
     t.string   "start_time"
     t.string   "end_time"

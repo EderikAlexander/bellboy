@@ -6,9 +6,9 @@ HOTEL_LIST = [ { name: "Room Mate Emma Hotel", address: "Carrer del Rosselló, 2
  { name: "Room Mate Gerard", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", city: "Barcelona" } ]
 
 # CREATE LOCATIONS
-LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 08013 Barcelona", category: "Sight seeing" },
- { name: "Park Güell", address: "Carrer d'Olot, 7 08024 Barcelona", category: "Sight seeing" },
- { name: "La Rambla", address: "Rambla dels Caputxins, 1807 08002 Barcelona", category: "Sight seeing" },
+LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 08013 Barcelona", category: "Sights" },
+ { name: "Park Güell", address: "Carrer d'Olot, 7 08024 Barcelona", category: "Sights" },
+ { name: "La Rambla", address: "Rambla dels Caputxins, 1807 08002 Barcelona", category: "Sights" },
  { name: "Tickets", address: "Av. del Paraŀlel, 164, 08015 Barcelona", category: "Restaurants" },
  { name: "Tapas 24", address: "Carrer de la Diputació, 269, 08007 Barcelona", category: "Restaurants" },
  { name: "El atril", address: "Carrer dels Carders, 23, 08003 Barcelona", category: "Restaurants" },
@@ -29,14 +29,14 @@ SERVICE_LIST = [ { title: "Restaurant", description: "Welcome to BRAVO24 where C
 
 # MESSAGE LIST
 MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
-                { question: { "text": "what is the wifi password?" } , answer: { "text": "The wifi password is: RoomMate2017" } },
-                { question: { "text": "when is the breakfast" } , answer: { "text": "Starts at 8:00 am and ends at 11:00 am" } },
-                { question: { "text": "what services do you offer" } , answer: { "text": "Cleaning, massage, transportation"  } },
-                { question: { "text": "what´s my room number" } , answer: { "text": "Your room number is 216" } },
-                { question: { "text": "do you have a room for events" } , answer: { "text": "Yes we do" } },
-                { question: { "text": "what time does the pool open" } , answer: { "text": "It opens at 1:00 pm and closes at 9:00 pm" } },
-                { question: { "text": "are there any interesting places to visit nearby" } , answer: { "text": "La sagrada familia! and Park Guell" } }
-              ]
+  { question: { "text": "what is the wifi password?" } , answer: { "text": "The wifi password is: RoomMate2017" } },
+  { question: { "text": "when is the breakfast" } , answer: { "text": "Starts at 8:00 am and ends at 11:00 am" } },
+  { question: { "text": "what services do you offer" } , answer: { "text": "Cleaning, massage, transportation"  } },
+  { question: { "text": "what´s my room number" } , answer: { "text": "Your room number is 216" } },
+  { question: { "text": "do you have a room for events" } , answer: { "text": "Yes we do" } },
+  { question: { "text": "what time does the pool open" } , answer: { "text": "It opens at 1:00 pm and closes at 9:00 pm" } },
+  { question: { "text": "are there any interesting places to visit nearby" } , answer: { "text": "La sagrada familia! and Park Guell" } }
+]
 
 # ROOM TYPES
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
@@ -75,14 +75,14 @@ end
 
 
 
-  3.times do
+1.times do
 
   # CREATE USER
   user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890") # facebook_id: Faker::Number.number(15)
   user.save
 
   # ASIGN STAY TO USER
-  rand(1..3).times do
+  3.times do
 
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
@@ -105,7 +105,7 @@ end
     room.save
 
     # ASIGN ROOM TO STAY
-     stay.room = room
+    stay.room = room
 
     # SAVE STAY
     stay.save
@@ -119,18 +119,18 @@ end
       msg.save
 
       # RANDOM MESSAGES
-        rand(1..10).times do
-          random = rand(1..7)
-          msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
-          msg_user.stay = stay
-          msg_user.save
-          msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
-          msg_bot.stay = stay
-          msg_bot.save
-        end
+      rand(1..10).times do
+        random = rand(1..7)
+        msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
+        msg_user.stay = stay
+        msg_user.save
+        msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
+        msg_bot.stay = stay
+        msg_bot.save
+      end
     end
   end
 
-  end
+end
 
 puts "Finished seeding process!"
