@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   root to: 'stays#index'
   get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
 
-  resources :stays, only: [:index, :new] do
+  resources :stays, only: [:index, :show, :new] do
     resources :hotels, only: [:show] do
       resources :services, only: [:index, :show, :new, :create, :destroy] do
         resources :bookings
