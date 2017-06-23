@@ -2,6 +2,11 @@
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
 
+<div style="background-color: yellow;">
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
+</div>
 
 <p> <%= @service.description %> </p>
 <p> <%= @service.end_time %> </p>
@@ -9,16 +14,28 @@
 
 <%= link_to "see all services", stay_hotel_services_path(@stay, @hotel) %>
 
-
-
+<script>
+  window.DISABLE_DATES = [
+    <% @disabled_days.each do |date| %>
+     '<%= date.strftime("%-m/%e/%Y") %>',
+    <% end  %>
+  ];
+</script>
 
 <h1>Book it!</h1>
-
+<div class="" style="position:relative;">
 <%= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
-  <%= f.input :start_datetime, as: :datetime %>
-  <%= f.input :end_datetime, as: :datetime %>
+  <%= f.input :start_datetime, as: :string, input_html:{id: "start_datetime" } %>
+  <%= f.input :end_datetime,as: :string, input_html:{id: "end_datetime" }  %>
   <%= f.submit "submit", class: "btn btn-primary" %>
 <% end %>
+
+</div>
+<%#= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
+  <%#= f.input :start_datetime, as: :datetime %>
+  <%#= f.input :end_datetime, as: :datetime %>
+  <%#= f.submit "submit", class: "btn btn-primary" %>
+<%# end %>
 
 <%#= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
 
@@ -34,6 +51,8 @@
   <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
   <p>-------------------------------------------------</p>
 <% end %>
+
+<!--
 
 <h1>Bookings control trying table</h1>
 
@@ -85,6 +104,7 @@
       <div class="time-slot">
         <p>booked</p>
       </div>
+
       <div class="time-slot">
         <p>booked</p>
       </div>
@@ -125,3 +145,10 @@
   </div>
 
 </div>
+
+-->
+
+
+
+
+

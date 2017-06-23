@@ -30,6 +30,11 @@ class ServicesController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     @service = Service.find(params[:id])
     @bookings = @service.bookings
+    @disabled_days = []
+    @bookings.each do |booking|
+      @disabled_days << booking.start_datetime
+    end
+    #raise
     @booking = Booking.new
   end
 

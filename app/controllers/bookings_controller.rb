@@ -15,27 +15,37 @@ class BookingsController < ApplicationController
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])
     @service = Service.find(params[:service_id])
+    @bookings = Booking.all
     @booking = Booking.new
   end
 
   def create
+    start_datetime_string = booking_params["start_datetime"]
+    start_datetime_tobook = DateTime.strptime(start_datetime_string, "%m/%d/%Y %H:%M %P")
+
+    end_datetime_string = booking_params["end_datetime"]
+    end_datetime_tobook = DateTime.strptime(end_datetime_string, "%m/%d/%Y %H:%M %P")
+
     @booking = Booking.new(booking_params)
+    @booking.start_datetime = start_datetime_tobook
+    @booking.end_datetime = end_datetime_tobook
+
 
     @booking.user = current_user
 
     @service = Service.find(params[:service_id])
     @booking.service = @service
 
-    start_datetime_tobook = Time.new(booking_params["start_datetime(1i)"], booking_params["start_datetime(2i)"], booking_params["start_datetime(3i)"], booking_params["start_datetime(4i)"], booking_params["start_datetime(5i)"])
-    end_datetime_tobook = Time.new(booking_params["end_datetime(1i)"], booking_params["end_datetime(2i)"], booking_params["end_datetime(3i)"], booking_params["end_datetime(4i)"], booking_params["end_datetime(5i)"])
-
+    #
     booked = isTableBooked(@service, start_datetime_tobook, end_datetime_tobook)
-
-    # used for the _path method
+    # used for the path method
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])
     if booked
-      render 'new'
+      # you pass a message only once
+      flash[:notice] = "book"
+      # render 'services/show'
+      redirect_to stay_hotel_service_path(@stay, @hotel, @service)
     else
       @booking.save
       redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)

@@ -5,5 +5,4 @@ class HotelsController < ApplicationController
     @hotel = Hotel.first
   end
 
-
 end
