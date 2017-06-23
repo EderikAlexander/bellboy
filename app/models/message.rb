@@ -12,18 +12,18 @@ class Message < ApplicationRecord
   # END VALIDATIONS AND ASSOCIATIONS
 
   # MESSAGE LIST
-    MESSAGE = { welcome: "Welcome to the " ,
-                wifi: "The wifi password is: RoomMate2017",
-                service: "Here there should be a list template.",
-                locations: "Which category are you interested in?",
-                breakfast: "Starts at 8:00 am and ends at 11:00 am",
-                laundry: "Yes, do you want us to pick up your laundry?",
-                room: "Your room number is ",
-                events: "Yes we do in the third floor",
-                swimming: "It opens at 1:00 pm and closes at 9:00 pm",
-                attraction: "La sagrada familia! and Park Guell",
-                restart: "Can I help you with something?",
-              }
+  MESSAGE = { welcome: "Welcome to the " ,
+    wifi: "The wifi password is: RoomMate2017",
+    service: "Here there should be a list template.",
+    locations: "Which category are you interested in?",
+    breakfast: "Starts at 8:00 am and ends at 11:00 am",
+    laundry: "Yes, do you want us to pick up your laundry?",
+    room: "Your room number is ",
+    events: "Yes we do in the third floor",
+    swimming: "It opens at 1:00 pm and closes at 9:00 pm",
+    attraction: "La sagrada familia! and Park Guell",
+    restart: "Can I help you with something?",
+  }
 
   # CHAT BOT METHODS
   class << self
@@ -60,22 +60,22 @@ class Message < ApplicationRecord
         text: MESSAGE[:restart],
         quick_replies:[
           {
-              content_type:"text",
-              title: "SERVICE",
-              payload: "SERVICE_PAYLOAD",
+            content_type:"text",
+            title: "SERVICE",
+            payload: "SERVICE_PAYLOAD",
             },
             {
               content_type: "text",
               title: "WIFI",
               payload:"WIFI_PAYLOAD",
-            },
-            {
-              content_type:"text",
-              title: "LOCATIONS",
-              payload: "LOCATION_PAYLOAD",
-            }
-          ]
-        }
+              },
+              {
+                content_type:"text",
+                title: "LOCATIONS",
+                payload: "LOCATION_PAYLOAD",
+              }
+            ]
+          }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -89,7 +89,7 @@ class Message < ApplicationRecord
 
       data = {
         text: MESSAGE[:welcome] + stay.hotel.name,
-        }
+      }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -106,7 +106,7 @@ class Message < ApplicationRecord
 
       data = {
         text: MESSAGE[input]
-        }
+      }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -121,9 +121,53 @@ class Message < ApplicationRecord
     # Single message answer
     def single_answer_slider(stay, message_or_postback, input)
 
-      data = {
-        text: MESSAGE[input]
+      hotel = stay.hotel
+      services = hotel.services.limit(2)
+
+      fill = []
+
+      services.each do |service|
+        fill << {
+          "title": "#{service.title}",
+          "image_url": "https://static.webshopapp.com/shops/136976/files/061913502/350x298x2/fever-tree-giftbox.jpg",
+          "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": "https://www.facebook.com"
+            },
+            "buttons": [
+              {
+                "title": "View",
+                "type": "web_url",
+                "url": "https://www.facebook.com",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://www.facebook.com"
+              }
+            ]
+          }
+        end
+
+        data = {"attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "list",
+            "elements": fill,
+            "buttons": [
+              {
+                "title": "View More",
+                "type": "postback",
+                "payload": "payload"
+              }
+            ]
+          }
         }
+      }
+
+
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -140,22 +184,22 @@ class Message < ApplicationRecord
         text: MESSAGE[:locations],
         quick_replies:[
           {
-              content_type:"text",
-              title: "RESTAURANTS",
-              payload: "RESTAURANT_PAYLOAD",
+            content_type:"text",
+            title: "RESTAURANTS",
+            payload: "RESTAURANT_PAYLOAD",
             },
             {
               content_type: "text",
               title: "RENT",
               payload:"RENT_PAYLOAD",
-            },
-            {
-              content_type:"text",
-              title: "SIGHT SEEING",
-              payload: "SIGHTS_PAYLOAD",
-            }
-          ]
-        }
+              },
+              {
+                content_type:"text",
+                title: "SIGHT SEEING",
+                payload: "SIGHTS_PAYLOAD",
+              }
+            ]
+          }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -176,6 +220,7 @@ class Message < ApplicationRecord
       end
 
     end
+
 
   end
 end
