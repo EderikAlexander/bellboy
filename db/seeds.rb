@@ -6,9 +6,9 @@ HOTEL_LIST = [ { name: "Room Mate Emma Hotel", address: "Carrer del Rosselló, 2
  { name: "Room Mate Gerard", address: "Carrer d'Ausiàs Marc, 34, 08010 Barcelona", city: "Barcelona" } ]
 
 # CREATE LOCATIONS
-LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 08013 Barcelona", category: "Sight seeing" },
- { name: "Park Güell", address: "Carrer d'Olot, 7 08024 Barcelona", category: "Sight seeing" },
- { name: "La Rambla", address: "Rambla dels Caputxins, 1807 08002 Barcelona", category: "Sight seeing" },
+LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 08013 Barcelona", category: "Sights" },
+ { name: "Park Güell", address: "Carrer d'Olot, 7 08024 Barcelona", category: "Sights" },
+ { name: "La Rambla", address: "Rambla dels Caputxins, 1807 08002 Barcelona", category: "Sights" },
  { name: "Tickets", address: "Av. del Paraŀlel, 164, 08015 Barcelona", category: "Restaurants" },
  { name: "Tapas 24", address: "Carrer de la Diputació, 269, 08007 Barcelona", category: "Restaurants" },
  { name: "El atril", address: "Carrer dels Carders, 23, 08003 Barcelona", category: "Restaurants" },
@@ -75,14 +75,14 @@ end
 
 
 
-3.times do
+1.times do
 
   # CREATE USER
   user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890") # facebook_id: Faker::Number.number(15)
   user.save
 
   # ASIGN STAY TO USER
-  rand(1..3).times do
+  3.times do
 
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
