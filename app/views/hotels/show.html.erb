@@ -31,12 +31,12 @@
 <div class="city-info">
 
 
-  <h1>City: <span id="city"></span></h1>
-  <h1><%= Date.today.strftime("%A")[0..2] %>: <span id="td" ></span></h1>
-  <h1><%= (Date.today + 1).strftime("%A")[0..2] %>: <span id="tmrw" ></span></h1>
-  <h1><%= (Date.today + 2).strftime("%A")[0..2] %>: <span id="after" ></span></h1>
-  <h1><%= (Date.today + 3).strftime("%A")[0..2] %>: <span id="later" ></span></h1>
-  <h1><%= (Date.today + 4).strftime("%A")[0..2] %>: <span id="last" ></span></h1>
+  <h1>City: <span id="city"></span>Barcelona</h1>
+  <h1><%= Date.today.strftime("%A")[0..2] %>: <span id="td" >26 °C</span></h1>
+  <h1><%= (Date.today + 1).strftime("%A")[0..2] %>: <span id="tmrw" >32 °C</span></h1>
+  <h1><%= (Date.today + 2).strftime("%A")[0..2] %>: <span id="after" >25 °C</span></h1>
+  <h1><%= (Date.today + 3).strftime("%A")[0..2] %>: <span id="later" >29 °C</span></h1>
+  <h1><%= (Date.today + 4).strftime("%A")[0..2] %>: <span id="last" >31 °C</span></h1>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -50,7 +50,7 @@
 // } else {
 //   $('loading').hide()
 // }
-        $("#loading-image").show();
+        $("#loading-image").hide();
 
 
 
