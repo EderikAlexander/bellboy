@@ -3,3 +3,11 @@
 <%= link_to "Restaurants", stay_hotel_calendar_month_path(@stay, @hotel, filter: "restaurants"), class: "btn btn-primary" %>
 <%= link_to "Massages", stay_hotel_calendar_month_path(@stay, @hotel, filter: "massages"), class: "btn btn-success" %>
 <%= link_to "All", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-danger" %>
+
+
+
+<h1> Charts </h1>
+
+<%= pie_chart [["football", 5], ["basketball", 10]] %>
+
+<%= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>

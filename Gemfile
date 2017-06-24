@@ -41,8 +41,8 @@ gem 'faker'
 # GEM for pundit
 gem 'pundit'
 
-
-
+# to do graphs
+gem 'chartkick'
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
@@ -50,7 +50,7 @@ end
 
 
 group :development, :test do
-
+  gem 'chartkick'
   gem "localtower"
 
   gem 'better_errors'

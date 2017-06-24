@@ -16,6 +16,10 @@ class HotelsController < ApplicationController
     @date_range = (@start_date.beginning_of_week..@start_date.end_of_week).to_a
   end
 
+  def user_data_generation
+
+
+  end
 
 
   def calendar_info_generation
