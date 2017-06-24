@@ -22,10 +22,11 @@
           <td>
             <%= day %>
             <%# sort_by(&:start_time) == sort_by{ |m| m.start_time } %>
-            <% @bookings.select { |booking| booking.start_datetime.to_date == day }.sort_by(&:start_datetime).each do |booking| %>
-              <%#= @service.title %> - <%= booking.start_datetime %>
-              <div><%= @service.title %> - <%= booking.start_datetime %></div>
-              <div><%= link_to booking.id, stay_hotel_service_booking_path(@stay, @hotel, @service, booking) %></div>
+            <% @hotel_bookings.select { |booking| booking.start_datetime.to_date == day }.sort_by(&:start_datetime).each do |booking| %>
+              <%#= @service.title %> <%#= booking.start_datetime %>
+              <% booking.service %>
+              <div><%= booking.service.title %> - <%= booking.start_datetime %></div>
+              <div><%= link_to booking.id, stay_hotel_service_booking_path(@stay, @hotel, booking.service, booking) %></div>
             <% end %>
           </td>
         <% end %>
@@ -34,7 +35,7 @@
   </tbody>
 </table>
 
-<%= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
+<%#= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
 <%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel) %>
 <%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel) %>
 

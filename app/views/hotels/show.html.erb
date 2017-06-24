@@ -6,7 +6,8 @@
 
 <%= link_to "services", stay_hotel_services_path(@stay, @hotel) %>
 <%= link_to "local tips", stay_hotel_locations_path(@stay, @hotel) %>
-<%= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
+<%#= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
+<%= link_to "calendar-week", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
 <%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel) %>
 
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
