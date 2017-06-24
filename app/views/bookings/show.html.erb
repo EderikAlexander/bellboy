@@ -1,5 +1,7 @@
 <h1>Show for A booking</h1>
 
 <p>booking id: <%= @booking.id %></p>
-<p>start datetime: <%= booking.start_datetime %></p>
-<p>end datetime: <%= booking.end_datetime %></p>
+<p>start datetime: <%= @booking.start_datetime %></p>
+<p>end datetime: <%= @booking.end_datetime %></p>
+
+<%= link_to "back to calendar", stay_hotel_calendar_agenda_path(@stay, @hotel) %>

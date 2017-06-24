@@ -1,0 +1,37 @@
+<h1>calendar for the hotel: </h1>
+
+<%# start_date = params[:start_date] || Date.today %>
+<%# start_date = params.fetch(:start_date, Date.today).to_date %>
+
+<%#= calculation for agenda calendar %>
+<%# date_range = (start_date..(start_date + 3.days)).to_a %>
+
+<%= render "calendar" %>
+
+<%#= calculation for month calendar %>
+<%# date_range = (start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week).to_a %>
+
+<%#= calculation for week calendar %>
+<%# date_range = (start_date.beginning_of_week..start_date.end_of_week) %>
+
+<%#= link_to raw("&laquo;"), param => date_range.first - 1.day  %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
