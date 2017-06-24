@@ -36,8 +36,9 @@
 </table>
 
 <%#= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
-<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel) %>
-<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel) %>
+<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-warning" %>
+<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-info" %>
+
 
 
 
