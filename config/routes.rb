@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :stays, only: [:index, :show, :new] do
     resources :hotels, only: [:show] do
+      get "/calendar_month", to: "hotels#calendar_month"
+      get "/calendar_week", to: "hotels#calendar_week"
       resources :services, only: [:index, :show, :new, :create, :destroy] do
         resources :bookings
       end
