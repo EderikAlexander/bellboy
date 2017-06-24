@@ -2,10 +2,15 @@ Rails.application.routes.draw do
   # Facebook Messenger route (NEEDS TO BE AT THE TOP, OTHERWISE ERROR 502 POPS UP)
   mount Facebook::Messenger::Server, at: 'webhooks/messenger'
 
+
+  if Rails.env.development?
+    mount Localtower::Engine, at: "localtower"
+  end
+
   root to: 'stays#index'
   get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
 
-  resources :stays, only: [:index, :new] do
+  resources :stays, only: [:index, :show, :new] do
     resources :hotels, only: [:show] do
       resources :services, only: [:index, :show, :new, :create, :destroy] do
         resources :bookings

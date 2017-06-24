@@ -11,107 +11,220 @@ class Message < ApplicationRecord
   validates :from, presence: true
   # END VALIDATIONS AND ASSOCIATIONS
 
+  # MESSAGE LIST
+  MESSAGE = { welcome: "Welcome to the " ,
+    wifi: "The wifi password is: RoomMate2017",
+    service: "Here there should be a list template.",
+    locations: "Which category are you interested in?",
+    breakfast: "Starts at 8:00 am and ends at 11:00 am",
+    laundry: "Yes, do you want us to pick up your laundry?",
+    room: "Your room number is ",
+    events: "Yes we do in the third floor",
+    swimming: "It opens at 1:00 pm and closes at 9:00 pm",
+    attraction: "La sagrada familia! and Park Guell",
+    restart: "Can I help you with something?",
+  }
+
   # CHAT BOT METHODS
   class << self
 
-    def bot_welcome(stay, message, statement)
-    # Welcome message + Options
-    data = {
-      text: statement,
-      quick_replies:[
-        {
-          content_type: "text",
-          title: "WIFI",
-          payload:"WIFI_PATH",
-          },
+    def process(message_or_postback)
+      # "..." when waiting for message
+      message_or_postback.typing_on
+
+      user = User.where(uid: message_or_postback.sender["id"]).first
+      stay = user.stays.last  # Get current User (FB user_id) and Stay
+
+      action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
+
+      action = message_or_postback.text if not action.present?
+
+      Rails.logger.debug("=== action")
+      Rails.logger.debug(action)
+      Rails.logger.debug("=== / action")
+
+      Message.welcome(stay, message_or_postback) if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
+      Message.single_answer_slider(stay, message_or_postback, :service) if action == 'SERVICE_PAYLOAD' || action.downcase.strip.include?("service")
+      Message.single_answer(stay, message_or_postback, :wifi) if action == 'WIFI_PAYLOAD' || action.downcase.strip.include?("wifi")
+      Message.tree_answer(stay, message_or_postback) if action == 'LOCATION_PAYLOAD' || action.downcase.strip.include?("location")
+      Message.display_selection(stay, message_or_postback, "Restaurants") if action == 'RESTAURANT_PAYLOAD' || action.downcase.strip.include?("restaurant")
+      Message.display_selection(stay, message_or_postback, "Sights") if action == 'SIGHTS_PAYLOAD' || action.downcase.strip.include?("sight")
+      Message.display_selection(stay, message_or_postback, "Rentals") if action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
+
+    end
+
+    # Restart method
+    def restart(stay, message_or_postback)
+
+      data = {
+        text: MESSAGE[:restart],
+        quick_replies:[
           {
             content_type:"text",
             title: "SERVICE",
-            payload: "SERVICE_PATH",
-          },
-          {
-            content_type:"text",
-            title: "SIGHTS",
-            payload: "SIGHTS_PATH",
+            payload: "SERVICE_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "WIFI",
+              payload:"WIFI_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "LOCATIONS",
+                payload: "LOCATION_PAYLOAD",
+              }
+            ]
           }
-        ]
-      }
 
       # Trigger Welcome message
-      message.reply(data)
+      message_or_postback.reply(data)
 
       # Save Message
       Message.create(content: data, from: "bot", stay: stay)
     end
 
-      def bot_services(stay, message, statement)
-    # Welcome message + Options
-    data = {
-      text: statement,
-      quick_replies:[
-        {
-          content_type: "text",
-          title: "RESTAURANTS",
-          payload:"REST_PATH",
-          },
-          {
-            content_type:"text",
-            title: "LOCA",
-            payload: "LOCA_PATH",
-          },
-          {
-            content_type:"text",
-            title: "RENTALS",
-            payload: "RENT_PATH",
-          }
-        ]
-      }
+    # Welcome message
+    def welcome(stay, message_or_postback)
 
-      # Trigger Welcome message
-      message.reply(data)
-
-      # Save Message
-      Message.create(content: data, from: "bot", stay: stay)
-    end
-
-    # Easy replies
-    def bot_msg(stay, message, statement)
       data = {
-        text: statement
+        text: MESSAGE[:welcome] + stay.hotel.name,
       }
 
-      message.reply(data)
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
       Message.create(content: data, from: "bot", stay: stay)
+
+      # Restart method
+      Message.restart(stay, message_or_postback)
     end
 
-    def display_slider_service(stay, message)
+    # Single message answer
+    def single_answer(stay, message_or_postback, input)
 
-        service = stay.hotel.services
-      # Create a JSON with all the services
-      service.each do |s|
-        message.typing_on
-        reply = message.reply(text: s.title)
-        # reply = message.reply(text: s.description)
-      end
-      # Message.create(content: reply.to_hash, from: "bot", stay: stay)
+      data = {
+        text: MESSAGE[input]
+      }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+
+      # Restart method
+      Message.restart(stay, message_or_postback)
     end
 
-    def display_slider_sights(stay, message, cat)
+    # Single message answer
+    def single_answer_slider(stay, message_or_postback, input)
 
-        sights = stay.hotel.locations
-      # Create a JSON with all the services
-      sights.each do |s|
-        # message.typing_on
-        if s.category == cat
-        reply = message.reply(text: s.name )
+      hotel = stay.hotel
+      services = hotel.services.limit(2)
+
+      fill = []
+
+      services.each do |service|
+        fill << {
+          "title": "#{service.title}",
+          "image_url": "https://static.webshopapp.com/shops/136976/files/061913502/350x298x2/fever-tree-giftbox.jpg",
+          "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": "https://www.facebook.com"
+            },
+            "buttons": [
+              {
+                "title": "View",
+                "type": "web_url",
+                "url": "https://www.facebook.com",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://www.facebook.com"
+              }
+            ]
+          }
         end
-        # reply = message.reply(text: s.description)
-      end
-      # Message.create(content: reply.to_hash, from: "bot", stay: stay)
+
+        data = {"attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "list",
+            "elements": fill,
+            "buttons": [
+              {
+                "title": "View More",
+                "type": "postback",
+                "payload": "payload"
+              }
+            ]
+          }
+        }
+      }
+
+
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+
     end
+
+    # Method to call for "Services"
+    def tree_answer(stay, message_or_postback)
+
+      data = {
+        text: MESSAGE[:locations],
+        quick_replies:[
+          {
+            content_type:"text",
+            title: "RESTAURANTS",
+            payload: "RESTAURANT_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "RENT",
+              payload:"RENT_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "SIGHT SEEING",
+                payload: "SIGHTS_PAYLOAD",
+              }
+            ]
+          }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+
+    end
+
+    # Method to display the choice ("Restaurant", "Rent", "Sight seeing")
+    def display_selection(stay, message_or_postback, category)
+
+      selection = stay.hotel.locations.where(category: category)
+
+      selection.each do |selected|
+        # TODO CARROUSEL
+        message_or_postback.reply(text: selected.name)
+      end
+
+    end
+
 
   end
 end
+
 
 
 
