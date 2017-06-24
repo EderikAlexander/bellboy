@@ -8,6 +8,7 @@ class HotelsController < ApplicationController
   def calendar_month
     calendar_info_generation
     @date_range = (@start_date.beginning_of_month.beginning_of_week..@start_date.end_of_month.end_of_week).to_a
+    user_data_generation
   end
 
   def calendar_week
@@ -17,7 +18,26 @@ class HotelsController < ApplicationController
   end
 
   def user_data_generation
+    @stay = Stay.find(params[:stay_id])
+    @hotel = Hotel.find(params[:hotel_id])
+    @users = User.all
+    @start_booking_dates = []
+    @hotel.stays.each do |stay|
+      @start_booking_dates << stay.start_booking_date.to_date
+    end
 
+    test1 = Stay.group_by_day(:start_booking_date).count
+
+
+    # months = (1..12).to_a
+
+    # @bookings_month = []
+
+    # months.each do |month|
+    #   @bookings_month << @start_booking_dates.select { |start_booking_date| start_booking_date.to_date.month == month }.size
+    # end
+
+    # @months_name = ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
   end
 

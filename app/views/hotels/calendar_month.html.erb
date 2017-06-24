@@ -8,6 +8,40 @@
 
 <h1> Charts </h1>
 
-<%= pie_chart [["football", 5], ["basketball", 10]] %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="chart">
+        <p class="text-center">pie chart</p>
+        <%= pie_chart Service.group(:title).count %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="chart">
+        <p class="text-center">column chart</p>
+        <%= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="chart">
+        <p class="text-center">line chart</p>
+        <%= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="chart">
+        <p class="text-center">pie chart</p>
+        <%= pie_chart [["football", 5], ["basketball", 10]] %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
+
+
+
+
+
+
+
+

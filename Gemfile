@@ -43,6 +43,8 @@ gem 'pundit'
 
 # to do graphs
 gem 'chartkick'
+gem 'groupdate'
+
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
