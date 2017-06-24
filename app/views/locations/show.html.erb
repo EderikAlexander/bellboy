@@ -2,10 +2,96 @@
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/locations" %>
 <%= content_for :link, hreff %>
 
+
+<div style='width: 100%; position: fixed; top: 60px; left: 0; bottom: 0;'>
+    <div id="directions" style='width: 100%; height: 400px;'></div>
+  </div>
+
+
+<div style="margin: 50px;">
 <p><%= @location.name %></p>
 <p><%= @location.address %></p>
 <p><%= @location.category %></p>
+</div>
 
 
 
 
+
+
+
+
+<%= content_for(:after_js) do %>
+
+<script>
+var styledMapType =
+            [
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#3a485b"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#3a485b"
+            }
+        ]
+    }
+];
+
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
+
+function calcRoute() {
+  var origin      = new google.maps.LatLng(<%= @hotel.latitude %>, <%= @hotel.longitude %>);
+  var destination = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
+  var request = {
+      origin:      origin,
+      destination: destination,
+      travelMode:  google.maps.TravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+
+calcRoute();
+
+var handler = Gmaps.build('Google');
+handler.buildMap({ internal: {id: 'directions'},
+provider: {
+          scrollwheel: false,
+          zoomControl: false,
+          zoom: 15,
+          center: new google.maps.LatLng(<%= @hotel.latitude %>, <%= @hotel.longitude %>),
+          mapTypeId: google.maps.MapTypeId.ROADMAP ,
+          styles: styledMapType,
+        }
+
+}, function(){
+  // var hotel_loc = {
+  //     lat: <%#=  @hotel.latitude %>,
+  //     lng: <%#= @hotel.longitude %>,
+  //     picture: {
+  //       url: "http://germanyiswunderbar.com/wp-content/uploads/map-marker-hotel.png",
+  //       width:  130,
+  //       height: 150
+  //     },
+  //     infowindow: "<%#= @hotel.name %>"
+  //   }
+  // markers = handler.addMarkers([hotel_loc]);
+  directionsDisplay.setMap(handler.getMap());
+});
+
+</script>
+
+<% end %>
