@@ -73,13 +73,15 @@ SERVICE_LIST.each do |type|
   service.save
 end
 
+t = 0
+fb_uids = ["987221848047540", "1357624897606588"]
 
-
-1.times do
+2.times do
 
   # CREATE USER
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: "1357624897606588")
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: fb_uids[t])
   user.save
+  t += 1
 
   # ASIGN STAY TO USER
   3.times do
