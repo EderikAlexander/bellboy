@@ -6,6 +6,19 @@
 <%= image_tag "ajax-loader.gif", width: 50 , id: "loading-image" %>
 </div>
 
+<div class="flex-item">
+  <%= link_to stay_hotel_services_path(@stay, @hotel) do %>
+      <h1>Services</h1>
+      <i class="tab-bar-item fa fa-th-list lg"> </i>
+  <% end %>
+</div>
+
+<div  class="flex-item">
+  <%= link_to stay_hotel_locations_path(@stay, @hotel) do %>
+      <h1>Locations</h1>
+      <i class="tab-bar-item fa fa-map-marker lg"> </i>
+  <% end %>
+</div>
 
 <%= content_for :nav_title, "Hotel" %>
 

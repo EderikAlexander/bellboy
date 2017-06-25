@@ -2,6 +2,18 @@
   background-color: #3A485B;
   color: white;
   display: "flex";
-  justify-content: "space-around";
+  // justify-content: "space-around";
   font-size: 20px;
+}
+
+#circulo{
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 87px;
+  height: 87px;
+  margin-bottom: 6px;
+
 }
