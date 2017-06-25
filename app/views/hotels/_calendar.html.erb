@@ -20,7 +20,7 @@
       <tr>
         <% week.each do |day| %>
           <td>
-            <%= day %>
+            <%= day.day %>
             <%# sort_by(&:start_time) == sort_by{ |m| m.start_time } %>
             <% @hotel_bookings.select { |booking| booking.start_datetime.to_date == day }.sort_by(&:start_datetime).each do |booking| %>
               <%#= @service.title %> <%#= booking.start_datetime %>
