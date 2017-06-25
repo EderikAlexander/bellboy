@@ -1,0 +1,33 @@
+  #main-wrap{
+    position: center;
+    background-position: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-image: cover;
+    background-position: center;
+    color: white;
+    margin-top: 0;
+    position: fixed;
+    top:0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background-size: cover;
+  }
+
+
+  @font-face {
+    font-family: "Back to Black Demo";
+    src: url("/assets/Back to Black Demo.ttf") format("truetype");
+}
+#main-title {
+    font-family: "Back to Black Demo", Times, serif;
+    font-size: 48px;
+    color: #FFD05B;
+}
+
+
+
