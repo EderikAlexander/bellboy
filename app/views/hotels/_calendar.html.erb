@@ -1,10 +1,11 @@
-
+<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-warning" %>
+<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-info" %>
 
 <%#= we can not pass a url, we have to pass the current url %>
-<%= link_to "Previous", start_date: @date_range.first - 1.day  %>
+<%= link_to "Previous", start_date: @date_range.first - 1.day, class: "btn btn-alert"  %>
 <%#= this should be customizable %>
 <%= @start_date.month %> <%= @start_date.year %>
-<%= link_to "Next", start_date: @date_range.last + 1.day  %>
+<%= link_to "Next", start_date: @date_range.last + 1.day, class: "btn btn-info"  %>
 
 <table class="table table-striped">
   <thead>
@@ -25,8 +26,19 @@
             <% @hotel_bookings.select { |booking| booking.start_datetime.to_date == day }.sort_by(&:start_datetime).each do |booking| %>
               <%#= @service.title %> <%#= booking.start_datetime %>
               <% booking.service %>
-              <div><%= booking.service.title %> - <%= booking.start_datetime %></div>
-              <div><%= link_to booking.id, stay_hotel_service_booking_path(@stay, @hotel, booking.service, booking) %></div>
+              <div>
+                <% if booking.service.title == "Restaurant" %>
+                  <i class="fa fa-cutlery" aria-hidden="true"></i>
+                  <%= booking.start_datetime.strftime("%H:%M") %>
+                <% end %>
+                <% if booking.service.title == "Massage" %>
+                  <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                  <%= booking.start_datetime.strftime("%H:%M") %>
+                <% end %>
+
+                <%#= booking.service.title %> <%#= booking.start_datetime %>
+              </div>
+              <div><%#= link_to booking.id, stay_hotel_service_booking_path(@stay, @hotel, booking.service, booking) %></div>
             <% end %>
           </td>
         <% end %>
@@ -36,8 +48,7 @@
 </table>
 
 <%#= link_to "calendar-agenda", stay_hotel_calendar_agenda_path(@stay, @hotel) %>
-<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-warning" %>
-<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-info" %>
+
 
 
 

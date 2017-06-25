@@ -29,6 +29,10 @@ class HotelsController < ApplicationController
     test1 = Stay.group_by_day(:start_booking_date).count
   end
 
+  def charts
+
+  end
+
 
   def calendar_info_generation
     @stay = Stay.find(params[:stay_id])
