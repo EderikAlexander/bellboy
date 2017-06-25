@@ -26,10 +26,24 @@
 #   "greeting":[
 #     {
 #       "locale":"default",
-#       "text":"Take your concierge hotel in your pocket."
+#       "text":"Take your concierge hotel in your pocket.
+#       Here are some questions that you can ask,
+#       - Who are you?
+#       - What is the wifi password?
+#       - What can I do around here?
+#       - What time is my massage?
+#       - List my service bookings
+#       "
 #     }, {
 #       "locale":"eu_ES",
-#       "text":"Take your concierge hotel in your pocket."
+#       "text":"Take your concierge hotel in your pocket.
+#       Here are some questions that you can ask,
+#       - Who are you?
+#       - What is the wifi password?
+#       - What can I do around here?
+#       - What time is my massage?
+#       - List my service bookings
+#       "
 #     }
 #   ]
 # }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAL09FQZA8ncBAPCbZCiM3O4LGt2ZA9bx361hO7v0WZBkiNxR34iZC1tYBWXsmrZCf03ZCrBbjFK8oslq7Kn82LH3r4Bt5hWKBGZC9J1on8Si1rY1epMKb3ZCSDpYi6ZBupgwwcEMJv1zwGL26oLZAxVBWsXImysjvP5UCnAw2jM9CmHg8FgBTfcl7cnhZBWazO9eXkZD"
