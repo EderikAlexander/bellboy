@@ -12,17 +12,20 @@
 <Div class="log-in"></Div>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs" >
-    <%= f.input :email, required: false, label: false, autofocus: true, placeholder: "Email" %>
-    <%= f.input :password, required: false, placeholder: "Password", label: false %>
+  <span class="fontawesome-user"></span>
+    <%= f.input :email, required: false, label: false, autofocus: true, placeholder: "Email", id: "enter-email", type: "text", input_html: { class: "input-field" } %>
+    <%= f.input :password, required: false, placeholder: "Password", label: false, input_html: { class: "input-field" }%>
     <%#= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Log in", class: "btn btn-warning", style: "color: #1E1E1E; width: 100%" %>
+    <%= f.button :submit, "Log In", class: "main-btns" %>
   </div>
 <% end %>
 <br>
 <br>
+
+
 
 <%= render "devise/shared/links" %>
 </div>

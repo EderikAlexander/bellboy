@@ -2,6 +2,8 @@
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
 
+
+
 <div style="background-color: yellow;">
   <% if flash[:notice] %>
     <%= flash[:notice] %>

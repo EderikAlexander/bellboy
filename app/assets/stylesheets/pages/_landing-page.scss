@@ -18,6 +18,20 @@
     background-size: cover;
   }
 
+  .input-field{
+    background-color: #1E1E1E;
+    // background-color: #3b4148;
+
+    // border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+
+  }
 
   @font-face {
     font-family: "Back to Black Demo";
@@ -27,6 +41,34 @@
     font-family: "Back to Black Demo", Times, serif;
     font-size: 48px;
     color: #FFD05B;
+}
+
+.main-btns {
+  width: 100%;
+  height: 50px;
+  color: #1E1E1E;
+  background-color: #FFD05B;
+  border: none;
+  border-radius: 5px;
+}
+.main-btns:hover{
+    background-color: #FFBE1D;
+    text-decoration: none;
+  }
+
+.fb-main{
+  width: 100%;
+  height: 80px;
+  color: white;
+  background-color: #3C5193;
+  border: none;
+  border-radius: 5px;
+}
+
+.fb-main:hover{
+  background-color: #2A396A;
+  text-decoration: none;
+  color: slategrey;
 }
 
 

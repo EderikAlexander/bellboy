@@ -16,7 +16,7 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-success", style: "width: 100%; height 50; margin-bottom: 10px;" %><br />
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-success", style: "width: 100%; height 50px; margin-bottom: 10px; border-radius: 5px; padding: 15px;" %><br />
   <% end -%>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

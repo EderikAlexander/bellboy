@@ -19,9 +19,11 @@
 @import "components/tab-bar-item";
 @import "components/loading";
 @import "pages/landing-page";
+@import "components/service-card";
+@import "components/show-paralax";
 
 
 body{
-  margin-top: 50px;
-  margin-bottom: 100px;
+  margin-top: 0px;
+  margin-bottom: 65px;
 }
