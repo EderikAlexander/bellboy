@@ -249,6 +249,9 @@ Rails.logger.debug("=== / action")
                 "payload": "payload"
               }
             ]
+          }
+        }
+      }
 
       url_base = "https://bellboy.fwd.wf"
       url_services = ["http://villadenaval.com/wp-content/uploads/2017/01/programas-restaurantes.jpg", "http://balancecolumbus.com/wp-content/uploads/2015/09/banner-hot-stone.jpg", "http://bruceworks.com.au/wp-content/uploads/2016/04/swimming-pool.jpg"]
