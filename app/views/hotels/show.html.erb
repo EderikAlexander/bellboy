@@ -6,9 +6,24 @@
 <%= image_tag "ajax-loader.gif", width: 50 , id: "loading-image" %>
 </div>
 
+<div class="flex-item">
+  <%= link_to stay_hotel_services_path(@stay, @hotel) do %>
+      <h1>Services</h1>
+      <i class="tab-bar-item fa fa-th-list lg"> </i>
+  <% end %>
+</div>
+
+<div  class="flex-item">
+  <%= link_to stay_hotel_locations_path(@stay, @hotel) do %>
+      <h1>Locations</h1>
+      <i class="tab-bar-item fa fa-map-marker lg"> </i>
+  <% end %>
+</div>
 
 <%= content_for :nav_title, "Hotel" %>
 
+<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel) %>
+<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel) %>
 
 
 <% time = Time.now %>
@@ -31,12 +46,12 @@
 <div class="city-info">
 
 
-  <h1>City: <span id="city"></span>Barcelona</h1>
-  <h1><%= Date.today.strftime("%A")[0..2] %>: <span id="td" >26 °C</span></h1>
-  <h1><%= (Date.today + 1).strftime("%A")[0..2] %>: <span id="tmrw" >32 °C</span></h1>
-  <h1><%= (Date.today + 2).strftime("%A")[0..2] %>: <span id="after" >25 °C</span></h1>
-  <h1><%= (Date.today + 3).strftime("%A")[0..2] %>: <span id="later" >29 °C</span></h1>
-  <h1><%= (Date.today + 4).strftime("%A")[0..2] %>: <span id="last" >31 °C</span></h1>
+  <h1>City: <span id="city"></span></h1>
+  <h1><%= Date.today.strftime("%A")[0..2] %>: <span id="td" ></span></h1>
+  <h1><%= (Date.today + 1).strftime("%A")[0..2] %>: <span id="tmrw" ></span></h1>
+  <h1><%= (Date.today + 2).strftime("%A")[0..2] %>: <span id="after" ></span></h1>
+  <h1><%= (Date.today + 3).strftime("%A")[0..2] %>: <span id="later" ></span></h1>
+  <h1><%= (Date.today + 4).strftime("%A")[0..2] %>: <span id="last" ></span></h1>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -75,7 +90,7 @@
             $("#loading").hide();
             console.log(data.results[0].address_components[2].long_name)
             var city = data.results[0].address_components[2].long_name
-            $('#city').append("City: " + city)
+            $('#city').append(city)
           },
           error: function(jqXHR) {
             $("#loading-image").hide();

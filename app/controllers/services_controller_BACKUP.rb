@@ -30,27 +30,13 @@ class ServicesController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     @service = Service.find(params[:id])
     @bookings = @service.bookings
+    @disabled_hours = []
+    @bookings.each do |booking|
+      @disabled_hours << booking.start_datetime.hour.to_s
+    end
 
     @booking = Booking.new
     calendar_month
-
-    @start_time_bookings = []
-    @bookings.each do |booking|
-      @start_time_bookings << booking.start_datetime
-    end
-
-    @service_hours = ["09", "10", "11", "12", "13",  "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
-    @start_time_bookings
-
-  end
-
-  def disabled_hours
-    @disabled_hours_day = []
-    @bookings.each do |booking|
-      @disabled_hours_day << booking.start_datetime
-    end
-
-    raise
 
     # @bookable_hours = ["9:00", "10:00", "11:00", "12:00", "13:00",  "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
     @service_hours = ["9", "10", "11", "12", "13",  "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
@@ -144,7 +130,7 @@ class ServicesController < ApplicationController
 
   private
   def service_params
-    params.require(:service).permit(:title, :description, :start_time, :end_time, :price, :photo)
+    params.require(:service).permit(:title, :description, :start_time, :end_time, :price)
   end
 
 end

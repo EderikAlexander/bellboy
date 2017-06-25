@@ -1,0 +1,24 @@
+.service-li{
+    position: relative;
+    background-image: cover;
+    background-position: center;
+    color: white;
+    background-size: cover;
+  }
+
+.service-content {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+
+
+
+
+
+.service-title{
+  font-family: $header-font;
+  font-style: normal;
+  font-variant: normal;
+  margin-bottom: 20px;
+}

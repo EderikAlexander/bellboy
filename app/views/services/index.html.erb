@@ -4,25 +4,24 @@
     <%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
   <% end %>
 
-<form action="services/search" class="form-inline form-group" >
+<!-- <form action="services/search" class="form-inline form-group">
   <input type="text" name="title" class="form-control" placeholder="Search for service">
   <input type="submit" value="Submit">
-</form>
+</form> -->
 
-  <% @services.each do |service| %>
-    <%= link_to stay_hotel_service_path(@stay, @hotel, service) do  %>
-      <p> <%= service.title %> </p>
-      <p> <%= service.description %> </p>
-      <p> <%= service.end_time %> </p>
-      <p> <%= service.start_time %> </p>
-
-      <% if @hotel.can_manage?(current_user) %>
-        <%= link_to "delete service", stay_hotel_service_path(@stay, @hotel, service), method: :delete %>
-      <% end %>
-
-      <p>-----------------------------------------</p>
-    <% end %>
+<ul class="list-unstyled" style="color: white;">
+<% @services.each do |service| %>
+<%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
+  <li class="service-li" style="height: 350px; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
+         url('<%= cl_image_path service.photo.path, height: 500, width: 700, crop: :fill %>')">
+         <div class="service-content">
+            <h1 class="service-title" style="margin: 0;"> <%= service.title %> </h1>
+            <p> <%= service.start_time %> - <%= service.end_time %> </p>
+         </div>
+  </li>
+<% end %>
   <% end %>
+</ul>
 
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
-<a href="http://m.me/110101406273492"> Chatbot</a>
+<!-- <a href="http://m.me/110101406273492"> Chatbot</a> -->

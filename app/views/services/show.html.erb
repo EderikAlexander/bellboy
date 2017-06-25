@@ -2,6 +2,8 @@
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
 
+
+
 <div style="background-color: yellow;">
   <% if flash[:notice] %>
     <%= flash[:notice] %>
@@ -14,13 +16,7 @@
 
 <%= link_to "see all services", stay_hotel_services_path(@stay, @hotel) %>
 
-<script>
-  window.DISABLE_DATES = [
-    <% @disabled_days.each do |date| %>
-     '<%= date.strftime("%-m/%e/%Y") %>',
-    <% end  %>
-  ];
-</script>
+
 
 <h1>Book it!</h1>
 <div class="" style="position:relative;">
@@ -52,101 +48,35 @@
   <p>-------------------------------------------------</p>
 <% end %>
 <a href="http://m.me/110101406273492"> Chatbot</a>
-<!--
 
-<h1>Bookings control trying table</h1>
+<h1>trying booking system lewagon</h1>
 
-<div class="wrapper-table">
 
-  <div class="wrapper-column">
-    <div class="time-slot">
-      <p>9:00 - 10:00</p>
-    </div>
-    <div class="time-slot">
-      <p>10:00 - 11:00</p>
-    </div>
-    <div class="time-slot">
-      <p>11:00 - 12:00</p>
-    </div>
-    <div class="time-slot">
-      <p>12:00 - 13:00</p>
-    </div>
-    <div class="time-slot">
-      <p>13:00 - 14:00</p>
-    </div>
-    <div class="time-slot">
-      <p>14:00 - 15:00</p>
-    </div>
-    <div class="time-slot">
-      <p>15:00 - 16:00</p>
-    </div>
-    <div class="time-slot">
-      <p>16:00 - 17:00</p>
-    </div>
-    <div class="time-slot">
-      <p>17:00 - 18:00</p>
-    </div>
-    <div class="time-slot">
-      <p>18:00 - 19:00</p>
-    </div>
-    <div class="time-slot">
-      <p>20:00 - 21:00</p>
-    </div>
-    <div class="time-slot">
-      <p>22:00 - 23:00</p>
-    </div>
-    <div class="time-slot">
-      <p>23:00 - 24:00</p>
-    </div>
-  </div>
+<%= render "shared/calendar-LW" %>
 
-  <div class="wrapper-column">
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
 
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>free</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>free</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>free</p>
-      </div>
-      <div class="time-slot">
-        <p>free</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-      <div class="time-slot">
-        <p>booked</p>
-      </div>
-    </div>
-  </div>
 
-</div>
 
--->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

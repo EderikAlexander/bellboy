@@ -41,7 +41,9 @@ gem 'faker'
 # GEM for pundit
 gem 'pundit'
 
-
+# to do graphs
+gem 'chartkick'
+gem 'groupdate'
 
 
 source 'https://rails-assets.org' do
@@ -50,7 +52,7 @@ end
 
 
 group :development, :test do
-
+  gem 'chartkick'
   gem "localtower"
 
   gem 'better_errors'
