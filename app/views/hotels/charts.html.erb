@@ -10,14 +10,14 @@
     </div>
     <div class="col-xs-12 col-sm-6">
       <div class="chart">
-        <p class="text-center">column chart</p>
+        <p class="text-center">Users per month</p>
         <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
         <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6">
       <div class="chart">
-        <p class="text-center">line chart</p>
+        <p class="text-center">Bookings per month</p>
         <%= column_chart Booking.group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
         <%#= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
       </div>

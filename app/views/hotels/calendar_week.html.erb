@@ -1,4 +1,7 @@
-<h1>calendar for the hotel: </h1>
+<h1 class="title-center">Weekly calendar </h1>
+
+<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel) %>
+<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel) %>
 
 <%= render "calendar" %>
 
