@@ -62,7 +62,6 @@ class ServicesController < ApplicationController
     end
 
     @bookable_hours
-
   end
 
   def destroy

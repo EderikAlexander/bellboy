@@ -41,7 +41,9 @@
         <% @bookable_hours[0].each_with_index do |bookable_hour, index| %>
           <li>
             <% if @bookable_hours[1][index] == 0 %>
-              <button type="button" class="btn btn-success"><%= bookable_hour %></button>
+              <div class="day-btn-wrapper">
+                <button type="button" class="btn btn-success day-btn"><%= bookable_hour %></button>
+              </div>
             <% else %>
               <button type="button" class="btn btn-danger"><%= bookable_hour %></button>
             <% end %>
@@ -49,10 +51,42 @@
         <% end %>
       </ul>
 
+      <button id="click-me" class="btn btn-success btn-lg">click me</button>
+
     </div>
 
   </div>
 </div>
+
+
+
+<script type="text/javascript">
+  //$(document).ready(function() {
+    // alert("hello")
+    $("#click-me").click(function() {
+      // alert( "i click the click-me button" );
+    });
+
+    $('#hoursModal').on('shown.bs.modal', function (event) {
+     // alert( "i clicked the modal and i am inside the modal" );
+
+     // $("#confirm-btn").trigger("click");
+     $(".day-btn-wrapper").on("click",function(){
+      // alert("button inside modal clicked");
+
+      var btn = document.createElement("BUTTON");
+      var t = document.createTextNode("Confirm");
+      btn.appendChild(t);
+      btn.className = "confirm-btn";
+      // $(this).appendChild(btn);
+      document.getElementById("hoursModal").appendChild(btn);
+      // document.body.appendChild(btn);
+
+     })
+
+    });
+  //});
+</script>
 
 
 
