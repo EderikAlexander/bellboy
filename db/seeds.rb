@@ -197,7 +197,6 @@ start_datetimes_tobook.size.times do
   i += 1
 end
 
-
 # end
 
 # create_table "bookings", force: :cascade do |t|
