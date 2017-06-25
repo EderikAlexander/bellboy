@@ -14,13 +14,7 @@
 
 <%= link_to "see all services", stay_hotel_services_path(@stay, @hotel) %>
 
-<script>
-  window.DISABLE_DATES = [
-    <% @disabled_days.each do |date| %>
-     '<%= date.strftime("%-m/%e/%Y") %>',
-    <% end  %>
-  ];
-</script>
+
 
 <h1>Book it!</h1>
 <div class="" style="position:relative;">
@@ -54,6 +48,34 @@
 <a href="http://m.me/110101406273492"> Chatbot</a>
 
 <h1>trying booking system lewagon</h1>
+
+
+<%= render "shared/calendar-LW" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
