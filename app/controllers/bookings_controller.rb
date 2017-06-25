@@ -23,6 +23,8 @@ class BookingsController < ApplicationController
     start_datetime_string = booking_params["start_datetime"]
     start_datetime_tobook = DateTime.strptime(start_datetime_string, "%m/%d/%Y %H:%M %P")
 
+    raise
+
     end_datetime_string = booking_params["end_datetime"]
     end_datetime_tobook = DateTime.strptime(end_datetime_string, "%m/%d/%Y %H:%M %P")
 
