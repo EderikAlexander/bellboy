@@ -12,17 +12,28 @@ class Message < ApplicationRecord
   # END VALIDATIONS AND ASSOCIATIONS
 
   # MESSAGE LIST
-  MESSAGE = { welcome: "Welcome to the " ,
+  MESSAGE = {
     wifi: "The wifi password is: RoomMate2017",
     service: "Here there should be a list template.",
-    locations: "Which category are you interested in?",
+    locations: "Which option are you interested in?",
     breakfast: "Starts at 8:00 am and ends at 11:00 am",
     laundry: "Yes, do you want us to pick up your laundry?",
     room: "Your room number is ",
     events: "Yes we do in the third floor",
     swimming: "It opens at 1:00 pm and closes at 9:00 pm",
     attraction: "La sagrada familia! and Park Guell",
-    restart: "Can I help you with something?",
+    custom_questions: "Here are some questions you can type:
+        - Who are you?
+        - What is the wifi password?
+        - What can I do around here?
+        - What time is my massage?
+        ",
+    restart: "Here are some categories that may be helpful:",
+    after_introduction: "What can I help you with?",
+    after_question: "Is there anything else I can help you with?",
+    who: "I\'m Andy, your best friend, personal concierge and the assistant that you deserve! =)",
+    restaurants: "Check out our restaurants and bars:",
+    massage: "Hard work pays off! You deserve a massage!"
   }
 
   # CHAT BOT METHODS
@@ -91,19 +102,118 @@ Rails.logger.debug("=== action")
 Rails.logger.debug(action)
 Rails.logger.debug("=== / action")
 
+      # BACK TO APP
       # Message.back_to_app(stay, message_or_postback) if action == 'BACK_TO_APP_PAYLOAD' || action.downcase.strip.include?("app")
-      Message.welcome(stay, message_or_postback) if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
-      Message.single_answer_slider(stay, message_or_postback, :service) if action == 'SERVICE_PAYLOAD' || action.downcase.strip.include?("service")
-      Message.single_answer(stay, message_or_postback, :wifi) if action == 'WIFI_PAYLOAD' || action.downcase.strip.include?("wifi")
-      Message.tree_answer(stay, message_or_postback) if action == 'LOCATION_PAYLOAD' || action.downcase.strip.include?("location")
-      Message.display_selection(stay, message_or_postback, "Restaurants") if action == 'RESTAURANT_PAYLOAD' || action.downcase.strip.include?("restaurant")
-      Message.display_selection(stay, message_or_postback, "Sights") if action == 'SIGHTS_PAYLOAD' || action.downcase.strip.include?("sight")
-      Message.display_selection(stay, message_or_postback, "Rentals") if action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
 
+      # POSTBACKS
+      if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
+        Message.welcome(stay, message_or_postback)
+      elsif action == 'KEEP_CHATTING_PAYLOAD' || action.downcase.strip.match("help")
+        Message.restart_after_question(stay, message_or_postback)
+      elsif action == 'SERVICE_PAYLOAD' || action.downcase.strip.include?("service")
+        Message.single_answer_slider(stay, message_or_postback, :service)
+      elsif action == 'WIFI_PAYLOAD' || action.downcase.strip.include?("wifi")
+        Message.single_answer(stay, message_or_postback, :wifi)
+      elsif action == 'LOCATION_PAYLOAD' || action.downcase.strip.include?("location")
+        Message.tree_answer(stay, message_or_postback)
+      elsif action == 'RESTAURANT_PAYLOAD' || action.downcase.strip.include?("restaurant")
+        Message.display_selection(stay, message_or_postback, "Restaurants")
+      elsif action == 'SIGHTS_PAYLOAD' || action.downcase.strip.include?("sight")
+        Message.display_selection(stay, message_or_postback, "Sights")
+      elsif action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
+        Message.display_selection(stay, message_or_postback, "Rentals")
+
+      # TYPED MESSAGES (HUMANIZER)
+      elsif action.downcase.strip.include?("tired") || action.downcase.strip.include?("massage") || action.downcase.strip.include?("relax")
+        Message.single_answer(stay, message_or_postback, :massage)
+      elsif action.downcase.strip.include?("hungry") || action.downcase.strip.include?("bar") || action.downcase.strip.include?("eat") || action.downcase.strip.include?("restaurant")
+        Message.single_answer(stay, message_or_postback, :restaurants)
+      elsif action.downcase.strip.include?("who are you") || action.downcase.strip.include?("who is this")
+        Message.single_answer(stay, message_or_postback, :who)
+      elsif (action.downcase.strip.include?("hi") || action.downcase.strip.include?("hello") || action.downcase.strip.include?("hey") || action.downcase.strip.include?("yo") || action.downcase.strip.include?("ciao") || action.downcase.strip.include?("bon dia"))
+        Message.hello(stay, message_or_postback, action)
+      else
+        Message.default(stay, message_or_postback)
+      end
+    end
+
+    def default_answer(stay, message_or_postback)
+
+      data = {
+        text: "Sorry #{stay.user.first_name}, I didn't get that one!",
+      }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+
+      # Restart method
+      Message.single_answer(stay, message_or_postback, :custom_questions)
 
     end
 
-    # Back to app
+    # Restart method
+    def restart_after_introduction(stay, message_or_postback)
+
+      data = {
+        text: MESSAGE[:after_introduction],
+        quick_replies:[
+          {
+            content_type:"text",
+            title: "SERVICE",
+            payload: "SERVICE_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "WIFI",
+              payload:"WIFI_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "LOCATIONS",
+                payload: "LOCATION_PAYLOAD",
+              }
+            ]
+          }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+    end
+
+    def restart_after_question(stay, message_or_postback)
+
+      data = {
+        text: MESSAGE[:after_question],
+        quick_replies:[
+          {
+            content_type:"text",
+            title: "SERVICE",
+            payload: "SERVICE_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "WIFI",
+              payload:"WIFI_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "LOCATIONS",
+                payload: "LOCATION_PAYLOAD",
+              }
+            ]
+          }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+    end
 
     # Restart method
     def restart(stay, message_or_postback)
@@ -140,7 +250,7 @@ Rails.logger.debug("=== / action")
     def welcome(stay, message_or_postback)
 
       data = {
-        text: MESSAGE[:welcome] + stay.hotel.name,
+        text: "#{stay.user.first_name.capitalize}! Welcome to the #{stay.hotel.name}.",
       }
 
       # Trigger Welcome message
@@ -150,7 +260,49 @@ Rails.logger.debug("=== / action")
       Message.create(content: data, from: "bot", stay: stay)
 
       # Restart method
-      Message.restart(stay, message_or_postback)
+      Message.single_answer(stay, message_or_postback, :custom_questions)
+    end
+
+    # Hello message
+    def hello(stay, message_or_postback, input)
+
+      if input.include?("hi")
+        data = {
+          text: "Hi #{stay.user.first_name}!"
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      elsif input.include?("bon dia")
+        data = {
+          text: "Bon dia #{stay.user.first_name}! Ruben, is today a great day??? "
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      elsif input.include?("hello")
+        data = {
+          text: "Hello #{stay.user.first_name}!"
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      elsif input.include?("ciao")
+        data = {
+          text: "Ciao #{stay.user.first_name}! Are you a friend of Francesco? Be careful with your answer, I might not speak with you otherwise..."
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      elsif input.include?("hola")
+        data = {
+          text: "Hola #{stay.user.first_name}!"
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      elsif input.include?("yo")
+        data = {
+          text: "Yo #{stay.user.first_name}!"
+        }
+        message_or_postback.reply(data)
+        Message.restart(stay, message_or_postback)
+      end
     end
 
     # Single message answer
@@ -167,7 +319,66 @@ Rails.logger.debug("=== / action")
       Message.create(content: data, from: "bot", stay: stay)
 
       # Restart method
-      Message.restart(stay, message_or_postback)
+      if input == :restaurants
+        display_selection(stay, message_or_postback, "Restaurants")
+      elsif input == :massage
+
+      # Prepare data and photos
+      element = []
+      url_base = "https://bellboy.fwd.wf"
+      url_services = "http://balancecolumbus.com/wp-content/uploads/2015/09/banner-hot-stone.jpg"
+
+      # Select locations by category
+      service = stay.hotel.services.where(title: "Massage").first
+
+      # Create array to display
+        element << {
+          "title": "#{service.title}",
+          "image_url": url_services,
+          "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
+          "default_action": {
+            "type": "web_url",
+            "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}"
+            },
+            "buttons":[
+              {
+                "type":"web_url",
+                "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
+                "title": "Book a massage"
+                },{
+                  "type":"postback",
+                  "title":"Keep on Chatting",
+                  "payload":"GET_STARTED_PAYLOAD"
+                }
+              ]
+            }
+
+      # Create data to send (input: array of elements)
+      data = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"generic",
+            "elements": element
+          }
+        }
+      }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+
+      elsif input == :who
+      Message.restart_after_introduction(stay, message_or_postback)
+
+      else
+      Message.restart_after_question(stay, message_or_postback)
+      end
     end
 
     # Single message answer
