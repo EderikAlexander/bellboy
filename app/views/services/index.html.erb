@@ -13,7 +13,7 @@
 <% @services.each do |service| %>
 <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
   <li class="service-li" style="height: 350px; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
-         url('<%= cl_image_path service.photo.path, height: 500, width: 700, crop: :fill %>')">
+         url('http://unsplash.it/600/400')">
          <div class="service-content">
             <h1 class="service-title" style="margin: 0;"> <%= service.title %> </h1>
             <p> <%= service.start_time %> - <%= service.end_time %> </p>
