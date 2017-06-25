@@ -23,6 +23,7 @@ class Message < ApplicationRecord
     swimming: "It opens at 1:00 pm and closes at 9:00 pm",
     attraction: "La sagrada familia! and Park Guell",
     restart: "Can I help you with something?",
+    default: "Sorry i didn't understand you, can you make a choose one of the following chooses?"
   }
 
   # CHAT BOT METHODS
@@ -50,7 +51,37 @@ class Message < ApplicationRecord
       Message.display_selection(stay, message_or_postback, "Restaurants") if action == 'RESTAURANT_PAYLOAD' || action.downcase.strip.include?("restaurant")
       Message.display_selection(stay, message_or_postback, "Sights") if action == 'SIGHTS_PAYLOAD' || action.downcase.strip.include?("sight")
       Message.display_selection(stay, message_or_postback, "Rentals") if action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
+      Message.default(stay, message_or_postback)
+    end
 
+    # when no answer is possible this message is replied
+    def default(stay, message_or_postback)
+      data = {
+        text: MESSAGE[:default],
+        quick_replies:[
+          {
+            content_type:"text",
+            title: "SERVICE",
+            payload: "SERVICE_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "WIFI",
+              payload:"WIFI_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "LOCATIONS",
+                payload: "LOCATION_PAYLOAD",
+              }
+            ]
+          }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
     end
 
     # Restart method
@@ -122,7 +153,7 @@ class Message < ApplicationRecord
     def single_answer_slider(stay, message_or_postback, input)
 
       hotel = stay.hotel
-      services = hotel.services.limit(2)
+      services = hotel.services.limit(3)
 
       fill = []
 
@@ -130,7 +161,7 @@ class Message < ApplicationRecord
         fill << {
           "title": "#{service.title}",
           "image_url": "https://static.webshopapp.com/shops/136976/files/061913502/350x298x2/fever-tree-giftbox.jpg",
-          "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
+          "subtitle": "#{service.description.truncate(20, separator: /\s/)}",
           "default_action": {
             "type": "web_url",
             "url": "https://www.facebook.com",
