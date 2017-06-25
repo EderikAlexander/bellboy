@@ -12,8 +12,8 @@
 <Div class="log-in"></Div>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs" >
-    <%= f.input :email, required: false, label: false, autofocus: true, placeholder: "email" %>
-    <%= f.input :password, required: false, placeholder: "password", label: false %>
+    <%= f.input :email, required: false, label: false, autofocus: true, placeholder: "Email" %>
+    <%= f.input :password, required: false, placeholder: "Password", label: false %>
     <%#= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
 
