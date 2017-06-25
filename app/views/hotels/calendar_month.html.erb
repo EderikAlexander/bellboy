@@ -4,38 +4,7 @@
 <%= link_to "Massages", stay_hotel_calendar_month_path(@stay, @hotel, filter: "massages"), class: "btn btn-success" %>
 <%= link_to "All", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-danger" %>
 
-<h1> Charts </h1>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">pie chart</p>
-        <%= pie_chart Service.group(:title).count %>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">column chart</p>
-        <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
-        <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">line chart</p>
-        <%= column_chart Booking.group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
-        <%#= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">pie chart</p>
-        <%= column_chart Message.group_by_day(:created_at, format: "%d %m").count %>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
