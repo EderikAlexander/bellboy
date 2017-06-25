@@ -1,0 +1,75 @@
+  #main-wrap{
+    position: center;
+    background-position: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-image: cover;
+    background-position: center;
+    color: white;
+    margin-top: 0;
+    position: fixed;
+    top:0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background-size: cover;
+  }
+
+  .input-field{
+    background-color: #1E1E1E;
+    // background-color: #3b4148;
+
+    // border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+
+  }
+
+  @font-face {
+    font-family: "Back to Black Demo";
+    src: url("/assets/Back to Black Demo.ttf") format("truetype");
+}
+#main-title {
+    font-family: "Back to Black Demo", Times, serif;
+    font-size: 48px;
+    color: #FFD05B;
+}
+
+.main-btns {
+  width: 100%;
+  height: 50px;
+  color: #1E1E1E;
+  background-color: #FFD05B;
+  border: none;
+  border-radius: 5px;
+}
+.main-btns:hover{
+    background-color: #FFBE1D;
+    text-decoration: none;
+  }
+
+.fb-main{
+  width: 100%;
+  height: 80px;
+  color: white;
+  background-color: #3C5193;
+  border: none;
+  border-radius: 5px;
+}
+
+.fb-main:hover{
+  background-color: #2A396A;
+  text-decoration: none;
+  color: slategrey;
+}
+
+
+
