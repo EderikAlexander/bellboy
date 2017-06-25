@@ -17,8 +17,6 @@ LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 
  { name: "Moto Rent", address: "Carrer de Roger de Llúria, 31, 08009 Barcelona", category: "Rentals" }
 ]
 
-
-
 # CREATE SERVICES
 SERVICE_LIST = [ { title: "Restaurant", description: "Welcome to BRAVO24 where Catalan chef Carles Abellán cooks up the true essence of each local ingredient in its freshest.", end_time: "23:00", start_time: "19:00" },
  { title: "Massage", description: "Boasts a brisk rub of freshly-grated ginger root and warm detoxifying essential oils, a cozy warming foil wrap, a 20-minute soak and a 100-minute body-melting massage.", end_time: "21:00", start_time: "10:00", price: 200 },
@@ -40,7 +38,6 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 
 # ROOM TYPES
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
-
 
 puts "Starting seeding process..."
 
