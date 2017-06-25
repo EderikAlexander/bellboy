@@ -1,10 +1,13 @@
+<h1 class="title-center">Weekly calendar </h1>
+
+<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-info" %>
+<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-warning" %>
+
 <%= render "calendar" %>
 
-<%= link_to "Restaurants", stay_hotel_calendar_month_path(@stay, @hotel, filter: "restaurants"), class: "btn btn-primary" %>
-<%= link_to "Massages", stay_hotel_calendar_month_path(@stay, @hotel, filter: "massages"), class: "btn btn-success" %>
-<%= link_to "All", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-danger" %>
-
-
+<%= link_to "Restaurants", stay_hotel_calendar_week_path(@stay, @hotel, filter: "restaurants"), class: "btn btn-primary" %>
+<%= link_to "Massages", stay_hotel_calendar_week_path(@stay, @hotel, filter: "massages"), class: "btn btn-success" %>
+<%= link_to "All", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-danger" %>
 
 
 
