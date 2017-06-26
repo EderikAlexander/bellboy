@@ -23,18 +23,18 @@ class Message < ApplicationRecord
     swimming: "It opens at 1:00 pm and closes at 9:00 pm",
     attraction: "La sagrada familia! and Park Guell",
     custom_questions: "Here are some questions you can type:
-        - Who are you?
-        - What is the wifi password?
-        - What can I do around here?
-        - What time is my massage?
-        ",
-    restart: "Here are some categories that may be helpful:",
-    after_introduction: "What can I help you with?",
-    after_question: "Is there anything else I can help you with?",
-    who: "I\'m Andy, your best friend, personal concierge and the assistant that you deserve! =)",
-    restaurants: "Check out our restaurants and bars:",
-    massage: "Hard work pays off! You deserve a massage!"
-  }
+    - Who are you?
+    - What is the wifi password?
+    - What can I do around here?
+      - What time is my massage?
+      ",
+      restart: "Here are some categories that may be helpful:",
+      after_introduction: "What can I help you with?",
+      after_question: "Is there anything else I can help you with?",
+      who: "I\'m Andy, your best friend, personal concierge and the assistant that you deserve! =)",
+      restaurants: "Check out our restaurants and bars:",
+      massage: "Hard work pays off! You deserve a massage!"
+    }
 
   # CHAT BOT METHODS
   class << self
@@ -46,61 +46,66 @@ class Message < ApplicationRecord
       # # Get current User (FB user_id) and Stay
       user = User.all.where(uid: message_or_postback.sender["id"]).first
 
-# #################################################################################
+      if user.present?
+        # Search for first stay
+        stay = user.stays.first
+      else
 
-# ##########.            THIS SHOULD BE MADE BY THE HOTEL               ###########
-# ##########       AUTOMATICALLY WHEN THE EMAIL SEND TO THE GUEST       ###########
+      # #################################################################################
+      # ##########.            THIS SHOULD BE MADE BY THE HOTEL               ###########
+      # ##########       AUTOMATICALLY WHEN THE EMAIL SEND TO THE GUEST       ###########
+      # #################################################################################
 
-# #################################################################################
+            # Create User
+            user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
+            user.save
+
+            # Create Hotel and Stays for the user (to be able to chat with the bot)
+            hotel = Hotel.all.where( name: "Room Mate Gerard" ).first
+
+              # Asign Stay and Room number
+              1.times do
+
+                # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
+                start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
+                end_booking_date = start_booking_date + rand(1..15)
+                checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
+                checked_out = end_booking_date if end_booking_date < Date.today
+
+                # CREATE STAY INSTANCE
+                stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
+                # ASIGN STAY INSTANCE TO USER
+                stay.user = user
+
+                # ASIGN STAY INSTANCE TO HOTEL
+                stay.hotel = hotel
 
 
-      # # Create Hotel and Stays for the user (to be able to chat with the bot)
-      # hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
+                # CREATE AND ASIGN ROOM
+                room = Room.new(number: rand(100..500), room_type: "Double")
+                room.hotel = hotel
+                room.save
 
-      #   # Asign Stay and Room number
-      #   1.times do
+                # ASIGN ROOM TO STAY
+                stay.room = room
 
-      #     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
-      #     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
-      #     end_booking_date = start_booking_date + rand(1..15)
-      #     checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
-      #     checked_out = end_booking_date if end_booking_date < Date.today
+                # SAVE STAY's CHANGES
+                stay.save
 
-      #     # CREATE STAY INSTANCE
-      #     stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
-      #     # ASIGN STAY INSTANCE TO USER
-      #     stay.user = user
+              end
 
-      #     # ASIGN STAY INSTANCE TO HOTEL
-      #     stay.hotel = hotel
+      # #################################################################################
+      # ##########                             END                            ###########
+      # #################################################################################
+    end
 
+    action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
-      #     # CREATE AND ASIGN ROOM
-      #     room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
-      #     room.hotel = hotel
-      #     room.save
+    action = message_or_postback.text if not action.present?
 
-      #     # ASIGN ROOM TO STAY
-      #     stay.room = room
-
-      #     # SAVE STAY's CHANGES
-      #     stay.save
-
-      #     # SAVE USER's CHANGES
-
-# #################################################################################
-# ##########                             END                            ###########
-# #################################################################################
-
-stay = user.stays.first
-
-action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
-
-action = message_or_postback.text if not action.present?
-
-Rails.logger.debug("=== action")
-Rails.logger.debug(action)
-Rails.logger.debug("=== / action")
+    Rails.logger.debug("=== action")
+    Rails.logger.debug(action)
+    Rails.logger.debug("=== / action")
 
       # BACK TO APP
       # Message.back_to_app(stay, message_or_postback) if action == 'BACK_TO_APP_PAYLOAD' || action.downcase.strip.include?("app")
@@ -137,11 +142,11 @@ Rails.logger.debug("=== / action")
       end
     end
 
-    def default_answer(stay, message_or_postback)
+  def default_answer(stay, message_or_postback)
 
-      data = {
-        text: "Sorry #{stay.user.first_name}, I didn't get that one!",
-      }
+    data = {
+      text: "Sorry #{stay.user.first_name}, I didn't get that one!",
+    }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -250,7 +255,7 @@ Rails.logger.debug("=== / action")
     def welcome(stay, message_or_postback)
 
       data = {
-        text: "#{stay.user.first_name.capitalize}! Welcome to the #{stay.hotel.name}.",
+        text: "#{stay.user.first_name}! Welcome to the #{stay.hotel.name}.",
       }
 
       # Trigger Welcome message
@@ -325,36 +330,35 @@ Rails.logger.debug("=== / action")
 
       # Prepare data and photos
       element = []
-      url_base = "https://bellboy.fwd.wf"
-      url_services = "http://balancecolumbus.com/wp-content/uploads/2015/09/banner-hot-stone.jpg"
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
 
       # Select locations by category
       service = stay.hotel.services.where(title: "Massage").first
 
       # Create array to display
-        element << {
-          "title": "#{service.title}",
-          "image_url": url_services,
-          "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
-          "default_action": {
-            "type": "web_url",
-            "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
-            "messenger_extensions": true,
-            "webview_height_ratio": "tall",
-            "fallback_url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}"
-            },
-            "buttons":[
-              {
-                "type":"web_url",
-                "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
-                "title": "Book a massage"
-                },{
-                  "type":"postback",
-                  "title":"Keep on Chatting",
-                  "payload":"GET_STARTED_PAYLOAD"
-                }
-              ]
-            }
+      element << {
+        "title": "#{service.title}",
+        "image_url": service.photo_url,
+        "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
+        "default_action": {
+          "type": "web_url",
+          "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
+          "messenger_extensions": true,
+          "webview_height_ratio": "tall",
+          "fallback_url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/services/#{service.id}",
+              "title": "Book a massage"
+              },{
+                "type":"postback",
+                "title":"Keep on Chatting",
+                "payload":"GET_STARTED_PAYLOAD"
+              }
+            ]
+          }
 
       # Create data to send (input: array of elements)
       data = {
@@ -373,13 +377,13 @@ Rails.logger.debug("=== / action")
       # Save Message
       Message.create(content: data, from: "bot", stay: stay)
 
-      elsif input == :who
+    elsif input == :who
       Message.restart_after_introduction(stay, message_or_postback)
 
-      else
+    else
       Message.restart_after_question(stay, message_or_postback)
-      end
     end
+  end
 
     # Single message answer
     def single_answer_slider(stay, message_or_postback, input)
@@ -387,8 +391,7 @@ Rails.logger.debug("=== / action")
       hotel = stay.hotel
       services = hotel.services.limit(3)
 
-      url_base = "https://bellboy.fwd.wf"
-      url_services = ["http://villadenaval.com/wp-content/uploads/2017/01/programas-restaurantes.jpg", "http://balancecolumbus.com/wp-content/uploads/2015/09/banner-hot-stone.jpg", "http://bruceworks.com.au/wp-content/uploads/2016/04/swimming-pool.jpg"]
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
 
       elements = []
 
@@ -418,7 +421,7 @@ Rails.logger.debug("=== / action")
         services.each_with_index do |service, index|
           elements << {
             "title": "#{service.title}",
-            "image_url": url_services[index],
+            "image_url": service.photo_url,
             "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
             "default_action": {
               "type": "web_url",
@@ -497,10 +500,10 @@ Rails.logger.debug("=== / action")
 
       # Prepare data and photos
       element = []
-      url_base = "https://bellboy.fwd.wf"
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
       url_locations = ["http://panoramaitctravel.com/shop/wp-content/uploads/2017/02/acceso-rapido-sagrada-familia.jpg", "https://www.stemaki.com/wp-content/uploads/2015/11/paqrue-guell.jpg", "http://4.bp.blogspot.com/-_QN4wdXbLXg/VY7GjOKjOiI/AAAAAAAABa4/SKM6aDfsvI0/s1600/A-walk-down-La-Rambla.-Barcelona-10.jpg",
-                       "https://2.bp.blogspot.com/-ztWvfdAsCjs/VcBTfy0OwNI/AAAAAAABfqM/UR4Kft16SRY/s1600/P1010489.JPG","https://spotcase.co/spot_images/20150717/18/243f76733381572a2d9a4bee5b8a83b4/243f76733381572a2d9a4bee5b8a83b4.jpg","http://www.bcnrestaurantes.com/img-trans/productos/22745/fotos/575-58774cf537719-%20.jpeg",
-                       "https://www.aireuropa.com/airstatic/contents/63d65d3a-73e4-4f03-ba08-a73ec5b1b6e4.png","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hertz_Logo.svg/1200px-Hertz_Logo.svg.png","https://reskytnew.s3.amazonaws.com/857/plato-visitasandorra-visitas-andorra-12877_ppc.jpg"]
+       "https://2.bp.blogspot.com/-ztWvfdAsCjs/VcBTfy0OwNI/AAAAAAABfqM/UR4Kft16SRY/s1600/P1010489.JPG","https://spotcase.co/spot_images/20150717/18/243f76733381572a2d9a4bee5b8a83b4/243f76733381572a2d9a4bee5b8a83b4.jpg","http://www.bcnrestaurantes.com/img-trans/productos/22745/fotos/575-58774cf537719-%20.jpeg",
+       "https://www.aireuropa.com/airstatic/contents/63d65d3a-73e4-4f03-ba08-a73ec5b1b6e4.png","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hertz_Logo.svg/1200px-Hertz_Logo.svg.png","https://reskytnew.s3.amazonaws.com/857/plato-visitasandorra-visitas-andorra-12877_ppc.jpg"]
 
       # Select locations by category
       locations = stay.hotel.locations.where(category: category)
