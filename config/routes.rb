@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     mount Localtower::Engine, at: "localtower"
   end
 
+
+  get '/introduction', to: 'services#introduction'
+  root 'services#introduction'
+
   get 'stays/#{Stay.first}/hotels/#{Hotel.first}/services', to: 'services#index'
   root 'services#index'
+
   # root to: 'stays#index'
   # get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
 
