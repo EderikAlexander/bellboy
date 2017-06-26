@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/introduction', to: 'services#introduction'
   root 'services#introduction'
 
+
+  get 'terms', to: "pages#terms"
+
   get 'stays/#{Stay.first}/hotels/#{Hotel.first}/services', to: 'services#index'
   root 'services#index'
 

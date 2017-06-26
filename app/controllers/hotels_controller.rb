@@ -33,7 +33,6 @@ class HotelsController < ApplicationController
 
   end
 
-
   def calendar_info_generation
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.find(params[:hotel_id])

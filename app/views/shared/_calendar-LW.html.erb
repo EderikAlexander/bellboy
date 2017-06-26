@@ -1,87 +1,111 @@
+<div class="nav-calendar-wrapper">
+  <ul class="nav navbar-nav nav-calendar">
+    <li>
+      <%= link_to start_date: @date_range.first - 1.day do %>
+        <i class="fa fa-chevron-circle-left nav-calendar-left" aria-hidden="true"></i>
+      <% end %>
+    </li>
+    <li class="nav-calendar-month">
+      <%= @start_date.strftime("%B") %> <%= @start_date.year %>
+    </li>
+    <li>
+      <%= link_to start_date: @date_range.last + 1.day do %>
+        <i class="fa fa-chevron-circle-right nav-calendar-right" aria-hidden="true"></i>
+      <% end %>
+    </li>
+  </ul>
+</div>
 
+<%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
+    <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
+    <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
 
-<%#= we can not pass a url, we have to pass the current url %>
-<%= link_to "Previous", start_date: @date_range.first - 1.day  %>
-<%#= this should be customizable %>
-<%= @start_date.month %> <%= @start_date.year %>
-<%= link_to "Next", start_date: @date_range.last + 1.day  %>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <% @date_range.slice(0,7).each do |day| %>
-      <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
-    <% end %>
-  </tr>
-
-  </thead>
-  <tbody>
-    <% @date_range.each_slice(7) do |week| %>
+  <div class="calendar-booking-wrapper">
+    <table class="table cal-book-table">
+      <thead>
       <tr>
-        <% week.each do |day| %>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= day %> <span class="caret"></span>
-              </button>
-              <ul id="dropdown-hours" class="dropdown-menu">
-                <% @service_hours.each do |service_hour| %>
-                  <% found = false %>
-                  <li>
-                    <!-- button -->
-                    <% @start_time_bookings_day = [] %>
-                    <% @start_time_bookings.each do |start_time_booking| %>
-                      <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                        <button type="button" class="btn btn-danger"><%= service_hour %></button>
-                        <% found = true %>
-                      <% else %>
-                      <% end %>
-                    <% end %>
-                    <% if found == true %>
-
-                    <% else %>
-                      <button type="button" class="btn btn-success"><%= service_hour %></button>
-                    <% end %>
-
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </td>
+        <% @date_range.slice(0,7).each do |day| %>
+          <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<button type="button" class="btn btn-success click-me">Click Me</button>
+      </thead>
+      <tbody>
+        <% @date_range.each_slice(7) do |week| %>
+          <tr>
+            <% week.each do |day| %>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle cal-book-day-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= day.day %>
+                  </button>
+                  <ul id="dropdown-hours" class="dropdown-menu dropdown-scrollable-menu">
+                    <% @service_hours.each do |service_hour| %>
+                      <% found = false %>
+                      <div class="hour-wrapper">
+                        <li>
+                          <!-- button -->
+                          <% @start_time_bookings_day = [] %>
+                          <% @start_time_bookings.each do |start_time_booking| %>
+                            <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
+                              <div class="calendar-lw-time booked-date"><p><%= service_hour %>:00</p></div>
+                              <% found = true %>
+                            <% else %>
+                            <% end %>
+                          <% end %>
+                          <% if found == true %>
+                          <% else %>
+                          <div class="wrap-date">
+                            <div data-date="<%= day %>|<%= service_hour %>" class="calendar-lw-time bookable-date"><p><%= service_hour %>:00</p>
+                            </div>
+                            <div class="wrap-confirm-btn">
+                              <button style="display: none;" type="submit" class="">Confirm</button>
+                            </div>
+                          </div>
+                          <% end %>
+                        </li>
+                      </div>
+                    <% end %>
+                  </ul>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<script type="text/javascript">
+<% end %>
 
-  $(".click-me").on("click",function(){
-    alert("i have clicked the button click-me");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    document.body.appendChild(btn);
-    // $(this).appendChild(btn);
-  })
+<% content_for :after_dropdown do %>
+    <script type="text/javascript">
 
-  $(".day-btn-wrapper").on("click",function(){
-    // alert("button inside modal clicked");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    // $(this).appendChild(btn);
+      $(document).ready(function(){
 
-    $(this).appendChild(btn);
-    // alert("i have clicked a day");
-    // document.body.appendChild(btn);
-  })
-</script>
+        $('.dropdown-menu').click(function(e) {
+          e.stopPropagation();
+        });
 
+        $("[data-date]").click(function(e) {
+          e.preventDefault();
+          // e.stopPropagation();
+          $(".wrap-date button").hide();
+          var confirm = $(this).parent().find("button");
+          confirm.show();
+        });
+
+        $(".bookable-date").click(function(e){
+          e.preventDefault();
+
+          var el = $(this);
+          var dayAndHour = el.attr("data-date");
+          $("#bookable-date").val(dayAndHour);
+          $(".confirmation").show();
+        });
+      });
+    </script>
+<% end %>
 
 
 
