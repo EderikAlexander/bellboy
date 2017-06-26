@@ -40,8 +40,11 @@ class BookingsController < ApplicationController
     month = start_date_time.month
     day = start_date_time.day
 
-    start_datetime_tobook = DateTime.new(year, month, day, hour, 0, 0, '+2')
-    end_datetime_tobook = DateTime.new(year, month, day, hour, 59, 0, '+2')
+    start_datetime_tobook = DateTime.new(year, month, day, hour, 0, 0, '+0')
+    # start_datetime_tobook = DateTime.new(year, month, day, hour, 0, 0, '+2')
+
+    end_datetime_tobook = DateTime.new(year, month, day, hour, 59, 0, '+0')
+    # end_datetime_tobook = DateTime.new(year, month, day, hour, 59, 0, '+2')
 
     @booking = Booking.new()
     @booking.start_datetime = start_datetime_tobook
@@ -65,7 +68,9 @@ class BookingsController < ApplicationController
       redirect_to stay_hotel_service_path(@stay, @hotel, @service)
     else
       @booking.save
-      redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
+      redirect_to stay_hotel_service_booking_path(@stay, @hotel, @service, @booking)
+      # /stays/:stay_id/hotels/:hotel_id/services/:service_id/bookings/:id(.:format)
+      #redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
     end
   end
 
