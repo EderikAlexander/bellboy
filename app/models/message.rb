@@ -22,8 +22,6 @@ class Message < ApplicationRecord
     events: "Yes we do in the third floor",
     swimming: "It opens at 1:00 pm and closes at 9:00 pm",
     attraction: "La sagrada familia! and Park Guell",
-    restart: "Can I help you with something?",
-    default: "Sorry i didn't understand you, can you make a choose one of the following chooses?"
     custom_questions: "Here are some questions you can type:
         - Who are you?
         - What is the wifi password?
@@ -48,11 +46,6 @@ class Message < ApplicationRecord
       # # Get current User (FB user_id) and Stay
       user = User.all.where(uid: message_or_postback.sender["id"]).first
 
-      if user.present?
-        # Search for first stay
-        stay = user.stays.first
-      else
-
 # #################################################################################
 
 # ##########.            THIS SHOULD BE MADE BY THE HOTEL               ###########
@@ -61,46 +54,45 @@ class Message < ApplicationRecord
 # #################################################################################
 
 
-      # Create Hotel and Stays for the user (to be able to chat with the bot)
-      hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
+      # # Create Hotel and Stays for the user (to be able to chat with the bot)
+      # hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
 
-        # Asign Stay and Room number
-        1.times do
+      #   # Asign Stay and Room number
+      #   1.times do
 
-          # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
-          start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
-          end_booking_date = start_booking_date + rand(1..15)
-          checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
-          checked_out = end_booking_date if end_booking_date < Date.today
+      #     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
+      #     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
+      #     end_booking_date = start_booking_date + rand(1..15)
+      #     checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
+      #     checked_out = end_booking_date if end_booking_date < Date.today
 
-          # CREATE STAY INSTANCE
-          stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
-          # ASIGN STAY INSTANCE TO USER
-          stay.user = user
+      #     # CREATE STAY INSTANCE
+      #     stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
+      #     # ASIGN STAY INSTANCE TO USER
+      #     stay.user = user
 
-          # ASIGN STAY INSTANCE TO HOTEL
-          stay.hotel = hotel
+      #     # ASIGN STAY INSTANCE TO HOTEL
+      #     stay.hotel = hotel
 
 
-          # CREATE AND ASIGN ROOM
-          room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
-          room.hotel = hotel
-          room.save
+      #     # CREATE AND ASIGN ROOM
+      #     room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
+      #     room.hotel = hotel
+      #     room.save
 
-          # ASIGN ROOM TO STAY
-          stay.room = room
+      #     # ASIGN ROOM TO STAY
+      #     stay.room = room
 
-          # SAVE STAY's CHANGES
-          stay.save
+      #     # SAVE STAY's CHANGES
+      #     stay.save
 
-          # SAVE USER's CHANGES
-
+      #     # SAVE USER's CHANGES
 
 # #################################################################################
 # ##########                             END                            ###########
 # #################################################################################
 
-      end
+stay = user.stays.first
 
 action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
@@ -112,45 +104,6 @@ Rails.logger.debug("=== / action")
 
       # BACK TO APP
       # Message.back_to_app(stay, message_or_postback) if action == 'BACK_TO_APP_PAYLOAD' || action.downcase.strip.include?("app")
-      Message.welcome(stay, message_or_postback) if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
-      Message.single_answer_slider(stay, message_or_postback, :service) if action == 'SERVICE_PAYLOAD' || action.downcase.strip.include?("service")
-      Message.single_answer(stay, message_or_postback, :wifi) if action == 'WIFI_PAYLOAD' || action.downcase.strip.include?("wifi")
-      Message.tree_answer(stay, message_or_postback) if action == 'LOCATION_PAYLOAD' || action.downcase.strip.include?("location")
-      Message.display_selection(stay, message_or_postback, "Restaurants") if action == 'RESTAURANT_PAYLOAD' || action.downcase.strip.include?("restaurant")
-      Message.display_selection(stay, message_or_postback, "Sights") if action == 'SIGHTS_PAYLOAD' || action.downcase.strip.include?("sight")
-      Message.display_selection(stay, message_or_postback, "Rentals") if action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
-      Message.default(stay, message_or_postback)
-    end
-
-    # when no answer is possible this message is replied
-    def default(stay, message_or_postback)
-      data = {
-        text: MESSAGE[:default],
-        quick_replies:[
-          {
-            content_type:"text",
-            title: "SERVICE",
-            payload: "SERVICE_PAYLOAD",
-            },
-            {
-              content_type: "text",
-              title: "WIFI",
-              payload:"WIFI_PAYLOAD",
-              },
-              {
-                content_type:"text",
-                title: "LOCATIONS",
-                payload: "LOCATION_PAYLOAD",
-              }
-            ]
-          }
-
-      # Trigger Welcome message
-      message_or_postback.reply(data)
-
-
-      # Save Message
-      Message.create(content: data, from: "bot", stay: stay)
 
       # POSTBACKS
       if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
@@ -434,50 +387,6 @@ Rails.logger.debug("=== / action")
       hotel = stay.hotel
       services = hotel.services.limit(3)
 
-
-      fill = []
-
-      services.each do |service|
-        fill << {
-          "title": "#{service.title}",
-          "image_url": "https://static.webshopapp.com/shops/136976/files/061913502/350x298x2/fever-tree-giftbox.jpg",
-          "subtitle": "#{service.description.truncate(20, separator: /\s/)}",
-          "default_action": {
-            "type": "web_url",
-            "url": "https://www.facebook.com",
-            "messenger_extensions": true,
-            "webview_height_ratio": "tall",
-            "fallback_url": "https://www.facebook.com"
-            },
-            "buttons": [
-              {
-                "title": "View",
-                "type": "web_url",
-                "url": "https://www.facebook.com",
-                "messenger_extensions": true,
-                "webview_height_ratio": "tall",
-                "fallback_url": "https://www.facebook.com"
-              }
-            ]
-          }
-        end
-
-        data = {"attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "list",
-            "elements": fill,
-            "buttons": [
-              {
-                "title": "View More",
-                "type": "postback",
-                "payload": "payload"
-              }
-            ]
-          }
-        }
-      }
-
       url_base = "https://bellboy.fwd.wf"
       url_services = ["http://villadenaval.com/wp-content/uploads/2017/01/programas-restaurantes.jpg", "http://balancecolumbus.com/wp-content/uploads/2015/09/banner-hot-stone.jpg", "http://bruceworks.com.au/wp-content/uploads/2016/04/swimming-pool.jpg"]
 
@@ -537,7 +446,6 @@ Rails.logger.debug("=== / action")
               "template_type": "list",
               "elements": elements
             }
-
           }
         }
 
@@ -655,5 +563,3 @@ Rails.logger.debug("=== / action")
 
   end
 end
-
-
