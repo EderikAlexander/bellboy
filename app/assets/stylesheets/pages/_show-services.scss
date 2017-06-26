@@ -1,12 +1,169 @@
-.wrapper-table {
-  display: flex;
+#show-service-content {
+  padding: 60px 40px 20px 40px;
 }
 
-.wrapper-column {
-  width: 400px;
+#service-description, #opening-hours {
+  font-size: 20px;
+}
+
+.mini-title {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+
+#opening-hours-big {
+  font-size: 28px;
+}
+
+#service-title, #service-description, #opening-hours, #mini-title {
+  color: white;
+}
+
+
+// ------------------------------------------------
+// DESCRIPTION SERVICE
+// ------------------------------------------------
+#opening-hours {
+  padding: 30px 0px;
+}
+
+// ------------------------------------------------
+// NAVBAR CALENDAR
+// ------------------------------------------------
+.nav-calendar-wrapper {
+  background-color: yellow;
+  // margin-left: auto;
+  // margin-right: auto;
+  li {
+    color: white;
+  }
+  i {
+    color: white;
+  }
+  i:hover {
+    color: yellow;
+  }
 
 }
 
-.time-slot {
-  border: solid 1px rgb(200, 200, 200);
+.nav-calendar-left {
+  font-size: 30px;
 }
+.nav-calendar-left:hover {
+  font-size: 40px;
+  background-color: transparent;
+}
+.nav-calendar-right {
+  font-size: 30px;
+}
+
+
+
+
+// ------------------------------------------------
+// HOURS IN CALENDAR
+// ------------------------------------------------
+.dropdown-scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+
+.calendar-booking-wrapper {
+  //background-color: yellow;
+  padding: 10px;
+}
+
+.cal-book-day-btn {
+  background-color: rgba(200, 200, 200, 0.8);
+  border: 0px;
+  width: 30px;
+  .calendar-lw-time div {
+    // ### not working
+    text-align: center;
+  }
+}
+
+.cal-book-table th {
+  color: white;
+}
+
+.cal-book-table th, td {
+  text-align: center;
+  border: 0px;
+}
+
+.wrap-confirm-btn button {
+  background-color: green;
+}
+
+.wrap-confirm-btn {
+  background-color: yellow;
+}
+
+.hour-wrapper {
+  p {
+    padding-left: 20px;
+    color: rgb(20, 20, 20);
+  }
+}
+
+.calendar-lw-time:hover {
+    background-color: #A0C814;
+    border-radius: 5px;
+    padding: 1px 10px;
+  }
+
+
+
+// ------------------------------------------------
+// HOURS IN CALENDAR 2
+// ------------------------------------------------
+
+// .day-btn-wrapper {
+//   // background-color: yellow;
+// }
+
+// .confirm-btn {
+//   background-color: orange;
+// }
+
+// .booked-date {
+//   background-color: white;
+//   color: rgb(200, 200, 200);
+// }
+
+// .bookable-date {
+//   background-color: white;
+//   color: rgb(30, 30, 30);
+// }
+
+// .bookable-date:hover {
+//   background-color: #5FBA7D;
+// }
+
+// .booked-date:hover {
+//   background-color: red;
+// }
+
+// .calendar-lw-time {
+//   padding: 4px 4px 4px 8px;
+// }
+
+// .wrap-cal-book-hour {
+//   position: relative;
+// }
+
+// .calendar-lw-time {
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+// }
+
+// .wrap-confirm-btn {
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+// }
