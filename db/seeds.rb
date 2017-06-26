@@ -57,13 +57,15 @@ Hotel.all.with_deleted.each { |i| i.really_destroy! }
 # SEEDING PROCESS
 
 # CREATE AND SAVE HOTEL
-hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
+hotel = Hotel.new(HOTEL_LIST[4])
 hotel.save
 
+i=0
 # CREATE LOCATIONS AND SAVE
 LOCATION_LIST.each do |attraction|
   location = Location.new(attraction)
   location.hotel = hotel
+  # location.photo_url = LOCATIONS_URLS[i]
   location.save
 end
 
@@ -74,21 +76,18 @@ SERVICE_LIST.each do |type|
   service.hotel = hotel
   service.photo_url = SERVICES_URLS[i]
   service.save
-  # binding.pry
   i += 1
 end
-
-t = 0
 
 20.times do
 
   # CREATE USER
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890") # , uid: fb_uids[t]
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890")
   user.save
   t += 1
 
   # ASIGN STAY TO USER
-  3.times do
+  1.times do
 
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
@@ -116,27 +115,30 @@ t = 0
     stay.save
 
     # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
-    unless checked_in.blank?
+    # unless checked_in.blank?
 
-      # WELCOME MESSAGE
-      msg = Message.new(from: "bot", content: MESSAGE_LIST[0][:welcome])
-      msg.stay = stay
-      msg.save
+    #   # WELCOME MESSAGE
+    #   msg = Message.new(from: "bot", content: MESSAGE_LIST[0][:welcome])
+    #   msg.stay = stay
+    #   msg.save
 
-      # RANDOM MESSAGES
-      rand(1..10).times do
-        random = rand(1..7)
-        msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
-        msg_user.stay = stay
-        msg_user.save
-        msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
-        msg_bot.stay = stay
-        msg_bot.save
-      end
-    end
+    #   # RANDOM MESSAGES
+    #   rand(1..10).times do
+    #     random = rand(1..7)
+    #     msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
+    #     msg_user.stay = stay
+    #     msg_user.save
+    #     msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
+    #     msg_bot.stay = stay
+    #     msg_bot.save
+    #   end
+    # end
   end
 
 end
+
+
+# ###########################################################  BOOKING SEEDS
 
 users = User.all
 
@@ -197,19 +199,5 @@ start_datetimes_tobook.size.times do
   booking.save
   i += 1
 end
-
-
-# end
-
-# create_table "bookings", force: :cascade do |t|
-#   t.datetime "start_datetime"
-#   t.datetime "end_datetime"
-#   t.integer  "user_id"
-#   t.integer  "service_id"
-#   t.datetime "created_at",     null: false
-#   t.datetime "updated_at",     null: false
-#   t.index ["service_id"], name: "index_bookings_on_service_id", using: :btree
-#   t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
-# end
 
 puts "Finished seeding process!"
