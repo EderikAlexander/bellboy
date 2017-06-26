@@ -39,7 +39,7 @@ class Message < ApplicationRecord
   # CHAT BOT METHODS
   class << self
 
-    def process(message_or_postback)
+    def process(message_or_postback, sender)
       # "..." when waiting for message
       message_or_postback.typing_on
 
@@ -59,10 +59,9 @@ class Message < ApplicationRecord
             # Create User
             user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
             user.save
-
             # Create Hotel and Stays for the user (to be able to chat with the bot)
             hotel = Hotel.all.where( name: "Room Mate Gerard" ).first
-
+binding.pry
               # Asign Stay and Room number
               1.times do
 
@@ -255,7 +254,7 @@ class Message < ApplicationRecord
     def welcome(stay, message_or_postback)
 
       data = {
-        text: "#{stay.user.first_name}! Welcome to the #{stay.hotels.first.name}.",
+        text: "#{stay.user.first_name}! Welcome to the #{stay.hotel.name}.",
       }
 
       # Trigger Welcome message
