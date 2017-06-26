@@ -133,7 +133,7 @@ Rails.logger.debug("=== / action")
       elsif (action.downcase.strip.include?("hi") || action.downcase.strip.include?("hello") || action.downcase.strip.include?("hey") || action.downcase.strip.include?("yo") || action.downcase.strip.include?("ciao") || action.downcase.strip.include?("bon dia"))
         Message.hello(stay, message_or_postback, action)
       else
-        Message.default(stay, message_or_postback)
+        Message.default_answer(stay, message_or_postback)
       end
     end
 
