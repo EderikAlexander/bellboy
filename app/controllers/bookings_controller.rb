@@ -21,6 +21,7 @@ class BookingsController < ApplicationController
 
   def create
     raise
+    ### WORK on the logic
     start_datetime_string = booking_params["start_datetime"]
     start_datetime_tobook = DateTime.strptime(start_datetime_string, "%m/%d/%Y %H:%M %P")
 

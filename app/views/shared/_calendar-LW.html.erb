@@ -60,7 +60,7 @@
 
   <%#= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
   <!-- in the url the last id is always an id. you can move between controllers if you adapt the id into the one you want. -->
-  <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => :id), method: :post do |f| %>
+  <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
     <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
     <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
     <%#= hidden_field_tag :day_selection, nil, id: "bookable-date"  %>
