@@ -338,7 +338,7 @@ class Message < ApplicationRecord
       # Create array to display
       element << {
         "title": "#{service.title}",
-        "image_url": service.photo_url,
+        "image_url": "https://res.cloudinary.com/montolio/image/upload/v" + service.photo.version + "/" + service.photo.public_id + "." + service.photo.format,
         "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
         "default_action": {
           "type": "web_url",
@@ -421,7 +421,7 @@ class Message < ApplicationRecord
         services.each_with_index do |service, index|
           elements << {
             "title": "#{service.title}",
-            "image_url": service.photo_url,
+            "image_url": "https://res.cloudinary.com/montolio/image/upload/v" + service.photo.version + "/" + service.photo.public_id + "." + service.photo.format,
             "subtitle": "#{service.description.truncate(22, separator: /\s/)}",
             "default_action": {
               "type": "web_url",
