@@ -508,16 +508,12 @@ class Message < ApplicationRecord
       # Select locations by category
       locations = stay.hotel.locations.where(category: category)
 
-      counter = 0 if category == "Sights"
-      counter = 3 if category == "Restaurants"
-      counter = 5 if category == "Rentals"
-
       # Create array to display
       locations.each do |location|
 
         element << {
           "title": "#{location.name}",
-          "image_url": url_locations[counter],
+          "image_url": "https://res.cloudinary.com/montolio/image/upload/v" + location.photo.version + "/" + location.photo.public_id + "." + location.photo.format,
           "subtitle": "#{location.address}",
           "default_action": {
             "type": "web_url",
@@ -538,9 +534,6 @@ class Message < ApplicationRecord
                 }
               ]
             }
-
-            # Array counter
-            counter += 1
 
           end
 

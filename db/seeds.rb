@@ -40,7 +40,7 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
 SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
-LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
+LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498483970/sagrada_familia_yc6s0o.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484022/park_guell_vl3bpi.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484064/la_rambla_smwgx0.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484124/ticket_restaurant_luybra.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484181/tapas_24_uscrme.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484221/el_atril_zqrotq.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484261/europcar_xf94lv.png", "http://res.cloudinary.com/montolio/image/upload/v1498484306/hertz_wzybeu.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484420/avis_lrscwa.jpg" ]
 
 
 puts "Starting seeding process..."
@@ -65,8 +65,9 @@ i=0
 LOCATION_LIST.each do |attraction|
   location = Location.new(attraction)
   location.hotel = hotel
-  # location.photo_url = LOCATIONS_URLS[i]
+  location.photo_url = LOCATIONS_URLS[i]
   location.save
+  i += 1
 end
 
 # CREATE SERVICE AND SAVE
@@ -84,7 +85,6 @@ end
   # CREATE USER
   user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890")
   user.save
-  t += 1
 
   # ASIGN STAY TO USER
   1.times do
