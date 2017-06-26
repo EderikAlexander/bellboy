@@ -6,9 +6,6 @@
 <%= @start_date.month %> <%= @start_date.year %>
 <%= link_to "Next", start_date: @date_range.last + 1.day  %>
 
-<%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
-    <%= f.input :day_selection, input_html: {id: "bookable-date" }  %>
-
 <table class="table table-striped">
   <thead>
   <tr>
@@ -36,8 +33,7 @@
                     <% @start_time_bookings.each do |start_time_booking| %>
                       <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
                         <div class="calendar-lw-time booked-date"><%= service_hour %>:00</div>
-
-
+                        <!-- <button type="button" class="booked-date"></button> -->
                         <% found = true %>
                       <% else %>
                       <% end %>
@@ -45,10 +41,7 @@
                     <% if found == true %>
 
                     <% else %>
-                    <div class="wrap-date">
                       <div data-date="<%= day %>|<%= service_hour %>" class="calendar-lw-time bookable-date"><%= service_hour %>:00</div>
-                      <button style="display: none;" type="submit" class="">CONFIRM</button>
-                    </div>
                       <!-- <button type="button" class="btn btn-success"><%= service_hour %></button> -->
                     <% end %>
 
@@ -62,27 +55,23 @@
     <% end %>
   </tbody>
 </table>
-    <%#= f.submit "submit", class: "btn btn-primary confirmation", style: "display:none"%>
-
-<% end %>
 
 <% content_for :after_dropdown do %>
+
+  <%#= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
+  <!-- in the url the last id is always an id. you can move between controllers if you adapt the id into the one you want. -->
+  <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
+    <!-- No hidden strategy -->
+    <%= f.input :day_selection, input_html: {id: "bookable-date" }  %>
+    <!-- Francesco hidden strategy -->
+    <%#= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
+    <!-- Damian hidden strategy -->
+    <%#= hidden_field_tag :day_selection, nil, id: "bookable-date"  %>
+
     <script type="text/javascript">
+      <%s = "3"  %>
 
       $(document).ready(function(){
-
-        $('.dropdown-menu').click(function(e) {
-          e.stopPropagation();
-        });
-
-        $("[data-date]").click(function(e) {
-          e.preventDefault();
-          // e.stopPropagation();
-          $(".wrap-date button").hide();
-          var confirm = $(this).parent().find("button");
-          confirm.show();
-        });
-
         $(".bookable-date").click(function(e){
           e.preventDefault();
 
@@ -90,15 +79,34 @@
           var dayAndHour = el.attr("data-date");
           $("#bookable-date").val(dayAndHour);
           $(".confirmation").show();
+          // -----------------------------------------------------------
+          // try to do the button next to where i click
+          // -----------------------------------------------------------
+          // alert("i clicked the hour!" + dayAndHour);
+          // $('.dropdown-menu').click(function(e) {
+          //         e.stopPropagation();
+          // });
+          // var btn = document.createElement("BUTTON");        // Create a <button> element
+          // var t = document.createTextNode("Confirm");       // Create a text node
+          // btn.appendChild(t);                                // Append the text to <button>
+          // document.body.appendChild(btn);
+          // el.appendChild(btn);                    // Append <button> to <body>
         });
 
       });
 
     </script>
 
+    <%= f.submit "submit", class: "btn btn-primary confirmation" style: "display:none"%>
+  <% end %>
 
 <% end %>
 
+<%#=f.text_field :email ,:id=>"email_field" %>
+
+<!--
+<button type="submit" class="btn btn-success click-me">Book!</button>
+-->
 
 
 

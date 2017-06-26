@@ -20,14 +20,27 @@ class BookingsController < ApplicationController
   end
 
   def create
-    raise
     ### WORK on the logic
-    start_datetime_string = booking_params["start_datetime"]
-    start_datetime_tobook = DateTime.strptime(start_datetime_string, "%m/%d/%Y %H:%M %P")
+    # start_datetime_string = booking_params["start_datetime"]
+    # start_datetime_tobook = DateTime.strptime(start_datetime_string, "%m/%d/%Y %H:%M %P")
 
+    # end_datetime_string = booking_params["end_datetime"]
+    # end_datetime_tobook = DateTime.strptime(end_datetime_string, "%m/%d/%Y %H:%M %P")
 
-    end_datetime_string = booking_params["end_datetime"]
-    end_datetime_tobook = DateTime.strptime(end_datetime_string, "%m/%d/%Y %H:%M %P")
+    start_date_hour_string = params["time_booking"]["day_selection"]
+    #=> "2017-06-15|11"
+    start_date_string = start_date_hour_string.split("|")[0]
+    #=> "2017-06-15"
+    hour = start_date_hour_string.split("|")[1].to_i
+    #=> "11"
+    start_date_time = start_date_string.to_date
+    #=> Thu, 08 Jun 2017
+    year = start_date_time.year
+    month = start_date_time.month
+    day = start_date_time.day
+
+    start_datetime_tobook = DateTime.new(year, month, day, hour, 0, 0, '+2')
+    raise
 
     @booking = Booking.new(booking_params)
     @booking.start_datetime = start_datetime_tobook
@@ -78,6 +91,7 @@ class BookingsController < ApplicationController
   private
   def booking_params
     params.require(:booking).permit(:start_datetime, :end_datetime)
+    # params.require(:booking).permit(:start_datetime, :end_datetime)
   end
 
 end
