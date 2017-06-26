@@ -58,6 +58,9 @@ class Message < ApplicationRecord
 
 # #################################################################################
 
+      # Create User
+      user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
+      user.save
 
       # Create Hotel and Stays for the user (to be able to chat with the bot)
       hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
@@ -91,14 +94,13 @@ class Message < ApplicationRecord
           # SAVE STAY's CHANGES
           stay.save
 
-          # SAVE USER's CHANGES
+        end
 
 
 # #################################################################################
 # ##########                             END                            ###########
 # #################################################################################
 
-      end
 
 action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
@@ -139,7 +141,7 @@ Rails.logger.debug("=== / action")
       elsif (action.downcase.strip.include?("hi") || action.downcase.strip.include?("hello") || action.downcase.strip.include?("hey") || action.downcase.strip.include?("yo") || action.downcase.strip.include?("ciao") || action.downcase.strip.include?("bon dia"))
         Message.hello(stay, message_or_postback, action)
       else
-        Message.default(stay, message_or_postback)
+        Message.default_answer(stay, message_or_postback)
       end
     end
 
