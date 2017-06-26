@@ -39,13 +39,13 @@ class Message < ApplicationRecord
   # CHAT BOT METHODS
   class << self
 
-    def process(message_or_postback, sender)
+    def process(message_or_postback)
       # "..." when waiting for message
       message_or_postback.typing_on
 
       # # Get current User (FB user_id) and Stay
       user = User.all.where(uid: message_or_postback.sender["id"]).first
-
+      binding.pry
       if user.present?
         # Search for first stay
         stay = user.stays.first
@@ -59,9 +59,9 @@ class Message < ApplicationRecord
             # Create User
             user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
             user.save
+
             # Create Hotel and Stays for the user (to be able to chat with the bot)
             hotel = Hotel.all.where( name: "Room Mate Gerard" ).first
-binding.pry
               # Asign Stay and Room number
               1.times do
 
