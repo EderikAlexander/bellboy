@@ -22,7 +22,7 @@
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= day %> <span class="caret"></span>
+                <%= day.day %> <span class="caret"></span>
               </button>
               <ul id="dropdown-hours" class="dropdown-menu">
                 <% @service_hours.each do |service_hour| %>
@@ -32,7 +32,8 @@
                     <% @start_time_bookings_day = [] %>
                     <% @start_time_bookings.each do |start_time_booking| %>
                       <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                        <button type="button" class="btn btn-danger"><%= service_hour %></button>
+                        <div class="calendar-lw-time booked-date"><%= service_hour %>:00</div>
+                        <!-- <button type="button" class="booked-date"></button> -->
                         <% found = true %>
                       <% else %>
                       <% end %>
@@ -40,7 +41,8 @@
                     <% if found == true %>
 
                     <% else %>
-                      <button type="button" class="btn btn-success"><%= service_hour %></button>
+                      <div data-date="<%= day %>|<%= service_hour %>" class="calendar-lw-time bookable-date"><%= service_hour %>:00</div>
+                      <!-- <button type="button" class="btn btn-success"><%= service_hour %></button> -->
                     <% end %>
 
                   </li>
@@ -54,35 +56,39 @@
   </tbody>
 </table>
 
-<button type="button" class="btn btn-success click-me">Click Me</button>
+<% content_for :after_dropdown do %>
 
-<script type="text/javascript">
+  <%#= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
+  <!-- in the url the last id is always an id. you can move between controllers if you adapt the id into the one you want. -->
+  <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => :id), method: :post do |f| %>
+    <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
+    <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
+    <%#= hidden_field_tag :day_selection, nil, id: "bookable-date"  %>
 
-  $(".click-me").on("click",function(){
-    alert("i have clicked the button click-me");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    document.body.appendChild(btn);
-    // $(this).appendChild(btn);
-  })
+    <script type="text/javascript">
+      <%s = "3"  %>
 
-  $(".day-btn-wrapper").on("click",function(){
-    // alert("button inside modal clicked");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    // $(this).appendChild(btn);
+      $(document).ready(function(){
+        $(".bookable-date").click(function(){
+          var el = $(this);
+          var dayAndHour = el.attr("data-date");
+          $("#bookable-date").val(dayAndHour);
+        });
 
-    $(this).appendChild(btn);
-    // alert("i have clicked a day");
-    // document.body.appendChild(btn);
-  })
-</script>
+      });
 
+    </script>
 
+    <%= f.submit "submit", class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+<%#=f.text_field :email ,:id=>"email_field" %>
+
+<!--
+<button type="submit" class="btn btn-success click-me">Book!</button>
+-->
 
 
 

@@ -15,14 +15,11 @@
 
 //= require_tree .
 
-
-
 $(document).ready(function() {
   // $(".with-ajax").click(function(e) {
   //   e.preventDefault();
 
   //   var $this = $(this);
-
 
   //   var href = $this.attr("href");
 
