@@ -48,6 +48,7 @@ class Message < ApplicationRecord
 
       if user.present?
         # Search for first stay
+
         stay = user.stays.first
       else
 
