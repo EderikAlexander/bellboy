@@ -123,21 +123,22 @@ a {
     h2 {
       margin-top:0px;
       margin-bottom:40px;
-      color:#98CABB;
+      color:#FFD259;
       font-size:24px;
       font-weight:300;
     }
     .bttn {
       line-height:normal;
       padding:12px 35px;
-      background:#98CABB;
+      background:#FFD259;
       border-radius:25px;
       display:inline-block;
       text-transform:uppercase;
       letter-spacing:2px;
       transition:all 0.2s ease;
       &:hover {
-        background:lighten(#98CABB,5%);
+        background:lighten(#FFD259,5%);
+        text-decoration: none;
       }
     }
     .dots {

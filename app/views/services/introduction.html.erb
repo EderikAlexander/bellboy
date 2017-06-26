@@ -6,6 +6,7 @@
 
     </div>
 
+
   <div class="london-full">
     <div class="slidetext london text-center">
     <%= image_tag image_path('logoins.svg') %>
@@ -17,7 +18,7 @@
 
     <div class="continue" style="display: flex; bottom: 60px; justify-content: center; align-items: center; width: 100%; height: 200px; position: absolute; bottom:0px;">
       <div class="next text-center" style="">
-        <a href="#0" id="cont" class="bttn">Continue</a>
+        <a href="#0" id="cont" class="bttn" style="color: #213640;">Continue</a>
       <ul class="dots">
         <li class="active"></li>
         <li></li>
@@ -31,15 +32,15 @@
     <!-- ---------------------------- -->
 
 
-    <div class="paris-full hidden">
-    <div class="slidetext paris active ">
+    <div class="paris-full ">
+    <div class="slidetext paris active hidden ">
+      <br>
+      <br><br>
+      <%= image_tag image_path('tut.svg'), width: 500 %>
 
-      <h1>Paris</h1>
-      <h2>Clubbing and nightlife</h2>
-
-      <div class="continue hidden" style="display: flex; bottom: 60px; justify-content: center; align-items: center; width: 100%; height: 200px; position: absolute; bottom:0px;">
+      <div class="continue" style="display: flex; bottom: 60px; justify-content: center; align-items: center; width: 100%; height: 200px; position: absolute; bottom:0px;">
       <div class="next text-center" style="">
-      <a href="stays/<%= Stay.first.id %>/hotels/<%= Hotel.first.id %>/services" id="start" class="bttn hidden" style="text-decoration: none;">Get Started</a>
+      <a href="stays/<%= Stay.first.id %>/hotels/<%= Hotel.first.id %>/services" id="start" class="bttn " style="text-decoration: none; color: #213640;">Get Started</a>
       <ul class="dots">
         <li></li>
         <li class="active"></li>
@@ -55,14 +56,16 @@
 <%= content_for(:after_js) do %>
   <script>
     // $(".bttn").click(function() {
-      $('#cont').click(function(){
+      $('#cont').click(function(e){
+        e.preventDefault();
         // $('#paris-full').removeClass("hidden");
         // // $('#london-full').addClass("hidden");
         // $('#start').removeClass("hidden");
         $(".background").toggleClass("paris").toggleClass("london");
         $(".london").toggleClass("active");
-        $(".paris").addClass("active");
-        #('.continue').removeClass('hidden');
+        $('.paris').removeClass("hidden")
+        $(".paris").toggleClass("active");
+        $('.continue').removeClass('hidden');
       });
 
   // $(".background").toggleClass("paris").toggleClass("london");
