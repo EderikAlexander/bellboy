@@ -97,7 +97,7 @@ class Message < ApplicationRecord
       # #################################################################################
       # ##########                             END                            ###########
       # #################################################################################
-    end
+      end
 
     action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
@@ -255,7 +255,7 @@ class Message < ApplicationRecord
     def welcome(stay, message_or_postback)
 
       data = {
-        text: "#{stay.user.first_name}! Welcome to the #{stay.hotel.name}.",
+        text: "#{stay.user.first_name}! Welcome to the #{stay.hotels.first.name}.",
       }
 
       # Trigger Welcome message
