@@ -45,7 +45,6 @@ class Message < ApplicationRecord
 
       # # Get current User (FB user_id) and Stay
       user = User.all.where(uid: message_or_postback.sender["id"]).first
-      binding.pry
       if user.present?
         # Search for first stay
         stay = user.stays.first
@@ -58,8 +57,7 @@ class Message < ApplicationRecord
 
             # Create User
             user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
-            user.save
-
+            uesr.save
             # Create Hotel and Stays for the user (to be able to chat with the bot)
             hotel = Hotel.all.where( name: "Room Mate Gerard" ).first
               # Asign Stay and Room number
@@ -90,7 +88,6 @@ class Message < ApplicationRecord
 
                 # SAVE STAY's CHANGES
                 stay.save
-
               end
 
       # #################################################################################
@@ -383,6 +380,7 @@ class Message < ApplicationRecord
       Message.restart_after_question(stay, message_or_postback)
     end
   end
+
 
     # Single message answer
     def single_answer_slider(stay, message_or_postback, input)
