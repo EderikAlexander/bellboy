@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount Localtower::Engine, at: "localtower"
   end
-
-  root to: 'stays#index'
-  get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
+  get 'terms', to: "pages#terms"
+  get 'stays/#{Stay.first}/hotels/#{Hotel.first}/services', to: 'services#index'
+  root 'services#index'
+  # root to: 'stays#index'
+  # get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
 
   resources :stays, only: [:index, :show, :new] do
     resources :hotels, only: [:show] do

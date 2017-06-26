@@ -1,14 +1,14 @@
 <div id="tab-bar" class="navbar-wagon navbar-wagon-right navbar-fixed-bottom" style="border: none;">
 
 
-  <div class="flex-item pressed text-center">
+  <!-- <div class="flex-item pressed text-center">
       <%= link_to home do %>
       <i class="tab-bar-item fa fa-home lg"> </i>
       <p style="font-size: 9px; color: white; margin-bottom: 0px;">Home</p>
       <% end %>
     </div>
-
-    <div class="flex-item text-center">
+ -->
+    <div class="flex-item text-center" style="margin-left: 30px;">
       <%= link_to stay_hotel_services_path(@stay, @hotel) do %>
       <i class="tab-bar-item fa fa-th-list lg"> </i>
       <p style="font-size: 9px; color: white; margin-bottom: 0px;">Services</p>
@@ -23,17 +23,17 @@
     <!-- <p style="font-size: 10px; margin-bottom: 10px;">Talk With Andy</p> -->
   </div>
 
-    <div  class="flex-item text-center"><%= link_to stay_hotel_locations_path(@stay, @hotel) do %>
+    <div  class="flex-item text-center" style="margin-right: 30px;"><%= link_to stay_hotel_locations_path(@stay, @hotel) do %>
       <i class="tab-bar-item fa fa-map-marker lg"> </i>
       <p style="font-size: 9px; color: white; margin-bottom: 0px;">Local tips</p>
       <% end %></div>
 
-      <div class="flex-item text-center">
+      <!-- <div class="flex-item text-center">
         <%#= link_to stay_path(@stay) do %>
         <i class="tab-bar-item fa fa-key lg"> </i>
         <p style="font-size: 9px; color: white; margin-bottom: 0px;">Room</p>
         <%# end %>
-      </div>
+      </div> -->
 
   </div>
 

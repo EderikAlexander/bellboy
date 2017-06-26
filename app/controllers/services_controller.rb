@@ -1,8 +1,8 @@
 class ServicesController < ApplicationController
 
   def new
-    @stay = Stay.find(params[:stay_id])
-    @hotel = Hotel.find(params[:hotel_id])
+    @stay = Stay.first
+    @hotel = Hotel.first
     @service = Service.new
   end
 
@@ -19,8 +19,8 @@ class ServicesController < ApplicationController
   end
 
   def index
-    @stay = Stay.find(params[:stay_id])
-    @hotel = Hotel.find(params[:hotel_id])
+    @stay = Stay.first
+    @hotel = Hotel.first
     @services = Service.all
     # raise
   end

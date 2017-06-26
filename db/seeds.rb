@@ -40,6 +40,8 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
 SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
+LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498483970/sagrada_familia_yc6s0o.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484022/park_guell_vl3bpi.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484064/la_rambla_smwgx0.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484124/ticket_restaurant_luybra.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484181/tapas_24_uscrme.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484221/el_atril_zqrotq.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484261/europcar_xf94lv.png", "http://res.cloudinary.com/montolio/image/upload/v1498484306/hertz_wzybeu.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484420/avis_lrscwa.jpg" ]
+
 
 puts "Starting seeding process..."
 
@@ -55,14 +57,17 @@ Hotel.all.with_deleted.each { |i| i.really_destroy! }
 # SEEDING PROCESS
 
 # CREATE AND SAVE HOTEL
-hotel = Hotel.new(HOTEL_LIST[rand(0..4)])
+hotel = Hotel.new(HOTEL_LIST[4])
 hotel.save
 
+i=0
 # CREATE LOCATIONS AND SAVE
 LOCATION_LIST.each do |attraction|
   location = Location.new(attraction)
   location.hotel = hotel
+  location.photo_url = LOCATIONS_URLS[i]
   location.save
+  i += 1
 end
 
 # CREATE SERVICE AND SAVE
@@ -72,22 +77,17 @@ SERVICE_LIST.each do |type|
   service.hotel = hotel
   service.photo_url = SERVICES_URLS[i]
   service.save
-  # binding.pry
   i += 1
 end
-
-t = 0
-fb_uids = ["987221848047540", "1357624897606588"]
 
 20.times do
 
   # CREATE USER
-  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: fb_uids[t])
+  user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890")
   user.save
-  t += 1
 
   # ASIGN STAY TO USER
-  3.times do
+  1.times do
 
     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
@@ -115,27 +115,30 @@ fb_uids = ["987221848047540", "1357624897606588"]
     stay.save
 
     # CREATE MESSAGES IF THE DATE OF BOOKING IS PASSED
-    unless checked_in.blank?
+    # unless checked_in.blank?
 
-      # WELCOME MESSAGE
-      msg = Message.new(from: "bot", content: MESSAGE_LIST[0][:welcome])
-      msg.stay = stay
-      msg.save
+    #   # WELCOME MESSAGE
+    #   msg = Message.new(from: "bot", content: MESSAGE_LIST[0][:welcome])
+    #   msg.stay = stay
+    #   msg.save
 
-      # RANDOM MESSAGES
-      rand(1..10).times do
-        random = rand(1..7)
-        msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
-        msg_user.stay = stay
-        msg_user.save
-        msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
-        msg_bot.stay = stay
-        msg_bot.save
-      end
-    end
+    #   # RANDOM MESSAGES
+    #   rand(1..10).times do
+    #     random = rand(1..7)
+    #     msg_user = Message.new(from: "user", content: MESSAGE_LIST[random][:question])
+    #     msg_user.stay = stay
+    #     msg_user.save
+    #     msg_bot = Message.new(from: "bot", content: MESSAGE_LIST[random][:answer])
+    #     msg_bot.stay = stay
+    #     msg_bot.save
+    #   end
+    # end
   end
 
 end
+
+
+# ###########################################################  BOOKING SEEDS
 
 users = User.all
 
@@ -308,17 +311,5 @@ start_datetimes_tobook.size.times do
   i += 1
 end
 
-# end
-
-# create_table "bookings", force: :cascade do |t|
-#   t.datetime "start_datetime"
-#   t.datetime "end_datetime"
-#   t.integer  "user_id"
-#   t.integer  "service_id"
-#   t.datetime "created_at",     null: false
-#   t.datetime "updated_at",     null: false
-#   t.index ["service_id"], name: "index_bookings_on_service_id", using: :btree
-#   t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
-# end
 
 puts "Finished seeding process!"
