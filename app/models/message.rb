@@ -391,7 +391,7 @@ class Message < ApplicationRecord
       hotel = stay.hotel
       services = hotel.services.limit(3)
 
-      url_base = "https://bellboy.fwd.wf"
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
 
       elements = []
 
@@ -500,7 +500,7 @@ class Message < ApplicationRecord
 
       # Prepare data and photos
       element = []
-      url_base = "https://bellboy.fwd.wf"
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
       url_locations = ["http://panoramaitctravel.com/shop/wp-content/uploads/2017/02/acceso-rapido-sagrada-familia.jpg", "https://www.stemaki.com/wp-content/uploads/2015/11/paqrue-guell.jpg", "http://4.bp.blogspot.com/-_QN4wdXbLXg/VY7GjOKjOiI/AAAAAAAABa4/SKM6aDfsvI0/s1600/A-walk-down-La-Rambla.-Barcelona-10.jpg",
        "https://2.bp.blogspot.com/-ztWvfdAsCjs/VcBTfy0OwNI/AAAAAAABfqM/UR4Kft16SRY/s1600/P1010489.JPG","https://spotcase.co/spot_images/20150717/18/243f76733381572a2d9a4bee5b8a83b4/243f76733381572a2d9a4bee5b8a83b4.jpg","http://www.bcnrestaurantes.com/img-trans/productos/22745/fotos/575-58774cf537719-%20.jpeg",
        "https://www.aireuropa.com/airstatic/contents/63d65d3a-73e4-4f03-ba08-a73ec5b1b6e4.png","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hertz_Logo.svg/1200px-Hertz_Logo.svg.png","https://reskytnew.s3.amazonaws.com/857/plato-visitasandorra-visitas-andorra-12877_ppc.jpg"]
