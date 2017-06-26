@@ -9,5 +9,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session['devise.facebook_data'] = request.env['omniauth.auth']
       redirect_to new_user_registration_url
     end
+
+    # def after_sign_up_path_for(resource)
+    # '/introduction' # Or :prefix_to_your_route
+    # end
+
   end
 end

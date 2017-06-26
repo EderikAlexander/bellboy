@@ -20,9 +20,11 @@
 @import "components/loading";
 @import "pages/landing-page";
 @import "components/service-card";
+@import "pages/introduction";
 
 
 body{
   margin-top: 0px;
   margin-bottom: 65px;
+  padding-top: 50;
 }
