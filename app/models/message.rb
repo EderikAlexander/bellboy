@@ -16,7 +16,6 @@ class Message < ApplicationRecord
     wifi: "The wifi password is: RoomMate2017",
     service: "Here there should be a list template.",
     locations: "Which option are you interested in?",
-    breakfast: "Starts at 8:00 am and ends at 11:00 am",
     laundry: "Yes, do you want us to pick up your laundry?",
     room: "Your room number is ",
     events: "Yes we do in the third floor",
