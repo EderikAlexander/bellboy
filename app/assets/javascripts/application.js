@@ -14,3 +14,24 @@
 //= require chartkick
 
 //= require_tree .
+
+$(document).ready(function() {
+  // $(".with-ajax").click(function(e) {
+  //   e.preventDefault();
+
+  //   var $this = $(this);
+
+  //   var href = $this.attr("href");
+
+  //   $.ajax({
+  //     url: href,
+  //     method: 'GET',
+  //     success: function(data) {
+  //       var newHtml = $($.trim(data)).find("#calendar-content").html();
+  //       console.log(newHtml);
+  //       $("#calendar-content").html(newHtml);
+  //     }
+  //   });
+
+  // });
+});
