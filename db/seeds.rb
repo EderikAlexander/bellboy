@@ -17,14 +17,12 @@ LOCATION_LIST = [ { name: "Sagrada Familia", address: "Carrer de la Marina, 253 
  { name: "Moto Rent", address: "Carrer de Roger de Llúria, 31, 08009 Barcelona", category: "Rentals" }
 ]
 
-
-
 # CREATE SERVICES
 SERVICE_LIST = [ { title: "Restaurant", description: "Welcome to BRAVO24 where Catalan chef Carles Abellán cooks up the true essence of each local ingredient in its freshest.", end_time: "23:00", start_time: "19:00" },
  { title: "Massage", description: "Boasts a brisk rub of freshly-grated ginger root and warm detoxifying essential oils, a cozy warming foil wrap, a 20-minute soak and a 100-minute body-melting massage.", end_time: "21:00", start_time: "10:00", price: 200 },
  { title: "Swimming Pool", description: "Take it outside to the terrace where perfect cocktails, light fare, small dishes, snacks, and tapas are inspired by Barcelona with a modern twist.", end_time: "23:00", start_time: "7:00" },
  { title: "Entertainment Room", description: "The best way to find game room ideas is to take a cue from your favorite activities and the things you do for fun.", end_time: "22:00", start_time: "18:00" },
- { title: "Transportation", description: "The journey time from the airport to the centre is between 20 to 30 minutes depending on the time of day.", end_time: "00:00", start_time: "23:59" }
+ { title: "Transportation", description: "The journey time from the airport to the centre is between 20 to 30 minutes depending on the time of day.", end_time: "00:00", start_time: "23:59" }, { title: "Laundry", description: "Tell us when we should wash your dirty laundry", end_time: "00:00", start_time: "23:59" }
 ]
 
 # MESSAGE LIST
@@ -41,6 +39,7 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 # ROOM TYPES
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
+SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
 
 puts "Starting seeding process..."
 
@@ -67,16 +66,20 @@ LOCATION_LIST.each do |attraction|
 end
 
 # CREATE SERVICE AND SAVE
+i = 0
 SERVICE_LIST.each do |type|
   service = Service.new(type)
   service.hotel = hotel
+  service.photo_url = SERVICES_URLS[i]
   service.save
+  # binding.pry
+  i += 1
 end
 
 t = 0
 fb_uids = ["987221848047540", "1357624897606588"]
 
-2.times do
+20.times do
 
   # CREATE USER
   user = User.new(email: Faker::Internet.free_email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, passport: Faker::Number.number(8), password: "1234567890", uid: fb_uids[t])
@@ -99,7 +102,6 @@ fb_uids = ["987221848047540", "1357624897606588"]
 
     # ASIGN STAY INSTANCE TO HOTEL
     stay.hotel = hotel
-
 
     # CREATE AND ASIGN ROOM
     room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
@@ -134,5 +136,79 @@ fb_uids = ["987221848047540", "1357624897606588"]
   end
 
 end
+
+users = User.all
+
+services = Service.all
+
+bookable_services = []
+
+services.each_with_index do |service, index|
+  if index == 0 or index == 1 or index == 4 or index == 5
+    bookable_services << service
+  end
+end
+
+# RESTAURANTS
+start_booking_strings = ["06/26/2017 7:00 PM", "06/25/2017 6:00 PM", "06/25/2017 7:00 PM", "06/25/2017 8:00 PM", "06/24/2017 5:00 PM", "06/24/2017 7:00 PM", "06/24/2017 8:00 PM", "06/23/2017 7:00 PM", "05/22/2017 7:00 PM", "05/22/2017 8:00 PM", "05/21/2017 7:00 PM", "05/21/2017 9:00 PM", "05/20/2017 7:00 PM", "05/2/2017 8:00 PM", "04/20/2017 5:00 PM", "04/19/2017 6:00 PM", "04/19/2017 8:00 PM", "03/26/2017 4:00 PM", "03/26/2017 7:00 PM", "02/26/2017 6:00 PM", "02/26/2017 8:00 PM", "02/26/2017 9:00 PM", "01/10/2017 4:00 PM", "01/11/2017 8:00 PM", "01/12/2017 9:00 PM", "01/14/2017 7:00 PM"]
+
+end_booking_strings = ["06/26/2017 7:59 PM", "06/25/2017 6:59 PM", "06/25/2017 7:59 PM", "06/25/2017 8:59 PM", "06/24/2017 5:59 PM", "06/24/2017 7:59 PM", "06/24/2017 8:59 PM", "06/23/2017 7:59 PM", "05/22/2017 7:59 PM", "05/22/2017 8:59 PM", "05/21/2017 7:59 PM", "05/21/2017 9:59 PM", "05/20/2017 7:59 PM", "05/2/2017 8:59 PM", "04/20/2017 5:59 PM", "04/19/2017 6:59 PM", "04/19/2017 8:59 PM", "03/26/2017 4:59 PM", "03/26/2017 7:59 PM", "02/26/2017 6:59 PM", "02/26/2017 8:59 PM", "02/26/2017 9:59 PM", "01/10/2017 4:59 PM", "01/11/2017 8:59 PM", "01/12/2017 9:59 PM", "01/14/2017 7:59 PM"]
+
+start_datetimes_tobook = []
+start_booking_strings.each do |start_booking_string|
+  start_datetimes_tobook << DateTime.strptime(start_booking_string, "%m/%d/%Y %H:%M %P")
+end
+
+end_datetimes_tobook = []
+end_booking_strings.each do |end_booking_string|
+  end_datetimes_tobook << DateTime.strptime(end_booking_string, "%m/%d/%Y %H:%M %P")
+end
+
+i = 0
+start_datetimes_tobook.size.times do
+  booking = Booking.new(start_datetime: start_datetimes_tobook[i], end_datetime: end_datetimes_tobook[i])
+  booking.user = users.sample
+  booking.service = bookable_services[0]
+  booking.save
+  i += 1
+end
+
+# MASSAGES
+start_booking_strings = ["06/26/2017 9:00 PM", "06/26/2017 7:00 PM", "06/25/2017 6:00 PM", "06/25/2017 7:00 PM", "06/25/2017 8:00 PM", "06/24/2017 5:00 PM", "06/24/2017 7:00 PM", "06/24/2017 8:00 PM", "06/23/2017 7:00 PM", "05/22/2017 7:00 PM", "05/22/2017 8:00 PM", "05/21/2017 7:00 PM", "05/21/2017 9:00 PM", "05/20/2017 7:00 PM", "05/2/2017 8:00 PM", "05/2/2017 9:00 PM", "04/20/2017 5:00 PM", "04/20/2017 5:00 PM", "04/19/2017 6:00 PM", "04/19/2017 8:00 PM", "03/26/2017 4:00 PM", "03/26/2017 7:00 PM", "02/26/2017 6:00 PM", "02/26/2017 8:00 PM", "02/26/2017 9:00 PM", "01/10/2017 4:00 PM", "01/11/2017 8:00 PM", "01/12/2017 9:00 PM", "01/14/2017 7:00 PM"]
+
+end_booking_strings = ["06/26/2017 9:59 PM", "06/26/2017 7:59 PM", "06/25/2017 6:59 PM", "06/25/2017 7:59 PM", "06/25/2017 8:59 PM", "06/24/2017 5:59 PM", "06/24/2017 7:59 PM", "06/24/2017 8:59 PM", "06/23/2017 7:59 PM", "05/22/2017 7:59 PM", "05/22/2017 8:59 PM", "05/21/2017 7:59 PM", "05/21/2017 9:59 PM", "05/20/2017 7:59 PM", "05/2/2017 8:59 PM", "05/2/2017 9:59 PM", "04/20/2017 5:59 PM", "04/20/2017 5:59 PM", "04/19/2017 6:59 PM", "04/19/2017 8:59 PM", "03/26/2017 4:59 PM", "03/26/2017 7:59 PM", "02/26/2017 6:59 PM", "02/26/2017 8:59 PM", "02/26/2017 9:59 PM", "01/10/2017 4:59 PM", "01/11/2017 8:59 PM", "01/12/2017 9:59 PM", "01/14/2017 7:59 PM"]
+
+start_datetimes_tobook = []
+start_booking_strings.each do |start_booking_string|
+  start_datetimes_tobook << DateTime.strptime(start_booking_string, "%m/%d/%Y %H:%M %P")
+end
+
+end_datetimes_tobook = []
+end_booking_strings.each do |end_booking_string|
+  end_datetimes_tobook << DateTime.strptime(end_booking_string, "%m/%d/%Y %H:%M %P")
+end
+
+i = 0
+start_datetimes_tobook.size.times do
+  booking = Booking.new(start_datetime: start_datetimes_tobook[i], end_datetime: end_datetimes_tobook[i])
+  booking.user = users.sample
+  booking.service = bookable_services[1]
+  booking.save
+  i += 1
+end
+
+
+# end
+
+# create_table "bookings", force: :cascade do |t|
+#   t.datetime "start_datetime"
+#   t.datetime "end_datetime"
+#   t.integer  "user_id"
+#   t.integer  "service_id"
+#   t.datetime "created_at",     null: false
+#   t.datetime "updated_at",     null: false
+#   t.index ["service_id"], name: "index_bookings_on_service_id", using: :btree
+#   t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+# end
 
 puts "Finished seeding process!"

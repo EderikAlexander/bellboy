@@ -27,17 +27,9 @@ class HotelsController < ApplicationController
     end
 
     test1 = Stay.group_by_day(:start_booking_date).count
+  end
 
-
-    # months = (1..12).to_a
-
-    # @bookings_month = []
-
-    # months.each do |month|
-    #   @bookings_month << @start_booking_dates.select { |start_booking_date| start_booking_date.to_date.month == month }.size
-    # end
-
-    # @months_name = ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  def charts
 
   end
 

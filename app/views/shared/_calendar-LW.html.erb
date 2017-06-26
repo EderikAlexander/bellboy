@@ -54,7 +54,20 @@
   </tbody>
 </table>
 
+<button type="button" class="btn btn-success click-me">Click Me</button>
+
 <script type="text/javascript">
+
+  $(".click-me").on("click",function(){
+    alert("i have clicked the button click-me");
+    var btn = document.createElement("BUTTON");
+    var t = document.createTextNode("Confirm");
+    btn.appendChild(t);
+    btn.className = "confirm-btn";
+    document.body.appendChild(btn);
+    // $(this).appendChild(btn);
+  })
+
   $(".day-btn-wrapper").on("click",function(){
     // alert("button inside modal clicked");
     var btn = document.createElement("BUTTON");
@@ -62,8 +75,9 @@
     btn.appendChild(t);
     btn.className = "confirm-btn";
     // $(this).appendChild(btn);
-    document.getElementById("dropdown-hours").appendChild(btn);
-    alert("i have clicked a day")
+
+    $(this).appendChild(btn);
+    // alert("i have clicked a day");
     // document.body.appendChild(btn);
   })
 </script>
