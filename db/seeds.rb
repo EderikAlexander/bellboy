@@ -40,6 +40,8 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
 SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
+LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
+
 
 puts "Starting seeding process..."
 
@@ -77,7 +79,6 @@ SERVICE_LIST.each do |type|
 end
 
 t = 0
-fb_uids = ["987221848047540", "1357624897606588"]
 
 20.times do
 
