@@ -48,6 +48,11 @@ class Message < ApplicationRecord
       # # Get current User (FB user_id) and Stay
       user = User.all.where(uid: message_or_postback.sender["id"]).first
 
+      if user.present?
+        # Search for first stay
+        stay = user.stays.first
+      else
+
 # #################################################################################
 
 # ##########.            THIS SHOULD BE MADE BY THE HOTEL               ###########
@@ -56,45 +61,46 @@ class Message < ApplicationRecord
 # #################################################################################
 
 
-      # # Create Hotel and Stays for the user (to be able to chat with the bot)
-      # hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
+      # Create Hotel and Stays for the user (to be able to chat with the bot)
+      hotel = Hotel.all.where( name: "Room Mate Emma Hotel" )
 
-      #   # Asign Stay and Room number
-      #   1.times do
+        # Asign Stay and Room number
+        1.times do
 
-      #     # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
-      #     start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
-      #     end_booking_date = start_booking_date + rand(1..15)
-      #     checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
-      #     checked_out = end_booking_date if end_booking_date < Date.today
+          # STAY FIELDS (INCLUIDING STAYS ALREADY FINISHED AND OPEN ONES)
+          start_booking_date = Date.today + (rand(1..9) < 5 ? +1 : -1) * rand(2..30)
+          end_booking_date = start_booking_date + rand(1..15)
+          checked_in = start_booking_date <= Date.today ? (start_booking_date - rand(0..3)) : nil
+          checked_out = end_booking_date if end_booking_date < Date.today
 
-      #     # CREATE STAY INSTANCE
-      #     stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
-      #     # ASIGN STAY INSTANCE TO USER
-      #     stay.user = user
+          # CREATE STAY INSTANCE
+          stay = Stay.new(start_booking_date: start_booking_date, end_booking_date: end_booking_date, checked_in: checked_in, checked_out: checked_out)
+          # ASIGN STAY INSTANCE TO USER
+          stay.user = user
 
-      #     # ASIGN STAY INSTANCE TO HOTEL
-      #     stay.hotel = hotel
+          # ASIGN STAY INSTANCE TO HOTEL
+          stay.hotel = hotel
 
 
-      #     # CREATE AND ASIGN ROOM
-      #     room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
-      #     room.hotel = hotel
-      #     room.save
+          # CREATE AND ASIGN ROOM
+          room = Room.new(number: rand(100..500), room_type: ROOM_TYPE_LIST.sample)
+          room.hotel = hotel
+          room.save
 
-      #     # ASIGN ROOM TO STAY
-      #     stay.room = room
+          # ASIGN ROOM TO STAY
+          stay.room = room
 
-      #     # SAVE STAY's CHANGES
-      #     stay.save
+          # SAVE STAY's CHANGES
+          stay.save
 
-      #     # SAVE USER's CHANGES
+          # SAVE USER's CHANGES
+
 
 # #################################################################################
 # ##########                             END                            ###########
 # #################################################################################
 
-stay = user.stays.first
+      end
 
 action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
