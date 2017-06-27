@@ -37,11 +37,12 @@
       <tbody>
         <% @date_range.each_slice(7) do |week| %>
           <tr>
-            <% week.each do |day| %>
+          <% weekdays = {"0": "Monday", "1": "Tuesday" ,"2": "Wednesday" ,"3": "Thursday", "4": "Friday", "5": "Saturday", "6": "Sunday"} %>
+            <% week.each_with_index do |day, index| %>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle cal-book-day-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="text-center">
+                    <div class="text-center" data-target="<%= weekdays[index.to_s.to_sym] %>">
                      <%= day.day %>
                     </div>
                   </button>
@@ -120,7 +121,34 @@
           $("#bookable-date").val(dayAndHour);
           $(".confirmation").show();
         });
+
+        // ---------------------------------------------------------------
+        // add bootstrap class: dropdown-menu-right when clicking day.
+        // ---------------------------------------------------------------
+        $('.cal-book-day-btn').click(function(e) {
+          if (($("div", this).data("target")) == "Saturday" || ($("div", this).data("target")) == "Sunday") {
+            $(this).siblings().first().addClass('dropdown-menu-right');
+          }
+          console.log("hello");
+
+          element = $('.cal-book-day-btn').parent().parent().parent().parent().parent().find("th");
+          element = element[6]; // .text()?
+          console.log(element);
+          console.log(typeof element);
+          // console.log(element.keys("th"));
+          // var $tag = $(element); //this turns your string into real html
+          // console.log($tag);
+          // var result = $tag.find('th').eq(0).text();
+          // console.log(result);
+          // console.log(result.keys());
+
+        });
+
+
+
+
       });
+
     </script>
 <% end %>
 
