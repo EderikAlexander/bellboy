@@ -1,0 +1,24 @@
+.location-image{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background-position: center;
+ background-size: cover;
+ height: 250px;
+ text-align: center;
+ color: #FFD259;
+ margin-top: 155px;
+}
+
+
+.complete-location-show{
+  width: 100%;
+  height: 100vh;
+  background-color: #25353D;
+  border: none;
+
+}
+
+#route-map{
+  margin: 20px;
+}

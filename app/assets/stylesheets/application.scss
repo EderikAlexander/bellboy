@@ -22,11 +22,12 @@
 @import "components/service-card";
 @import "pages/introduction";
 @import "components/infowindow";
+@import "pages/show_locations";
 
 
 body{
   margin-top: 0px;
-  margin-bottom: 65px;
+  // margin-bottom: 65px;
   padding-top: 50;
   // background-color: #25353D;
 }
