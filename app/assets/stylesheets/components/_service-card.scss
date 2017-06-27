@@ -1,17 +1,22 @@
 .services-container {
-  margin: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 80px;
+  margin-bottom: 100px;
 }
 
 .service-image {
   width: 100%;
   height: 300px;
   img {
+    background-size: cover;
+    background-position: center;
     margin: 0px;
     padding: 0px;
     width: 100%;
     height: 300px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    border-radius: 6px;
   }
 }
 
