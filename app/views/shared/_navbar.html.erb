@@ -11,10 +11,13 @@
 
   <div class="collapse" id="collapseExample">
     <div class="bellboy-dropdown-menu">
-    <ul class="list-unstyled">
-      <li><%= link_to "Stays", stays_path, style: "color: white;"  %></li>
-      <li><%= link_to "Log out", destroy_user_session_path, method: :delete, style: "color: white;"%></li>
-    </ul>
+      <ul class="list-unstyled">
+        <li><%= link_to "WIFI", stays_path %></li>
+        <li><%= link_to "Hotel", stays_path %></li>
+        <li><%= link_to "About Andy", stays_path %></li>
+        <li><%= link_to "Profile", stays_path %></li>
+        <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+      </ul>
     </div>
   </div>
 </div>

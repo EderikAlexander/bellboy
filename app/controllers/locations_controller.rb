@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
 
     @locations = @locations.select { |l| l.category == "Restaurants"} if params[:filter] == 'restaurant'
     @locations = @locations.select { |l| l.category == "Rentals"} if params[:filter] == 'rentals'
-    @locations = @locations.select { |l| l.category == "Sight seeing"} if params[:filter] == 'Sight+seeing'
+    @locations = @locations.select { |l| l.category == "Sights"} if params[:filter] == 'Sights'
 
    @hash = convert_to_hash(@locations, @stay, @hotel)
   end

@@ -1,7 +1,9 @@
+
 .services-container {
-  padding-top: 80px;
-  padding-bottom: 60px;
-  background-color: rgba(62, 60, 66, 0.1);
+  padding-top: 40px;
+  padding-bottom: 130px;
+  background-color: #F4F4F4;
+  width: 100%;
 }
 
 .service-image {
@@ -11,21 +13,43 @@
   background-position: center;
   padding: 0px;
   border: 1px solid rgba(255, 217, 115, 0.1);
-  border-radius: 3px;
 }
 
 .service-element {
-  margin: 0px;
-  padding-right: 0px;
-  padding-left: 0px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background-color: white;
+  width: 90%;
+  margin: auto;
+  padding: 15px;
+  margin-top: 20px;
 }
 
 .service-title {
-  color: rgb(58, 72, 91);
   font-family: 'Source Sans Pro', sans-serif;
   text-decoration: none;
+  h3 {
+    padding: 0px;
+    padding-top: 10px;
+    margin: 0px;
+    color: #213640;
+    font-size: 18px;
+  }
+}
+
+.service-time {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.service-hour {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #fff;
+  font-weight: lighter;
+  font-size: 15px;
+  background-color: #213640;
+  border: 1px solid #FFBE1D ;
+  border-radius: 10px;
+  width: 120px;
 }
 
 a:hover {
