@@ -3,6 +3,7 @@ class ServicesController < ApplicationController
   def introduction
     @stay = Stay.first
     @hotel = Hotel.first
+    @disable_nav = true
   end
 
 
