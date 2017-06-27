@@ -8,16 +8,11 @@
 .service-image {
   width: 100%;
   height: 300px;
-  img {
-    background-size: cover;
-    background-position: center;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 300px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-  }
+  background-size: cover;
+  background-position: center;
+  padding: 0px;
+  border: 1px solid rgba(255, 217, 115, 0.1);
+  border-radius: 3px;
 }
 
 .service-element {
