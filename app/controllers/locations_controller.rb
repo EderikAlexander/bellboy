@@ -28,7 +28,7 @@ class LocationsController < ApplicationController
     Gmaps4rails.build_markers(locations) do |location, marker|
       marker.lat location.latitude
       marker.lng location.longitude
-      marker.infowindow render_to_string(partial: "/locations/mapbox", locals: { stay: stay, hotel: hotel, location: location })
+      marker.infowindow render_to_string(partial: "/locations/mapbox", locals: { stay: stay, hotel: hotel, location: location } )
     end
   end
 

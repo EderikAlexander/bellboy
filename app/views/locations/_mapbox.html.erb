@@ -5,9 +5,9 @@
     <div class="card-img" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('<%= cl_image_path location.photo.path if location.photo? %>'); width: 200px; height: 100px">
     </div>
   <% end %>
-    <div>
-      <p class="karla-bold">name: <%= location.name %></p>
-      <p class="karla-light">address: <%= location.address %></p>
+    <div class="box-content">
+      <p class="karla-bold" style="font-size: 16px;">name: <%= location.name %></p>
+      <p class="karla-light" style="font-size: 12px; ">address: <%= location.address %></p>
     </div>
   </div>
   <% end %>
