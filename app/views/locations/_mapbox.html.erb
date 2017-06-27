@@ -2,12 +2,14 @@
   <%= link_to stay_hotel_location_path(stay, hotel, location) do %>
   <div>
   <% if location.photo? %>
-    <div class="card-img" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('<%= cl_image_path location.photo.path if location.photo? %>'); width: 200px; height: 100px">
+  <div id="box-wrap">
+    <div id ="mapbox-img" class="card-img" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('http://c10.nrostatic.com/sites/default/files/uploaded/sagrada-familia-cathedral-barcelona-catholic-architecture-r.jpg');">
+    </div>
     </div>
   <% end %>
     <div class="box-content">
-      <p class="karla-bold" style="font-size: 16px;">name: <%= location.name %></p>
-      <p class="karla-light" style="font-size: 12px; ">address: <%= location.address %></p>
+      <p class="karla-bold" style="font-size: 16px;"><%= location.name %>&nbsp; &nbsp; &nbsp; &nbsp; <span id="route-me"> Route me </span></p>
+      <p class="karla-light" style="font-size: 12px;"><%= location.address %></p>
     </div>
   </div>
   <% end %>
