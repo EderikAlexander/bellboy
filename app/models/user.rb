@@ -53,4 +53,9 @@ class User < ApplicationRecord
       return user
     end
 
+    def koala
+    @graph = Koala::Facebook::API.new(token)
+
+  end
+
 end

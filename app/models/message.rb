@@ -34,7 +34,9 @@ class Message < ApplicationRecord
       after_question: "Is there anything else I can help you with?",
       who: "I\'m Andy, your best friend, personal concierge and the assistant that you deserve! =)",
       restaurants: "Check out our restaurants and bars:",
-      massage: "Hard work pays off! You deserve a massage!"
+      massage: "Hard work pays off! You deserve a massage!",
+      taxi: "Right, do you want us to order a cab in front of the hotel or call the cab yourself?",
+      taxi_ordered: "Allright we booked a cab. It will arrive in 10 minutes in front off the hotel. Just ask the doorman to guide you to the cab. ",
     }
 
   # CHAT BOT METHODS
@@ -95,7 +97,7 @@ class Message < ApplicationRecord
       # #################################################################################
       # ##########                             END                            ###########
       # #################################################################################
-      end
+    end
 
     action = message_or_postback.respond_to?(:quick_reply) ? message_or_postback.quick_reply : message_or_postback.payload
 
@@ -125,20 +127,33 @@ class Message < ApplicationRecord
         Message.display_selection(stay, message_or_postback, "Sights")
       elsif action == 'RENT_PAYLOAD' || action.downcase.strip.include?("rent")
         Message.display_selection(stay, message_or_postback, "Rentals")
+      elsif action == 'ORDER_CAB_PAYLOAD'
+        Message.single_answer(stay, message_or_postback, :taxi_ordered)
+      elsif action == 'TAXI_PAYLOAD' || action.downcase.strip.include?("taxi") || action.downcase.strip.include?("cab")
+        Message.taxi(stay, message_or_postback, :taxi)
+      elsif action == 'OPTIONS_PAYLOAD' || action.downcase.strip.include?("option")
+        Message.options(stay, message_or_postback)
+      elsif action == 'HOTEL_PAYLOAD' || action.downcase.strip.include?("call hotel") || action.downcase.strip.include?("phone")
+        Message.call_hotel(stay, message_or_postback)
+      elsif action == 'ROUTE_HOTEL_PAYLOAD' || action.downcase.strip.include?("call hotel") || action.downcase.strip.include?("phone")
+        Message.call_hotel(stay, message_or_postback)
+
+
+
 
       # TYPED MESSAGES (HUMANIZER)
-      elsif action.downcase.strip.include?("tired") || action.downcase.strip.include?("massage") || action.downcase.strip.include?("relax")
-        Message.single_answer(stay, message_or_postback, :massage)
-      elsif action.downcase.strip.include?("hungry") || action.downcase.strip.include?("bar") || action.downcase.strip.include?("eat") || action.downcase.strip.include?("restaurant")
-        Message.single_answer(stay, message_or_postback, :restaurants)
-      elsif action.downcase.strip.include?("who are you") || action.downcase.strip.include?("who is this")
-        Message.single_answer(stay, message_or_postback, :who)
-      elsif (action.downcase.strip.include?("hi") || action.downcase.strip.include?("hello") || action.downcase.strip.include?("hey") || action.downcase.strip.include?("yo") || action.downcase.strip.include?("ciao") || action.downcase.strip.include?("bon dia"))
-        Message.hello(stay, message_or_postback, action)
-      else
-        Message.default_answer(stay, message_or_postback)
-      end
+    elsif action.downcase.strip.include?("tired") || action.downcase.strip.include?("massage") || action.downcase.strip.include?("relax")
+      Message.single_answer(stay, message_or_postback, :massage)
+    elsif action.downcase.strip.include?("hungry") || action.downcase.strip.include?("bar") || action.downcase.strip.include?("eat") || action.downcase.strip.include?("restaurant")
+      Message.single_answer(stay, message_or_postback, :restaurants)
+    elsif action.downcase.strip.include?("who are you") || action.downcase.strip.include?("who is this")
+      Message.single_answer(stay, message_or_postback, :who)
+    elsif (action.downcase.strip.include?("hi") || action.downcase.strip.include?("hello") || action.downcase.strip.include?("hey") || action.downcase.strip.include?("yo") || action.downcase.strip.include?("ciao") || action.downcase.strip.include?("bon dia"))
+      Message.hello(stay, message_or_postback, action)
+    else
+      Message.default_answer(stay, message_or_postback)
     end
+  end
 
   def default_answer(stay, message_or_postback)
 
@@ -153,9 +168,36 @@ class Message < ApplicationRecord
       Message.create(content: data, from: "bot", stay: stay)
 
       # Restart method
-      Message.single_answer(stay, message_or_postback, :custom_questions)
-      binding.pry
+      Message.single_answer(stay, message_or_postback, :after_question)
+
     end
+
+    def call_hotel(stay, message_or_postback)
+      data = {
+        "attachment":
+        {
+        "type":"template",
+        "payload":
+          {
+          "template_type":"button",
+          "text":"Hi, just push the button and you will call your hotel.",
+          "buttons":[
+           {
+            "type":"phone_number",
+            "title":"Call my Hotel",
+            "payload":"+31619663369"
+          }
+        ]
+      }
+    }
+  }
+  message_or_postback.reply(data)
+  Message.create(content: data, from: "bot", stay: stay)
+
+  Message.restart_after_question(stay, message_or_postback)
+
+
+  end
 
     # Restart method
     def restart_after_introduction(stay, message_or_postback)
@@ -177,9 +219,14 @@ class Message < ApplicationRecord
                 content_type:"text",
                 title: "LOCATIONS",
                 payload: "LOCATION_PAYLOAD",
-              }
-            ]
-          }
+                },
+                {
+                  content_type:"text",
+                  title: "MORE OPTIONS",
+                  payload: "OPTIONS_PAYLOAD",
+                }
+              ]
+            }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -207,9 +254,14 @@ class Message < ApplicationRecord
                 content_type:"text",
                 title: "LOCATIONS",
                 payload: "LOCATION_PAYLOAD",
-              }
-            ]
-          }
+                },
+                {
+                  content_type:"text",
+                  title: "MORE OPTIONS",
+                  payload: "OPTIONS_PAYLOAD",
+                }
+              ]
+            }
 
       # Trigger Welcome message
       message_or_postback.reply(data)
@@ -238,6 +290,41 @@ class Message < ApplicationRecord
                 content_type:"text",
                 title: "LOCATIONS",
                 payload: "LOCATION_PAYLOAD",
+                },
+                {
+                  content_type:"text",
+                  title: "MORE OPTIONS",
+                  payload: "OPTIONS_PAYLOAD",
+                }
+              ]
+            }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+    end
+
+    def options(stay, message_or_postback)
+
+      data = {
+        text: MESSAGE[:restart],
+        quick_replies:[
+          {
+            content_type:"text",
+            title: "TAXI",
+            payload: "TAXI_PAYLOAD",
+            },
+            {
+              content_type: "text",
+              title: "CALL HOTEL",
+              payload:"HOTEL_PAYLOAD",
+              },
+              {
+                content_type:"text",
+                title: "ROUTE ME TO HOTEL",
+                payload: "ROUTE_HOTEL_PAYLOAD",
               }
             ]
           }
@@ -372,6 +459,8 @@ class Message < ApplicationRecord
       # Trigger Welcome message
       message_or_postback.reply(data)
 
+
+
       # Save Message
       Message.create(content: data, from: "bot", stay: stay)
 
@@ -380,6 +469,64 @@ class Message < ApplicationRecord
 
     else
       Message.restart_after_question(stay, message_or_postback)
+    end
+  end
+
+  def taxi (stay, message_or_postback, input)
+    data = {
+      text: MESSAGE[input]
+    }
+
+       # Trigger Welcome message
+       message_or_postback.reply(data)
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
+      if input == :taxi
+
+        element = []
+      url_base = "https://bellboy-app.herokuapp.com" # "https://bellboy.fwd.wf"
+
+      # Select locations by category
+      service = stay.hotel.services.where(title: "Transportation").first
+
+      # Create array to display
+      element << {
+        "title": "#{service.title}",
+        "image_url": "https://res.cloudinary.com/montolio/image/upload/v" + service.photo.version + "/" + service.photo.public_id + "." + service.photo.format,
+        "subtitle": "#{service.description.truncate(80, separator: /\s/)}",
+
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Book a cab",
+            "payload":"ORDER_CAB_PAYLOAD"
+            },{
+              "type":"phone_number",
+              "title":"Call a cab",
+              "payload":"+31619663369"
+            }
+          ]
+        }
+
+      # Create data to send (input: array of elements)
+      data = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"generic",
+            "elements": element
+          }
+        }
+      }
+
+      # Trigger Welcome message
+      message_or_postback.reply(data)
+
+
+
+      # Save Message
+      Message.create(content: data, from: "bot", stay: stay)
     end
   end
 
@@ -526,15 +673,20 @@ class Message < ApplicationRecord
                 "type":"web_url",
                 "url": url_base + "/stays/#{stay.id}/hotels/#{stay.hotel.id}/locations/#{location.id}",
                 "title": "Route me to #{location.name}"
-                },{
-                  "type":"postback",
-                  "title":"Keep on Chatting",
-                  "payload":"GET_STARTED_PAYLOAD"
-                }
-              ]
-            }
+                },
+                {
+                  "type":"phone_number",
+                  "title":"Call #{location.name}",
+                  "payload":"+31619663369"
+                  },{
+                    "type":"postback",
+                    "title":"Keep on Chatting",
+                    "payload":"GET_STARTED_PAYLOAD"
+                  }
+                ]
+              }
 
-          end
+            end
 
       # Create data to send (input: array of elements)
       data = {
