@@ -129,36 +129,10 @@
   background-color: #A0C814;
   border-radius: 5px;
   padding: 5px 16px;
+  cursor: pointer;
 }
 
-// .calendar-lw-time:hover {
-//   background-color: #A0C814;
-//   border-radius: 5px;
-//   padding: 0px 0px;
-// }
 
-// .wrap-confirm-btn button {
-//   background-color: green;
-// }
-
-// .wrap-confirm-btn {
-//   margin-left: 20px;
-//   padding: 0px;
-//   margin: 0px;
-//   // padding: 2px 0px;
-// }
-
-// .confirm-btn {
-//   background-color: #213640;
-//   color: white;
-//   border: 0px;
-//   // width: 60px;
-//   // height: 20px;
-//   border-radius: 3px;
-//   font-size: 12px;
-//   padding: 0px;
-//   margin: 0px;
-// }
 
 .wrap-confirm-btn {
   background-color: #213640;
@@ -190,7 +164,12 @@
   color: rgb(210, 210, 210);
 }
 
-
+// .booked-hour:hover {
+//   color: rgb(180, 180, 180);
+//   background-color: rgb(210, 210, 210);
+//   border-radius: 5px;
+//   // padding: 5px 16px;
+// }
 
 // ------------------------------------------------
 // HOURS IN CALENDAR 2
