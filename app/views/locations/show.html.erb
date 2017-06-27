@@ -3,7 +3,7 @@
 <%= content_for :link, hreff %>
 
 <div class="complete-location-show">
-<div class="location-image" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.1) 0%, rgba(0,36,61,0.6) 50%), url('http://c10.nrostatic.com/sites/default/files/uploaded/sagrada-familia-cathedral-barcelona-catholic-architecture-r.jpg');">
+<div class="location-image" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.1) 0%, rgba(0,36,61,0.6) 50%), url('<%= cl_image_path @location.photo.path if @location.photo? %>');">
   <!-- <div class="location-banner-content"> -->
   <div class="location-header">
   <h1><%= @location.name %></h1>
@@ -19,7 +19,7 @@
 </div>
 
 <div class="calling text-center"><a href="tel:+1800229933">
-  <button id="cab-location" class=" btn btn-warning">CALL A CAB</button>
+  <button id="cab-location" class="btn-medium-map btn-medium-yellow" style="border:none; padding: 10px 50px; font-size: 16px">CALL A CAB</button>
 </a>
 
 </div>
