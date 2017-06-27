@@ -8,18 +8,18 @@
 }
 
 #service-description, #opening-hours {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .mini-title {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: bold;
   color: white;
   margin-bottom: 30px;
 }
 
 #opening-hours-big {
-  font-size: 28px;
+  font-size: 20px;
 }
 
 #service-title, #service-description, #opening-hours, #mini-title {
@@ -72,6 +72,7 @@
 
 .cal-book-month {
   color: white;
+  font-size: 30px;
 }
 
 
@@ -185,5 +186,17 @@
   padding: 5px 16px;
   cursor: pointer;
 }
+
+.book-wrap {
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+
+
+
+
 
 
