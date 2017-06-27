@@ -1,36 +1,21 @@
-<!-- Navigation -->
+<div class="navbar-bellboy-wrapper">
+  <div class="navbar-bellboy">
 
-<nav class="navbar navbar-default navbar-fixed-top" style="border: none;">
-  <div class="container-fluid wrapper-bottom-navbar">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only" >Toggle navigation</span>
-        <i id="menu-open" class="fa fa-bars"></i>
-       <!--  <span  class="icon-bar middle-bar"></span>
-        <span  class="icon-bar middle-bar"></span>
-        <span  class="icon-bar middle-bar"></span> -->
-      </button>
+    <a class="navbar-brand" style="color: white;" href="<%= yield(:link) %>"><%= yield(:nav_title) %></a>
 
-      <a class="navbar-brand" style="color: white;" href="<%= yield(:link) %>"><%= yield(:nav_title) %></a>
+    <a class="bellboy-burger-menu" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <i class="fa fa-bars"></i>
+    </a>
+
+  </div>
+
+  <div class="collapse" id="collapseExample">
+    <div class="bellboy-dropdown-menu">
+    <ul class="list-unstyled">
+      <li><%= link_to "Stays", stays_path, style: "color: white;"  %></li>
+      <li><%= link_to "Log out", destroy_user_session_path, method: :delete, style: "color: white;"%></li>
+    </ul>
     </div>
-
-    <div>
-      <% if defined?(@hotel) and @hotel.can_manage?(current_user) %>
-        <p>ADMIN</p>
-      <% end %>
-    </div>
-
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><%= link_to "Stays", stays_path, style: "color: white;"  %></li>
-        <li><%= link_to "Log out", destroy_user_session_path, method: :delete, style: "color: white;"%></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-
-    <div>
-      <%= current_user.email %>
-    </div>
-
-  </div><!--/.container-fluid -->
-</nav>
+  </div>
+</div>
 
