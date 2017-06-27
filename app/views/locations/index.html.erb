@@ -17,9 +17,9 @@
 </div>
 <div style="position: absolute; top: 10px; left: 30%;">
     <%= link_to "All", stay_hotel_locations_path(@stay, @hotel), class: "btn btn-danger"  %>
-    <%= link_to "Restaurants", stay_hotel_locations_path(@stay, @hotel, filter: "restaurant"), class: "btn btn-primary" %>
-    <%= link_to "Rentals", stay_hotel_locations_path(@stay, @hotel, filter: "rentals"), class: "btn btn-primary" %>
-    <%= link_to "Sights", stay_hotel_locations_path(@stay, @hotel, filter: "Sight+seeing"), class: "btn btn-primary"  %>
+    <%= link_to "Restaurants", stay_hotel_locations_path(@stay, @hotel, filter: "restaurant"), class: "btn btn-primary", style:"background-color: #25353D;" %>
+    <%= link_to "Rentals", stay_hotel_locations_path(@stay, @hotel, filter: "rentals"), class: "btn btn-primary", style:"background-color: #25353D;" %>
+    <%= link_to "Sights", stay_hotel_locations_path(@stay, @hotel, filter: "Sight+seeing"), class: "btn btn-primary", style:"background-color: #25353D;"  %>
   </div>
 
 </div>
@@ -27,6 +27,7 @@
 
 <% content_for(:after_js) do %>
   <script>
+
    var styledMapType =
             [
     {
@@ -34,7 +35,7 @@
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#3a485b"
+                "color": "#25353D"
             }
         ]
     },
@@ -43,7 +44,7 @@
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#3a485b"
+                "color": "#25353D"
             }
         ]
     }
@@ -53,7 +54,6 @@
 
 
        var locations = <%= raw @hash.to_json %>
-
 
       var handler = Gmaps.build('Google');
       handler.buildMap({
@@ -88,7 +88,18 @@
         }
       })
 
+      setInterval(function() {
+        $('.gm-style-iw').prev('div').remove();
+      }, 100);
     });
+
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+
+    });
+
+
+
+
   </script>
 <% end %>
 

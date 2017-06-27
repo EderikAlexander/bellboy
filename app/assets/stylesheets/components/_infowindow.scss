@@ -1,0 +1,35 @@
+
+div:has(>.gm-style-iw) { background-color: #25353D; }
+// .gm-style-iw:has(div) {
+//   background-color: #25353D;
+// }
+div:has(.gm-style-iw) {
+  background-color: #25353D;
+}
+
+.gm-style-iw {
+  background-color: #25353D;
+  border-radius: 5px;
+  // padding: 30px;
+  font-size: 16px;
+  text-decoration: none;
+
+  .gm-style-iw:hover{
+    text-decoration: none;
+    color: slategray;
+  }
+}
+
+.box-content{
+  padding: 20px;
+  .box-content p {
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .box-content p::active {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+

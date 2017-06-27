@@ -109,7 +109,7 @@ a {
     position:absolute;
     width:100%;
     bottom:30px;
-    top:100px;
+    top:50px;
     &.active {
       opacity:0;
     }
@@ -117,14 +117,14 @@ a {
       display:block;
       color:white;
       font-weight:300;
-      font-size:36px;
+      font-size:28px;
       margin-bottom:0px;
     }
     h2 {
       margin-top:0px;
       margin-bottom:40px;
       color:#FFD259;
-      font-size:24px;
+      font-size:19px;
       font-weight:300;
     }
     .bttn {
@@ -161,4 +161,8 @@ a {
       }
     }
   }
+}
+
+#tut-img{
+  width: 300px;
 }
