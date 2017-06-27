@@ -1,4 +1,3 @@
-
 <!-- TOP NAVBAR -->
 <%= content_for :nav_title, "Services" %>
 
@@ -23,8 +22,7 @@
       <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
 
           <!-- SERVICE PHOTO -->
-          <div class="service-image">
-            <%= cl_image_tag(service.photo.public_id, format: service.photo.format, width: 300, height: 300, radius: 3) %>
+          <div class="service-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path service.photo.path %>')">
           </div>
 
           <!-- SERVICE TITLE -->
