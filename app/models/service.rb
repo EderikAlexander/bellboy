@@ -15,4 +15,5 @@ class Service < ApplicationRecord
   validates :title, :description, :start_time, :end_time, presence: true
   validates :title, uniqueness: true
   # END VALIDATIONS AND ASSOCIATIONS
+
 end

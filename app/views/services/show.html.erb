@@ -8,32 +8,37 @@
   <% end %>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-      <div id="show-service-content" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
-         url('http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg'); background-size:cover;">
+<!--
+<div class="book-wrap" style="width:100%;height:100%; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
+         url('http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg'); background-size:cover;"> -->
+  <div class="book-wrap" style="width:100%;height:100%; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
+         url('<%= cl_image_path @service.photo.path %>'); background-size:cover;">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-2 col-sm-8 fixing-paddings">
+        <div id="show-service-content" >
 
-        <div id="service-title" class="mini-title">
-          <p> <%= @service.title %> </p>
+          <div id="service-title" class="mini-title">
+            <p> <%= @service.title %> </p>
+          </div>
+
+          <div id="service-description">
+            <p> <%= @service.description %> </p>
+          </div>
+
+          <div id="opening-hours">
+            <p>Opens every day from <span id="opening-hours-big"><%= @service.start_time %></span> to <span id="opening-hours-big"><%= @service.end_time %></span>.</p>
+          </div>
+
+          <p class="mini-title">Book service</p>
         </div>
-
-        <div id="service-description">
-          <p> <%= @service.description %> </p>
-        </div>
-
-        <div id="opening-hours">
-          <p>Opens every day from <span id="opening-hours-big"><%= @service.start_time %></span> to <span id="opening-hours-big"><%= @service.end_time %></span>.</p>
-        </div>
-
-        <p class="mini-title">Book service</p>
-        <%= render "shared/calendar-LW" %>
+          <div class="calendar-wrapper">
+            <%= render "shared/calendar-LW" %>
+          </div>
       </div>
     </div>
   </div>
 </div>
-
-
 
 
 

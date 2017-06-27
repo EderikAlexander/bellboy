@@ -1,29 +1,57 @@
+<!-- TOP NAVBAR -->
 <%= content_for :nav_title, "Services" %>
 
-  <% if @hotel.can_manage?(current_user) %>
-    <%= link_to "create new service", new_stay_hotel_service_path(@stay, @hotel) %>
-  <% end %>
 
-<!-- <form action="services/search" class="form-inline form-group">
-  <input type="text" name="title" class="form-control" placeholder="Search for service">
-  <input type="submit" value="Submit">
-</form> <-->
-
-
-
-<ul class="list-unstyled" style="color: white;">
-<% @services.each do |service| %>
-<%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
-  <li class="service-li" style="height: 350px; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
-         url('http://unsplash.it/600/400')">
-         <div class="service-content">
-            <h1 class="service-title" style="margin: 0;"> <%= service.title %> </h1>
-            <p> <%= service.start_time %> - <%= service.end_time %> </p>
-         </div>
-  </li>
+<!-- HOTEL CREATE BUTTON (ONLY DISPLAYS ON ADMIN LOGIN) -->
+<% if @hotel.can_manage?(current_user) %>
+<%= link_to "Add service", new_stay_hotel_service_path(@stay, @hotel) %>
 <% end %>
-  <% end %>
-</ul>
 
+
+  <% call_to_action = ["Book a table", "Book a massage", "Where is it?", "Where is it?", "Get a cab", "Book a pick up time"] %>
+  <% i = 0 %>
+
+<!-- DISPLAY ALL SERVICES AND CALL TO ACTIONS -->
+<div class="services-container container">
+
+  <!-- LOOP THROUGH HOTEL SERVICES -->
+  <% @services.each_with_index do |service, index| %>
+  <div class="row text-center">
+
+    <!-- ANCOR TO PHOTO GLOBAL LINK TO SERVICE -->
+    <div class="col-xl-12 service-element">
+
+      <!-- SERVICE PHOTO AND DESCRIPTION -->
+      <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
+
+      <!-- SERVICE PHOTO -->
+      <div class="service-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path service.photo.path %>')">
+      </div>
+
+      <!-- SERVICE TITLE -->
+      <div class="service-title">
+        <h3><%= call_to_action[i] %></h3>
+      </div>
+
+      <!-- SERVICE TIMES -->
+      <div class="service-time">
+        <div class="service-hour">
+          <%= service.start_time %>
+          <%= " - " %>
+          <%= service.end_time %>
+        </div>
+      </div>
+        <% i += 1 %>
+
+      <% end %>
+
+    </div>
+
+  </div>
+  <% end %>
+
+</div>
+
+
+<!-- BOTTOM NAV BAR -->
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
-<!-- <a href="http://m.me/110101406273492"> Chatbot</a> -->

@@ -1,19 +1,23 @@
 <div class="nav-calendar-wrapper">
-  <ul class="nav navbar-nav nav-calendar">
-    <li>
+
+    <!-- <div class="col-md-3 text-left"> -->
+    <div class="text-right">
       <%= link_to start_date: @date_range.first - 1.day do %>
-        <i class="fa fa-chevron-circle-left nav-calendar-left" aria-hidden="true"></i>
+        <i class="fa fa-chevron-circle-left hover-size nav-cal-left" aria-hidden="true"></i>
       <% end %>
-    </li>
-    <li class="nav-calendar-month">
+    </div>
+
+    <div class="text-center cal-book-month">
       <%= @start_date.strftime("%B") %> <%= @start_date.year %>
-    </li>
-    <li>
+    </div>
+
+    <!-- <div class="col-md-3 text-right"> -->
+    <div class="text-left">
       <%= link_to start_date: @date_range.last + 1.day do %>
-        <i class="fa fa-chevron-circle-right nav-calendar-right" aria-hidden="true"></i>
+        <i class="fa fa-chevron-circle-right hover-size nav-cal-left" aria-hidden="true"></i>
       <% end %>
-    </li>
-  </ul>
+    </div>
+
 </div>
 
 <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
@@ -33,34 +37,50 @@
       <tbody>
         <% @date_range.each_slice(7) do |week| %>
           <tr>
-            <% week.each do |day| %>
+          <% weekdays = {"0": "Monday", "1": "Tuesday" ,"2": "Wednesday" ,"3": "Thursday", "4": "Friday", "5": "Saturday", "6": "Sunday"} %>
+            <% week.each_with_index do |day, index| %>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle cal-book-day-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= day.day %>
+                    <div class="text-center" data-target="<%= weekdays[index.to_s.to_sym] %>">
+                     <%= day.day %>
+                    </div>
                   </button>
                   <ul id="dropdown-hours" class="dropdown-menu dropdown-scrollable-menu">
                     <% @service_hours.each do |service_hour| %>
                       <% found = false %>
-                      <div class="hour-wrapper">
+                      <div class="hour-wrapper-red">
                         <li>
                           <!-- button -->
                           <% @start_time_bookings_day = [] %>
                           <% @start_time_bookings.each do |start_time_booking| %>
                             <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                              <div class="calendar-lw-time booked-date"><p><%= service_hour %>:00</p></div>
+                              <div class="booked-hour">
+                                <%= service_hour %>:00
+                              </div>
                               <% found = true %>
                             <% else %>
                             <% end %>
                           <% end %>
                           <% if found == true %>
+
                           <% else %>
-                          <div class="wrap-date">
-                            <div data-date="<%= day %>|<%= service_hour %>" class="calendar-lw-time bookable-date"><p><%= service_hour %>:00</p>
-                            </div>
-                            <div class="wrap-confirm-btn">
-                              <button style="display: none;" type="submit" class="">Confirm</button>
-                            </div>
+
+                          <div class="wrap-date hour-wrapper">
+                            <!--
+                            <div class="wrap-hour-confirm-btn"> -->
+
+                              <div data-date="<%= day %>|<%= service_hour %>" class="bookable-hour pull-left">
+                                <div class="text-center"><%= service_hour %>:00</div>
+                              </div>
+
+                              <div class="wrap-confirm-btn pull-right">
+                                <button style="display: none;" type="submit" class="confirm-btn">confirm</button>
+                              </div>
+
+                              <div class="clearfix"></div>
+                            <!--
+                            </div> -->
                           </div>
                           <% end %>
                         </li>
@@ -103,7 +123,34 @@
           $("#bookable-date").val(dayAndHour);
           $(".confirmation").show();
         });
+
+        // ---------------------------------------------------------------
+        // add bootstrap class: dropdown-menu-right when clicking day.
+        // ---------------------------------------------------------------
+        $('.cal-book-day-btn').click(function(e) {
+          if (($("div", this).data("target")) == "Saturday" || ($("div", this).data("target")) == "Sunday") {
+            $(this).siblings().first().addClass('dropdown-menu-right');
+          }
+          console.log("hello");
+
+          element = $('.cal-book-day-btn').parent().parent().parent().parent().parent().find("th");
+          element = element[6]; // .text()?
+          console.log(element);
+          console.log(typeof element);
+          // console.log(element.keys("th"));
+          // var $tag = $(element); //this turns your string into real html
+          // console.log($tag);
+          // var result = $tag.find('th').eq(0).text();
+          // console.log(result);
+          // console.log(result.keys());
+
+        });
+
+
+
+
       });
+
     </script>
 <% end %>
 
