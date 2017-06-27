@@ -3,44 +3,52 @@
 
 
 <!-- HOTEL CREATE BUTTON (ONLY DISPLAYS ON ADMIN LOGIN) -->
-  <% if @hotel.can_manage?(current_user) %>
-    <%= link_to "Add service", new_stay_hotel_service_path(@stay, @hotel) %>
-  <% end %>
+<% if @hotel.can_manage?(current_user) %>
+<%= link_to "Add service", new_stay_hotel_service_path(@stay, @hotel) %>
+<% end %>
 
+
+  <% call_to_action = ["Book a table", "Book a massage", "Where is it?", "Where is it?", "Get a cab", "Book a pick up time"] %>
+  <% i = 0 %>
 
 <!-- DISPLAY ALL SERVICES AND CALL TO ACTIONS -->
-<div class="services-container container text-center">
+<div class="services-container container">
 
   <!-- LOOP THROUGH HOTEL SERVICES -->
-  <div class="row">
-  <% @services.each do |service| %>
+  <% @services.each_with_index do |service, index| %>
+  <div class="row text-center">
 
     <!-- ANCOR TO PHOTO GLOBAL LINK TO SERVICE -->
-    <div class="col-xl-12 col-sm-4 col-md-3 service-element">
+    <div class="col-xl-12 service-element">
 
       <!-- SERVICE PHOTO AND DESCRIPTION -->
       <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
 
-          <!-- SERVICE PHOTO -->
-          <div class="service-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path service.photo.path %>')">
-          </div>
+      <!-- SERVICE PHOTO -->
+      <div class="service-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path service.photo.path %>')">
+      </div>
 
-          <!-- SERVICE TITLE -->
-          <div class="service-title">
-            <h3><%= service.title %></h3>
-          </div>
+      <!-- SERVICE TITLE -->
+      <div class="service-title">
+        <h3><%= call_to_action[i] %></h3>
+      </div>
 
-          <!-- SERVICE DESCRIPTION -->
-          <div class="service-description hidden-xs">
-            <h3><%= service.title %></h3>
-          </div>
+      <!-- SERVICE TIMES -->
+      <div class="service-time">
+        <div class="service-hour">
+          <%= service.start_time %>
+          <%= " - " %>
+          <%= service.end_time %>
+        </div>
+      </div>
+        <% i += 1 %>
 
       <% end %>
 
     </div>
 
-  <% end %>
   </div>
+  <% end %>
 
 </div>
 

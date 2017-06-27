@@ -41,6 +41,7 @@ ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
 SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
 LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498483970/sagrada_familia_yc6s0o.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484022/park_guell_vl3bpi.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484064/la_rambla_smwgx0.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484124/ticket_restaurant_luybra.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484181/tapas_24_uscrme.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484221/el_atril_zqrotq.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484261/europcar_xf94lv.png", "http://res.cloudinary.com/montolio/image/upload/v1498484306/hertz_wzybeu.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484420/avis_lrscwa.jpg" ]
+CALL_TO_ACTION = ["Book a table", "Book a massage", "Where is it?", "Where is it?", "Get a cab", "Book a pick up time"]
 
 
 puts "Starting seeding process..."
