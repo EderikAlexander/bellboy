@@ -1,23 +1,23 @@
 <div class="nav-calendar-wrapper">
-  <div class="">
 
-    <div class="col-md-3 text-left">
+    <!-- <div class="col-md-3 text-left"> -->
+    <div class="text-right">
       <%= link_to start_date: @date_range.first - 1.day do %>
         <i class="fa fa-chevron-circle-left hover-size nav-cal-left" aria-hidden="true"></i>
       <% end %>
     </div>
 
-    <div class="col-md-6 text-center cal-book-month">
+    <div class="text-center cal-book-month">
       <%= @start_date.strftime("%B") %> <%= @start_date.year %>
     </div>
 
-    <div class="col-md-3 text-right">
+    <!-- <div class="col-md-3 text-right"> -->
+    <div class="text-left">
       <%= link_to start_date: @date_range.last + 1.day do %>
         <i class="fa fa-chevron-circle-right hover-size nav-cal-left" aria-hidden="true"></i>
       <% end %>
     </div>
 
-  </div>
 </div>
 
 <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
@@ -54,25 +54,30 @@
                           <% @start_time_bookings_day = [] %>
                           <% @start_time_bookings.each do |start_time_booking| %>
                             <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                              <div class="calendar-lw-time booked-date"><p><%= service_hour %>:00</p></div>
+                              <div class="booked-hour"><%= service_hour %>:00</div>
                               <% found = true %>
                             <% else %>
                             <% end %>
                           <% end %>
                           <% if found == true %>
+
                           <% else %>
+
                           <div class="wrap-date">
-                            <div class="">
-                              <div data-date="<%= day %>|<%= service_hour %>" class="calendar-lw-time bookable-date pull-left">
+                            <!--
+                            <div class="wrap-hour-confirm-btn"> -->
+
+                              <div data-date="<%= day %>|<%= service_hour %>" class="bookable-hour pull-left">
                                 <div class="text-center"><%= service_hour %>:00</div>
                               </div>
 
                               <div class="wrap-confirm-btn pull-right">
-                                <button style="display: none;" type="submit" class="">Confirm</button>
+                                <button style="display: none;" type="submit" class="confirm-btn">confirm</button>
                               </div>
 
                               <div class="clearfix"></div>
-                            </div>
+                            <!--
+                            </div> -->
                           </div>
                           <% end %>
                         </li>

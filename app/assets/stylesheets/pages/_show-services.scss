@@ -10,6 +10,7 @@
   font-size: 40px;
   font-weight: bold;
   color: white;
+  margin-bottom: 30px;
 }
 
 #opening-hours-big {
@@ -32,17 +33,11 @@
 // NAVBAR CALENDAR
 // ------------------------------------------------
 .nav-calendar-wrapper {
-  text-align: center;
-}
-
-
-.nav-calendar-wrapper {
-  background-color: yellow;
-  // margin-left: auto;
-  // margin-right: auto;
-  li {
-    color: white;
-  }
+  display: flex;
+  width: 200px;
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
   i {
     color: white;
   }
@@ -67,6 +62,21 @@
 }
 
 
+// .wrap-date {
+//   height: 30px;
+//   .wrap-hour-confirm-btn {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   }
+// }
+
+.wrap-date {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 // ------------------------------------------------
 // HOURS IN CALENDAR
@@ -77,21 +87,27 @@
     overflow-x: hidden;
 }
 
+// .calendar-booking-wrapper {
+//   //background-color: yellow;
+//   padding: 10px;
+// }
 
-.calendar-booking-wrapper {
-  //background-color: yellow;
-  padding: 10px;
+@media (min-width: 600px) {
+  .cal-book-day-btn {
+    width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cal-book-day-btn {
+    width: 10px;
+  }
 }
 
 .cal-book-day-btn {
-  background-color: rgba(200, 200, 200, 0.8);
+  background-color: rgba(200, 200, 200, 0.7);
   border: 0px;
   padding: 5px;
-  width: 30px;
-  .calendar-lw-time div {
-    // ### not working
-    text-align: center;
-  }
 }
 
 .cal-book-table th {
@@ -103,29 +119,76 @@
   border: 0px;
 }
 
-.wrap-confirm-btn button {
-  background-color: green;
+.hour-wrapper {
+  // background-color: blue;
+  margin: 0px 5px;
+  padding: 5px 16px;
 }
+
+.hour-wrapper:hover {
+  background-color: #A0C814;
+  border-radius: 5px;
+  padding: 5px 16px;
+}
+
+// .calendar-lw-time:hover {
+//   background-color: #A0C814;
+//   border-radius: 5px;
+//   padding: 0px 0px;
+// }
+
+// .wrap-confirm-btn button {
+//   background-color: green;
+// }
+
+// .wrap-confirm-btn {
+//   margin-left: 20px;
+//   padding: 0px;
+//   margin: 0px;
+//   // padding: 2px 0px;
+// }
+
+// .confirm-btn {
+//   background-color: #213640;
+//   color: white;
+//   border: 0px;
+//   // width: 60px;
+//   // height: 20px;
+//   border-radius: 3px;
+//   font-size: 12px;
+//   padding: 0px;
+//   margin: 0px;
+// }
 
 .wrap-confirm-btn {
-  // background-color: yellow;
+  background-color: #213640;
+  color: white;
+  border: 0px;
+  // width: 60px;
+  // height: 20px;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 0px 10px;
+  margin-left: 10px;
 }
 
-.hour-wrapper {
-  background-color: blue;
-  p {
-    padding-left: 20px;
-    color: rgb(20, 20, 20);
-  }
+.confirm-btn {
+  height: 30px;
+  background-color: #213640;
+  color: white;
+  border: 0px;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
 }
 
-.calendar-lw-time:hover {
-    background-color: #A0C814;
-    border-radius: 5px;
-    padding: 1px 10px;
-  }
-
-
+// ------------------------------------------------
+// BOOKED HOURS
+// ------------------------------------------------
+.booked-hour {
+  color: rgb(210, 210, 210);
+}
 
 
 
