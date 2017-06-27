@@ -1,6 +1,4 @@
-.calendar-month-wrapper {
-  margin: 100px 20px 60px 20px;
-}
+
 
 // ------------------------------------------------------------
 // title icon calendar
@@ -63,13 +61,13 @@
 
 @media (min-width: 600px) {
   .calendar-month-wrapper {
-    margin: 100px 20px 60px 20px;
+    margin: 80px 20px 60px 20px;
   }
 }
 
 @media (max-width: 600px) {
   .calendar-month-wrapper {
-    margin: 100px 5px 60px 5px;
+    margin: 80px 5px 60px 5px;
   }
 }
 
