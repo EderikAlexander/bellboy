@@ -49,13 +49,15 @@
                   <ul id="dropdown-hours" class="dropdown-menu dropdown-scrollable-menu">
                     <% @service_hours.each do |service_hour| %>
                       <% found = false %>
-                      <div class="hour-wrapper">
+                      <div class="hour-wrapper-red">
                         <li>
                           <!-- button -->
                           <% @start_time_bookings_day = [] %>
                           <% @start_time_bookings.each do |start_time_booking| %>
                             <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                              <div class="booked-hour"><%= service_hour %>:00</div>
+                              <div class="booked-hour">
+                                <%= service_hour %>:00
+                              </div>
                               <% found = true %>
                             <% else %>
                             <% end %>
@@ -64,7 +66,7 @@
 
                           <% else %>
 
-                          <div class="wrap-date">
+                          <div class="wrap-date hour-wrapper">
                             <!--
                             <div class="wrap-hour-confirm-btn"> -->
 
