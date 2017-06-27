@@ -1,17 +1,82 @@
-<h1 class="title-center">Weekly calendar </h1>
+<div class="calendar-month-wrapper">
 
-<%= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-info" %>
-<%= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-warning" %>
+  <div class="title-dash-cal-icon-wrapper">
+    <div class="title-calendar">
+      <p>Monthly calendar</p>
+    </div>
 
-<%= render "calendar" %>
+    <div>
+      <i class="fa fa-calendar-check-o dash-cal-icon" aria-hidden="true"></i>
+    </div>
+  </div>
 
-<%= link_to "Restaurants", stay_hotel_calendar_week_path(@stay, @hotel, filter: "restaurants"), class: "btn btn-primary" %>
-<%= link_to "Massages", stay_hotel_calendar_week_path(@stay, @hotel, filter: "massages"), class: "btn btn-success" %>
-<%= link_to "All", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-danger" %>
+  <div class="dash-cal-navbar-wrapper">
+    <div class="arrow-dash-cal-navi">
+      <%= link_to start_date: @date_range.first - 1.day do %>
+        <i class="fa fa-chevron-circle-left hover-size" aria-hidden="true"></i>
+      <% end %>
+    </div>
+
+    <div class="dash-cal-navi-month">
+      <%= @start_date.strftime("%B") %> <%= @start_date.year %>
+    </div>
+
+    <div class="arrow-dash-cal-navi">
+      <%= link_to start_date: @date_range.last + 1.day do %>
+        <i class="fa fa-chevron-circle-right hover-size" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="dash-cal-wrapper">
+    <%= render "calendar" %>
+  </div>
+
+  <div class="service-filters-wrapper">
+    <div class="service-filter-btn tables-filter-color hover-size-dash-cal">
+      <%= link_to stay_hotel_calendar_month_path(@stay, @hotel, filter: "restaurants") do %>
+        <p class="text-service-filter">Tables</p>
+      <% end %>
+    </div>
+
+    <div class="service-filter-btn massages-filter-color hover-size-dash-cal">
+      <%= link_to stay_hotel_calendar_month_path(@stay, @hotel, filter: "massages") do %>
+        <p class="text-service-filter">Massages</p>
+      <% end %>
+    </div>
+
+    <div class="service-filter-btn all-services-filter-color hover-size-dash-cal">
+      <%= link_to stay_hotel_calendar_month_path(@stay, @hotel) do %>
+        <p class="text-service-filter">All</p>
+      <% end %>
+    </div>
+  </div>
 
 
+  <div class="type-dash-cal-wrapper">
+    <div class="service-filter-btn monthly-dash-cal-color hover-size-dash-cal">
+      <%= link_to stay_hotel_calendar_month_path(@stay, @hotel) do %>
+        <p class="text-service-filter">Monthly</p>
+      <% end %>
+    </div>
+    <div class="service-filter-btn weakly-dash-cal-color hover-size-dash-cal">
+      <%= link_to stay_hotel_calendar_week_path(@stay, @hotel) do %>
+        <p class="text-service-filter">Weekly</p>
+      <% end %>
+    </div>
+  </div>
 
 
+  <%#= link_to "calendar-month", stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-info" %>
+
+  <%#= link_to "calendar-week", stay_hotel_calendar_week_path(@stay, @hotel), class: "btn btn-warning" %>
+
+</div>
+
+<!--
+<div class="arrow-dash-cal-navi">
+  <%#= link_to "Previous", start_date: @date_range.first - 1.day %>
+</div> -->
 
 
 
