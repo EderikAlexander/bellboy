@@ -3,7 +3,21 @@
   position: absolute;
   margin-bottom: 15px;
   top: 15px;
+  left: 0px;
+  right: 0px;
+  height: 100px;
+}
 
+.inside-wrap{
+
+ display: flex;
+ justify-content: space-around;
+}
+
+@media only screen and (max-width: 365px) {
+  #location-index-btns {
+    // margin-left: 20px;
+  }
 }
 
 #locations-map {
@@ -70,5 +84,12 @@
   margin-bottom: 15px;
 }
 
+.services-container{
+  background-color: #E5E5E5;
+}
+
+.service-time{
+  padding-bottom: 0px;
+}
 // yellow #FFD259
 // blue 213640
