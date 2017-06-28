@@ -41,7 +41,7 @@
 // NAVBAR CALENDAR
 // ------------------------------------------------
 .calendar-wrapper {
-  margin-bottom: 100px;
+  margin-bottom: 200px;
 }
 
 .nav-calendar-wrapper {
@@ -97,6 +97,9 @@
 // ------------------------------------------------
 // HOURS IN CALENDAR
 // ------------------------------------------------
+
+
+
 .dropdown-scrollable-menu {
   height: auto;
   max-height: 200px;
@@ -110,7 +113,7 @@
 
 @media (min-width: 600px) {
   .cal-book-day-btn {
-    width: 100px;
+    width: 50px;
   }
 }
 
