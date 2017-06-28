@@ -91,7 +91,7 @@
         width:  70 ,
         height: 70
       },
-      infowindow: "<%= @hotel.name %>"
+      // infowindow: "Room Mate Carlo"
     }
         markers = handler.addMarkers(locations.concat(hotel_loc));
         handler.bounds.extendWith(markers);
@@ -107,11 +107,6 @@
         $('.gm-style-iw').prev('div').remove();
       }, 100);
     });
-
-    google.maps.event.addListenerOnce(map, 'idle', function(){
-
-    });
-
 
 
 
