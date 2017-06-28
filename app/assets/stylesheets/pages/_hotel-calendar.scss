@@ -118,7 +118,7 @@
 // service-filters. -->
 // ------------------------------------------------------------
 .type-dash-cal-wrapper {
-  width: 250px;
+  width: 350px;
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
@@ -132,6 +132,10 @@
 
 .weakly-dash-cal-color {
   background-color: #ce8d65;
+}
+
+.three-days-dash-cal-color {
+  background-color: #e2b38c;
 }
 
 .hover-size-dash-cal {
