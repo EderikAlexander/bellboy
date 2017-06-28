@@ -89,6 +89,7 @@ provider: {
           scrollwheel: false,
           zoomControl: false,
           zoom: 15,
+          disableDefaultUI: true,
           center: new google.maps.LatLng(<%= @hotel.latitude %>, <%= @hotel.longitude %>),
           mapTypeId: google.maps.MapTypeId.ROADMAP ,
           styles: styledMapType,
