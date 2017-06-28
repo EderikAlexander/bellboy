@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     mount Localtower::Engine, at: "localtower"
   end
 
-
   get '/introduction', to: 'services#introduction'
   root 'services#introduction'
 

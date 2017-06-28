@@ -45,6 +45,9 @@ gem 'pundit'
 gem 'chartkick'
 gem 'groupdate'
 
+# gem to get facebook info on a user
+gem 'koala'
+
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"

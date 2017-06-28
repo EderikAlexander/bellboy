@@ -93,29 +93,26 @@
 #   "persistent_menu":[
 #     {
 #       "locale":"default",
-#       "composer_input_disabled":true,
+#       "composer_input_disabled":false,
 #       "call_to_actions":[
 #         {
-#         "title":"Reset",
 #         "type":"postback",
-#         "payload":"GET_STARTED_PAYLOAD"
+#         "title":"General questions",
+#         "payload":"KEEP_CHATTING_PAYLOAD"
 #         },
-#         {
-#         "type":"web_url",
-#         "url":"https://bellboy-app.herokuapp.com/",
+#         {"type":"web_url",
 #         "title":"Back to App",
-#         "webview_height_ratio": "full",
-#         "messenger_extensions": true,
-#         "fallback_url": "https://bellboy-app.herokuapp.com/"
-#         }
+#         "url":"https://bellboy-app.herokuapp.com",
+#         "webview_height_ratio":"full",
+#         "messenger_extensions":true,
+#         "fallback_url":"https://bellboy-app.herokuapp.com"}
 #       ]
 #     }
-#   ]
+#    ]
 # }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAL09FQZA8ncBAPCbZCiM3O4LGt2ZA9bx361hO7v0WZBkiNxR34iZC1tYBWXsmrZCf03ZCrBbjFK8oslq7Kn82LH3r4Bt5hWKBGZC9J1on8Si1rY1epMKb3ZCSDpYi6ZBupgwwcEMJv1zwGL26oLZAxVBWsXImysjvP5UCnAw2jM9CmHg8FgBTfcl7cnhZBWazO9eXkZD"
 
 
-
-# # # DELETE
+# # # DELETE - First step if you want a new menu/added menu
 
 # curl -X DELETE -H "Content-Type: application/json" -d '{
 #   "fields":[
