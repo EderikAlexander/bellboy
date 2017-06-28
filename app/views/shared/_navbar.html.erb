@@ -14,8 +14,8 @@
       <ul class="list-unstyled">
         <% if @hotel.can_manage?(current_user) %>
 
-        <li><%= link_to "Calendar", stay_hotel_calendar_month_path(@stay, @hotel) %></li>
-        <li><%= link_to "Analitics", stay_hotel_calendar_month_path(@stay, @hotel) %></li>
+        <li><%= link_to "Calendar", stay_hotel_calendar_mobile_path(@stay, @hotel) %></li>
+        <li><%= link_to "Analitics", stay_hotel_chart_path(@stay, @hotel) %></li>
 
         <% else %>
 
@@ -24,9 +24,9 @@
         <li><%= link_to "Profile", stays_path %></li>
 
         <% end %>
-
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
       </ul>
+
     </div>
   </div>
 </div>
