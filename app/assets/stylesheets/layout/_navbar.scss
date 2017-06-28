@@ -18,6 +18,12 @@
   }
 }
 
+.navbar-arrow-back {
+  position: absolute;
+  left: 10px;
+  top: 21px;
+}
+
 // Fix Nav Bar (varies height depending on the accordion) -> Think of it as a DIV
 .navbar-bellboy-wrapper {
   position: fixed;
