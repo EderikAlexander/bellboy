@@ -21,8 +21,9 @@
 </div>
 
 <%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
-    <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
-    <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
+<%#= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
+  <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
+  <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
 
   <div class="calendar-booking-wrapper">
     <table class="table cal-book-table">
@@ -70,7 +71,7 @@
                             <!--
                             <div class="wrap-hour-confirm-btn"> -->
 
-                              <div data-date="<%= day %>|<%= service_hour %>" class="bookable-hour pull-left">
+                              <div data-date="<%= day %>|<%= service_hour %>" class="bookable-hour pull-left bookable-date">
                                 <div class="text-center"><%= service_hour %>:00</div>
                               </div>
 
