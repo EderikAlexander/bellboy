@@ -18,8 +18,8 @@
         <li><%= link_to "Profile", stays_path %></li>
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
         <% unless @hotel.user_id == nil %>
-        <li><%= link_to "Analitics", stay_hotel_calendar_month_path(@stay, @hotel) %></li>
-        <li><%= link_to "Calendar", stay_hotel_calendar_month_path(@stay, @hotel) %></li>
+        <li><%= link_to "Analitics", stay_hotel_charts_path(@stay, @hotel) %></li>
+        <li><%= link_to "Calendar", stay_hotel_calendar_mobile_path(@stay, @hotel) %></li>
         <% end %>
       </ul>
     </div>
