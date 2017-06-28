@@ -414,10 +414,20 @@ start_datetimes_tobook.size.times do
   i += 1
 end
 
+# USER BOT BACKEND
+
+  # User Admin
+  user = User.new(email: "ederik@bellboy.com", first_name: "Ederik", last_name: "Van Koldenhoven", passport: Faker::Number.number(8), password: "bellboy", uid: "987221848047540")
+  user.save
+
+  # Asign Hotel
+  hotel.user = user
+  hotel.save
+
 # HOTEL BACKEND
 
   # User Admin
-  user = User.new(email: "ederik@bellboy.com", first_name: "Ederik", last_name: "Van Koldenhoven", passport: Faker::Number.number(8), password: "bellboy")
+  user = User.new(email: "ruben@bellboy.com", first_name: "Ruben", last_name: "Suet", passport: Faker::Number.number(8), password: "bellboy")
   user.save
 
   # Asign Hotel
