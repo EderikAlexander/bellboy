@@ -43,6 +43,8 @@ class Message < ApplicationRecord
   class << self
 
     def process(message_or_postback)
+      # payload = message.messaging
+      # Message.create
       # "..." when waiting for message
       message_or_postback.typing_on
 
@@ -109,6 +111,8 @@ class Message < ApplicationRecord
 
       # BACK TO APP
       # Message.back_to_app(stay, message_or_postback) if action == 'BACK_TO_APP_PAYLOAD' || action.downcase.strip.include?("app")
+
+      # SAVE MESSAGE FORM USER
 
       # POSTBACKS
       if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
