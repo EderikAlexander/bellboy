@@ -71,6 +71,18 @@
   }
 }
 
+.dash-cal-book-table {
+  td:last-child {
+    border-right: none;
+  }
+  td {
+    border-right: 1px solid rgb(200, 200, 200);
+  }
+  th {
+    // color: white;
+  }
+}
+
 // ------------------------------------------------------------
 // <!--    service-filters
 // ------------------------------------------------------------
