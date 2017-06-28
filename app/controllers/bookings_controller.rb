@@ -26,7 +26,6 @@ class BookingsController < ApplicationController
 
     # end_datetime_string = booking_params["end_datetime"]
     # end_datetime_tobook = DateTime.strptime(end_datetime_string, "%m/%d/%Y %H:%M %P")
-
     start_date_hour_string = booking_params["day_selection"]
     # start_date_hour_string = params["time_booking"]["day_selection"]
     #=> "2017-06-15|11"
@@ -68,7 +67,10 @@ class BookingsController < ApplicationController
       redirect_to stay_hotel_service_path(@stay, @hotel, @service)
     else
       @booking.save
-      redirect_to stay_hotel_service_booking_path(@stay, @hotel, @service, @booking)
+      # session[:modal] = true
+      redirect_to stay_hotel_services_path(@stay, @hotel) # working one
+      # redirect_to stay_hotel_services_path(@stay, @hotel), flash: { manifesto_modal: true }
+      # redirect_to stay_hotel_service_booking_path(@stay, @hotel, @service, @booking)
       # /stays/:stay_id/hotels/:hotel_id/services/:service_id/bookings/:id(.:format)
       #redirect_to stay_hotel_service_bookings_path(@stay, @hotel, @service)
     end
