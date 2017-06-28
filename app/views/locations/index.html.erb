@@ -15,13 +15,20 @@
 <div id="map" style="width: 100%; height: 800px; padding-top: 0; position: fixed;">
 </div>
 </div>
-<div class="please-work"></div>
+<!-- <div class="please-work"></div> -->
 <div class="the-flex">
 <div id="location-index-btns" >
-    <%= link_to "All", stay_hotel_locations_path(@stay, @hotel), class: "btn-medium-map btn-medium-red"  %>
-    <%= link_to "Restaurants", stay_hotel_locations_path(@stay, @hotel, filter: "restaurant"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;" %>
-    <%= link_to "Rentals", stay_hotel_locations_path(@stay, @hotel, filter: "rentals"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;" %>
-    <%= link_to "Sights", stay_hotel_locations_path(@stay, @hotel, filter: "Sights"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;"  %>
+
+    <ul class="list-inline">
+      <li class="location-li"><%= link_to "All", stay_hotel_locations_path(@stay, @hotel), class: "btn-medium-map btn-medium-red"  %></li>
+      <li class="location-li"><%= link_to "Restaurants", stay_hotel_locations_path(@stay, @hotel, filter: "restaurant"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;" %></li>
+      <li class="location-li"><%= link_to "Rentals", stay_hotel_locations_path(@stay, @hotel, filter: "rentals"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;" %></li>
+      <li class="location-li"><%= link_to "Sights", stay_hotel_locations_path(@stay, @hotel, filter: "Sights"), class: "btn-medium-map btn-medium-blue", style:"background-color: #25353D;"  %></li>
+    </ul>
+
+
+
+
   </div>
 </div>
 </div>
