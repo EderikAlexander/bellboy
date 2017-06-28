@@ -43,15 +43,34 @@ class Message < ApplicationRecord
   class << self
 
     def process(message_or_postback)
-      # payload = message.messaging
-      # Message.create
+      payload = message_or_postback
+
+      # IS THE PAYLOAD A POSTBACK (CHECKING FOR THE REFERRAL)
+      if payload.messaging['postback'].nil?
+        puts "it's already there"
+      else
+        referal_fb_id = message_or_postback.messaging['postback']['referral']['ref']
+      end
+
+      # SENDER ID
+      messenger_id = payload.sender['id']
+
+      # LINKING BETWEEN FACEBOOK UID AND MESSENGER ID
+      if referal_fb_id.present?
+        # SEARCH USER BY SENDER_ID BECAUSE IT ALREADY EXISTS (REFERAL IS NIL)
+        user = User.all.where(uid: referal_fb_id).first
+        # ASIGN THE MESSENGER ID TO THE USER
+        user.sender_id = messenger_id
+        user.save
+      else
+        # FIND THE USER USING THE REFERAL FB ID
+        user = User.all.where(sender_id: messenger_id).first
+      end
+
       # "..." when waiting for message
       message_or_postback.typing_on
 
-      # # Get current User (FB user_id) and Stay
-      user = User.all.where(uid: message_or_postback.sender["id"]).first
-
-      if user.present?
+      if user.stays.first.present?
         # Search for first stay
         stay = user.stays.first
       else
@@ -61,9 +80,6 @@ class Message < ApplicationRecord
       # ##########       AUTOMATICALLY WHEN THE EMAIL SEND TO THE GUEST       ###########
       # #################################################################################
 
-            # Create User
-            user = User.new(first_name: message_or_postback.sender["first_name"], last_name: message_or_postback.sender["last_name"], uid: message_or_postback.sender["id"], email: message_or_postback.sender["email"] )
-            user.save
             # Create Hotel and Stays for the user (to be able to chat with the bot)
             hotel = Hotel.all.where( name: "Room Mate Gerard" ).first
               # Asign Stay and Room number
@@ -94,7 +110,9 @@ class Message < ApplicationRecord
 
                 # SAVE STAY's CHANGES
                 stay.save
-              end
+              # save message form user
+        # binding.pry
+            end
 
       # #################################################################################
       # ##########                             END                            ###########
@@ -105,14 +123,13 @@ class Message < ApplicationRecord
 
     action = message_or_postback.text if not action.present?
 
-    Rails.logger.debug("=== action")
-    Rails.logger.debug(action)
-    Rails.logger.debug("=== / action")
+Rails.logger.debug("=== action")
+Rails.logger.debug(action)
+Rails.logger.debug("=== / action")
 
-      # BACK TO APP
-      # Message.back_to_app(stay, message_or_postback) if action == 'BACK_TO_APP_PAYLOAD' || action.downcase.strip.include?("app")
+    # SAVE MESSAGE FORM USER
+    Message.create(content: payload, from: "user", stay: stay)
 
-      # SAVE MESSAGE FORM USER
 
       # POSTBACKS
       if action == 'GET_STARTED_PAYLOAD' || action.downcase.strip.include?("restart")
@@ -141,8 +158,6 @@ class Message < ApplicationRecord
         Message.call_hotel(stay, message_or_postback)
       elsif action == 'ROUTE_HOTEL_PAYLOAD' || action.downcase.strip.include?("call hotel") || action.downcase.strip.include?("phone")
         Message.call_hotel(stay, message_or_postback)
-
-
 
 
       # TYPED MESSAGES (HUMANIZER)
@@ -180,25 +195,25 @@ class Message < ApplicationRecord
       data = {
         "attachment":
         {
-        "type":"template",
-        "payload":
+          "type":"template",
+          "payload":
           {
-          "template_type":"button",
-          "text":"Hi, just push the button and you will call your hotel.",
-          "buttons":[
-           {
-            "type":"phone_number",
-            "title":"Call my Hotel",
-            "payload":"+31619663369"
-          }
-        ]
+            "template_type":"button",
+            "text":"Hi, just push the button and you will call your hotel.",
+            "buttons":[
+             {
+              "type":"phone_number",
+              "title":"Call my Hotel",
+              "payload":"+31619663369"
+            }
+          ]
+        }
       }
     }
-  }
-  message_or_postback.reply(data)
-  Message.create(content: data, from: "bot", stay: stay)
+    message_or_postback.reply(data)
+    Message.create(content: data, from: "bot", stay: stay)
 
-  Message.restart_after_question(stay, message_or_postback)
+    Message.restart_after_question(stay, message_or_postback)
 
 
   end
@@ -344,7 +359,7 @@ class Message < ApplicationRecord
     def welcome(stay, message_or_postback)
 
       data = {
-        text: "#{stay.user.first_name}! Welcome to the #{stay.hotel.name}.",
+        text: "#{stay.user.first_name}! Welcome to the hotel name her.",
       }
 
       # Trigger Welcome message

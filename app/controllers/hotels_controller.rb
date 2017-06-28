@@ -6,6 +6,7 @@ class HotelsController < ApplicationController
   end
 
   def calendar_mobile
+    @stay = Stay.find(params[:stay_id])
     calendar_info_generation
     @date_range = (@start_date..(@start_date + 2.days)).to_a
     user_data_generation
@@ -37,6 +38,7 @@ class HotelsController < ApplicationController
 
   def charts
     @hotel = Hotel.find(params[:hotel_id])
+    @stay = Stay.find(params[:stay_id])
     @restaurants_service_id = @hotel.services[0].id
     @massages_service_id = @hotel.services[1].id
   end

@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
 
   def introduction
     @stay = Stay.first
-    @hotel = Hotel.first
+    @hotel = @stay.hotel
     @disable_nav = true
   end
 
@@ -26,8 +26,7 @@ class ServicesController < ApplicationController
   end
 
   def index
-
-    @stay = Stay.first
+    @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.first
     @services = Service.all
 
