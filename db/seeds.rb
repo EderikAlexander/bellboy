@@ -414,10 +414,14 @@ start_datetimes_tobook.size.times do
   i += 1
 end
 
-# HOTEL USER
-user = User.new(email: "ederik@bellboy.com", first_name: "Ederik", last_name: "Van Koldenhoven", passport: Faker::Number.number(8), password: "bellboy")
-user.save
-hotel. user = user
-hotel.save
+# HOTEL BACKEND
+
+  # User Admin
+  user = User.new(email: "ederik@bellboy.com", first_name: "Ederik", last_name: "Van Koldenhoven", passport: Faker::Number.number(8), password: "bellboy")
+  user.save
+
+  # Asign Hotel
+  hotel.user = user
+  hotel.save
 
 puts "Finished seeding process!"
