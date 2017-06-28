@@ -1,0 +1,155 @@
+
+
+// ------------------------------------------------------------
+// title icon calendar
+// ------------------------------------------------------------
+
+.title-dash-cal-icon-wrapper {
+  // background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dash-cal-icon {
+  font-size: 40px;
+}
+
+// ------------------------------------------------------------
+// navbar calendar
+// ------------------------------------------------------------
+
+.dash-cal-navbar-wrapper {
+  display: flex;
+  width: 200px;
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.title-calendar {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  p {
+    font-size: 26px;
+  }
+}
+
+.arrow-dash-cal-navi a {
+  color: black;
+  margin-top: 5px;
+}
+
+.dash-cal-navi-month {
+  font-size: 18px;
+}
+
+// ------------------------------------------------------------
+// calendar content
+// ------------------------------------------------------------
+
+.dash-cal-wrapper {
+  margin-top: 10px;
+}
+
+.booking-info {
+  font-size: 13px;
+}
+
+@media (min-width: 600px) {
+  .calendar-month-wrapper {
+    margin: 80px 20px 60px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .calendar-month-wrapper {
+    margin: 80px 5px 60px 5px;
+  }
+}
+
+// ------------------------------------------------------------
+// <!--    service-filters
+// ------------------------------------------------------------
+
+// positioning
+.service-filters-wrapper {
+  margin-top: 10px;
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
+}
+
+// style
+
+.text-service-filter {
+  color: white;
+  font-size: 16px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.service-filter-btn {
+  width: 100px;
+  border-radius: 15px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.tables-filter-color {
+  background-color: #e55331;
+}
+
+.massages-filter-color {
+  background-color: #4caf50;
+}
+
+.all-services-filter-color {
+  background-color: #4183c4;
+}
+
+// ------------------------------------------------------------
+// service-filters. -->
+// ------------------------------------------------------------
+.type-dash-cal-wrapper {
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.monthly-dash-cal-color {
+  background-color: #f2b75e;
+}
+
+.weakly-dash-cal-color {
+  background-color: #ce8d65;
+}
+
+.three-days-dash-cal-color {
+  background-color: #e2b38c;
+}
+
+.hover-size-dash-cal {
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active  {
+    opacity: 0.7;
+  }
+}
+
+
+
+
+
+

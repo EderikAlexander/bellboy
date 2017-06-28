@@ -5,6 +5,12 @@ class HotelsController < ApplicationController
     @hotel = Hotel.first
   end
 
+  def calendar_mobile
+    calendar_info_generation
+    @date_range = (@start_date..(@start_date + 2.days)).to_a
+    user_data_generation
+  end
+
   def calendar_month
     calendar_info_generation
     @date_range = (@start_date.beginning_of_month.beginning_of_week..@start_date.end_of_month.end_of_week).to_a
@@ -32,7 +38,6 @@ class HotelsController < ApplicationController
   def charts
 
   end
-
 
   def calendar_info_generation
     @stay = Stay.find(params[:stay_id])

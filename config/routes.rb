@@ -6,9 +6,16 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount Localtower::Engine, at: "localtower"
   end
+
+  get '/introduction', to: 'services#introduction'
+  root 'services#introduction'
+
+
   get 'terms', to: "pages#terms"
+
   get 'stays/#{Stay.first}/hotels/#{Hotel.first}/services', to: 'services#index'
   root 'services#index'
+
   # root to: 'stays#index'
   # get 'stays/:stay_id/hotels/:hotel_id/services/search', to: 'services#search'
 
@@ -16,6 +23,7 @@ Rails.application.routes.draw do
     resources :hotels, only: [:show] do
       get "/calendar_month", to: "hotels#calendar_month"
       get "/calendar_week", to: "hotels#calendar_week"
+      get "/calendar_mobile", to: "hotels#calendar_mobile"
       get "/charts", to: "hotels#charts"
 
       resources :services, only: [:index, :show, :new, :create, :destroy] do

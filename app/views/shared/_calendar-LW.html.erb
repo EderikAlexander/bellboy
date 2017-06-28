@@ -1,87 +1,158 @@
+<div class="nav-calendar-wrapper">
 
+    <!-- <div class="col-md-3 text-left"> -->
+    <div class="text-right">
+      <%= link_to start_date: @date_range.first - 1.day do %>
+        <i class="fa fa-chevron-circle-left hover-size nav-cal-left" aria-hidden="true"></i>
+      <% end %>
+    </div>
 
-<%#= we can not pass a url, we have to pass the current url %>
-<%= link_to "Previous", start_date: @date_range.first - 1.day  %>
-<%#= this should be customizable %>
-<%= @start_date.month %> <%= @start_date.year %>
-<%= link_to "Next", start_date: @date_range.last + 1.day  %>
+    <div class="text-center cal-book-month">
+      <%= @start_date.strftime("%B") %> <%= @start_date.year %>
+    </div>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <% @date_range.slice(0,7).each do |day| %>
-      <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
-    <% end %>
-  </tr>
+    <!-- <div class="col-md-3 text-right"> -->
+    <div class="text-left">
+      <%= link_to start_date: @date_range.last + 1.day do %>
+        <i class="fa fa-chevron-circle-right hover-size nav-cal-left" aria-hidden="true"></i>
+      <% end %>
+    </div>
 
-  </thead>
-  <tbody>
-    <% @date_range.each_slice(7) do |week| %>
+</div>
+
+<%= simple_form_for :time_booking, url: stay_hotel_service_bookings_path(:service_id => params[:id]), method: :post do |f| %>
+    <%= f.input :day_selection, as: :hidden, input_html: {id: "bookable-date" }  %>
+    <%#= f.input :day_selection, input_html: {id: "bookable-date" }  %>
+
+  <div class="calendar-booking-wrapper">
+    <table class="table cal-book-table">
+      <thead>
       <tr>
-        <% week.each do |day| %>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= day %> <span class="caret"></span>
-              </button>
-              <ul id="dropdown-hours" class="dropdown-menu">
-                <% @service_hours.each do |service_hour| %>
-                  <% found = false %>
-                  <li>
-                    <!-- button -->
-                    <% @start_time_bookings_day = [] %>
-                    <% @start_time_bookings.each do |start_time_booking| %>
-                      <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
-                        <button type="button" class="btn btn-danger"><%= service_hour %></button>
-                        <% found = true %>
-                      <% else %>
-                      <% end %>
-                    <% end %>
-                    <% if found == true %>
-
-                    <% else %>
-                      <button type="button" class="btn btn-success"><%= service_hour %></button>
-                    <% end %>
-
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </td>
+        <% @date_range.slice(0,7).each do |day| %>
+          <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<button type="button" class="btn btn-success click-me">Click Me</button>
+      </thead>
+      <tbody>
+        <% @date_range.each_slice(7) do |week| %>
+          <tr>
+          <% weekdays = {"0": "Monday", "1": "Tuesday" ,"2": "Wednesday" ,"3": "Thursday", "4": "Friday", "5": "Saturday", "6": "Sunday"} %>
+            <% week.each_with_index do |day, index| %>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle cal-book-day-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="text-center" data-target="<%= weekdays[index.to_s.to_sym] %>">
+                     <%= day.day %>
+                    </div>
+                  </button>
+                  <ul id="dropdown-hours" class="dropdown-menu dropdown-scrollable-menu">
+                    <% @service_hours.each do |service_hour| %>
+                      <% found = false %>
+                      <div class="hour-wrapper-red">
+                        <li>
+                          <!-- button -->
+                          <% @start_time_bookings_day = [] %>
+                          <% @start_time_bookings.each do |start_time_booking| %>
+                            <% if start_time_booking.to_date == day and start_time_booking.hour == service_hour.to_i and found == false %>
+                              <div class="booked-hour">
+                                <%= service_hour %>:00
+                              </div>
+                              <% found = true %>
+                            <% else %>
+                            <% end %>
+                          <% end %>
+                          <% if found == true %>
 
-<script type="text/javascript">
+                          <% else %>
 
-  $(".click-me").on("click",function(){
-    alert("i have clicked the button click-me");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    document.body.appendChild(btn);
-    // $(this).appendChild(btn);
-  })
+                          <div class="wrap-date hour-wrapper">
+                            <!--
+                            <div class="wrap-hour-confirm-btn"> -->
 
-  $(".day-btn-wrapper").on("click",function(){
-    // alert("button inside modal clicked");
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Confirm");
-    btn.appendChild(t);
-    btn.className = "confirm-btn";
-    // $(this).appendChild(btn);
+                              <div data-date="<%= day %>|<%= service_hour %>" class="bookable-hour pull-left">
+                                <div class="text-center"><%= service_hour %>:00</div>
+                              </div>
 
-    $(this).appendChild(btn);
-    // alert("i have clicked a day");
-    // document.body.appendChild(btn);
-  })
-</script>
+                              <div class="wrap-confirm-btn pull-right">
+                                <button style="display: none;" type="submit" class="confirm-btn">confirm</button>
+                              </div>
 
+                              <div class="clearfix"></div>
+                            <!--
+                            </div> -->
+                          </div>
+                          <% end %>
+                        </li>
+                      </div>
+                    <% end %>
+                  </ul>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<% end %>
+
+<% content_for :after_dropdown do %>
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+
+        $('.dropdown-menu').click(function(e) {
+          e.stopPropagation();
+        });
+
+        $("[data-date]").click(function(e) {
+          e.preventDefault();
+          // e.stopPropagation();
+          $(".wrap-date button").hide();
+          var confirm = $(this).parent().find("button");
+          confirm.show();
+        });
+
+        $(".bookable-date").click(function(e){
+          e.preventDefault();
+
+          var el = $(this);
+          var dayAndHour = el.attr("data-date");
+          $("#bookable-date").val(dayAndHour);
+          $(".confirmation").show();
+        });
+
+        // ---------------------------------------------------------------
+        // add bootstrap class: dropdown-menu-right when clicking day.
+        // ---------------------------------------------------------------
+        $('.cal-book-day-btn').click(function(e) {
+          if (($("div", this).data("target")) == "Saturday" || ($("div", this).data("target")) == "Sunday") {
+            $(this).siblings().first().addClass('dropdown-menu-right');
+          }
+          console.log("hello");
+
+          element = $('.cal-book-day-btn').parent().parent().parent().parent().parent().find("th");
+          element = element[6]; // .text()?
+          console.log(element);
+          console.log(typeof element);
+          // console.log(element.keys("th"));
+          // var $tag = $(element); //this turns your string into real html
+          // console.log($tag);
+          // var result = $tag.find('th').eq(0).text();
+          // console.log(result);
+          // console.log(result.keys());
+
+        });
+
+
+
+
+      });
+
+    </script>
+<% end %>
 
 
 

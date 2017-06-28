@@ -1,24 +1,59 @@
-.service-li{
-    position: relative;
-    background-image: cover;
-    background-position: center;
-    color: white;
-    background-size: cover;
-  }
 
-.service-content {
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
+.services-container {
+  padding-top: 58px;
+  padding-bottom: 130px;
+  background-color: #F4F4F4;
+  width: 100%;
 }
 
+.service-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  padding: 0px;
+  border: 1px solid rgba(255, 217, 115, 0.1);
+}
 
+.service-element {
+  background-color: white;
+  width: 90%;
+  margin: auto;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
 
+.service-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-decoration: none;
+  h3 {
+    padding: 0px;
+    padding-top: 10px;
+    margin: 0px;
+    color: #213640;
+    font-size: 18px;
+  }
+}
 
+.service-time {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
 
-.service-title{
-  font-family: $header-font;
-  font-style: normal;
-  font-variant: normal;
-  margin-bottom: 20px;
+.service-hour {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #fff;
+  font-weight: lighter;
+  font-size: 15px;
+  background-color: #213640;
+  border: 1px solid #FFBE1D ;
+  border-radius: 10px;
+  width: 120px;
+}
+
+a:hover {
+  text-decoration:none;
 }

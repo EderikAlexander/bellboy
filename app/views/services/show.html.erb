@@ -1,61 +1,38 @@
-<%= content_for :nav_title, "back" %>
+<%= content_for :nav_title, "" %>
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
 
+  <div class="book-wrap" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('<%= cl_image_path @service.photo.path %>'); background-size: cover;">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-2 col-sm-8 fixing-paddings">
+        <div id="show-service-content" >
 
+          <div id="service-title" class="mini-title">
+            <p> <%= @service.title %> </p>
+          </div>
 
-<div style="background-color: yellow;">
-  <% if flash[:notice] %>
-    <%= flash[:notice] %>
-  <% end %>
+          <div id="service-description">
+            <p> <%= @service.description %> </p>
+          </div>
+
+          <div id="opening-hours">
+            <p>Opens every day from <span id="opening-hours-big"><%= @service.start_time %></span> to <span id="opening-hours-big"><%= @service.end_time %></span>.</p>
+          </div>
+
+          <p class="mini-title">Book service</p>
+        </div>
+          <div class="calendar-wrapper">
+            <%= render "shared/calendar-LW" %>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<p> <%= @service.description %> </p>
-<p> <%= @service.end_time %> </p>
-<p> <%= @service.start_time %> </p>
 
-<%= link_to "see all services", stay_hotel_services_path(@stay, @hotel) %>
-
-
-
-<h1>Book it!</h1>
-<div class="" style="position:relative;">
-<%= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
-  <%= f.input :start_datetime, as: :string, input_html:{id: "start_datetime" } %>
-  <%= f.input :end_datetime,as: :string, input_html:{id: "end_datetime" }  %>
-  <%= f.submit "submit", class: "btn btn-primary" %>
-<% end %>
-
-</div>
-<%#= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
-  <%#= f.input :start_datetime, as: :datetime %>
-  <%#= f.input :end_datetime, as: :datetime %>
-  <%#= f.submit "submit", class: "btn btn-primary" %>
-<%# end %>
-
-<%#= link_to "booking manager", stay_hotel_service_bookings_path(@stay, @hotel, @service) %>
-
-
-<h1>Bookings control</h1>
-
-<% @bookings.each do |booking| %>
-  <p>booking id: <%= booking.id %> </p>
-  <p>start date-time: <%= booking.start_datetime %> </p>
-  <p>end date-time: <%= booking.end_datetime %> </p>
-  <p>user id: <%= booking.user_id %> </p>
-  <p>service id: <%= booking.service_id %> </p>
-  <%= link_to "delete", stay_hotel_service_booking_path(@stay, @hotel, @service, booking), method: :delete  %>
-  <p>-------------------------------------------------</p>
-<% end %>
-<a href="http://m.me/110101406273492"> Chatbot</a>
-
-<h1>trying booking system lewagon</h1>
-
-
-<%= render "shared/calendar-LW" %>
-
-
-
+<!-- BOTTOM NAV BAR -->
+<%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
 
 
 

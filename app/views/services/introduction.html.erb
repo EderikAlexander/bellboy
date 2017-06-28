@@ -1,0 +1,81 @@
+<div class="wrapper-intro">
+<!-- <div class="flex"> -->
+  <div class="block">
+
+    <div class="background london">
+
+    </div>
+
+
+  <div class="london-full">
+    <div class="slidetext london text-center">
+    <br>
+    <%= image_tag image_path('logoins.svg'), width: 150 %>
+    <h1>Hey <%= current_user.first_name %>!</h1>
+    <br>
+
+  <h2 style="margin: 0 30px; line-height: 30px;">Welcome to <%= @hotel.name %>! We hope that you enjoy your stay. My name is Andy and I will guide you through the different things that you can do with our app.
+  </h2>
+
+    <div class="continue" style="display: flex; bottom: 10px; justify-content: center; align-items: center; width: 100%; height: 70px; position: absolute; bottom:0px;">
+      <div class="next text-center" style="">
+        <a href="#0" id="cont" class="bttn" style="color: #213640;">Continue</a>
+      <ul class="dots">
+        <li class="active"></li>
+        <li></li>
+      </ul>
+      </div>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- ---------------------------- -->
+
+
+    <div class="paris-full ">
+    <div class="slidetext paris active hidden ">
+      <br>
+      <br>
+      <br>
+
+      <div class="tut-img" style="margin: 0px; ">
+      <%= image_tag image_path('tutins.svg'), id: "tut-img" %>
+      </div>
+      <div class="continue" style="display: flex; bottom: 10px; justify-content: center; align-items: center; width: 100%; height: 70px; position: absolute; bottom: 0px;">
+      <div class="next text-center" style="">
+      <a href="stays/<%= Stay.first.id %>/hotels/<%= Hotel.first.id %>/services" id="start" class="bttn " style="text-decoration: none; color: #213640;">Get Started</a>
+      <ul class="dots">
+        <li></li>
+        <li class="active"></li>
+      </ul>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<%= content_for(:after_js) do %>
+  <script>
+    // $(".bttn").click(function() {
+      $('#cont').click(function(e){
+        e.preventDefault();
+        // $('#paris-full').removeClass("hidden");
+        // // $('#london-full').addClass("hidden");
+        // $('#start').removeClass("hidden");
+        $(".background").toggleClass("paris").toggleClass("london");
+        $(".london").toggleClass("active");
+        $('.paris').removeClass("hidden")
+        $(".paris").toggleClass("active");
+        $('.continue').removeClass('hidden');
+      });
+
+  // $(".background").toggleClass("paris").toggleClass("london");
+ // $(".london").toggleClass("active");
+ // $(".paris").toggleClass("active");
+
+// });
+  </script>
+<% end %>

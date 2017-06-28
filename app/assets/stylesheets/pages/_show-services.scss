@@ -1,12 +1,204 @@
-.wrapper-table {
+.fixing-paddings {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#show-service-content {
+  padding: 60px 40px 20px 40px;
+}
+
+#service-description, #opening-hours {
+  font-size: 16px;
+}
+
+.mini-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30px;
+}
+
+#opening-hours-big {
+  font-size: 20px;
+}
+
+#service-title, #service-description, #opening-hours, #mini-title {
+  color: white;
+}
+
+#service-title {
+  margin-top: 60px;
+}
+
+// ------------------------------------------------
+// DESCRIPTION SERVICE
+// ------------------------------------------------
+#opening-hours {
+  padding: 30px 0px;
+}
+
+// ------------------------------------------------
+// NAVBAR CALENDAR
+// ------------------------------------------------
+.calendar-wrapper {
+  margin-bottom: 100px;
+}
+
+.nav-calendar-wrapper {
   display: flex;
+  width: 200px;
+  justify-content: space-around;
+  margin: 0 auto;
+  // margin-bottom: 300px;
+  align-items: center;
+  i {
+    color: white;
+  }
+  padding-bottom: 20px;
 }
 
-.wrapper-column {
-  width: 400px;
-
+.nav-cal-left {
+  margin-top: 10px;
+  font-size: 20px;
 }
 
-.time-slot {
-  border: solid 1px rgb(200, 200, 200);
+.hover-size {
+  &:hover {
+    transform: scale(1.3);
+  }
+
+  &:active  {
+    opacity: 0.7;
+  }
 }
+
+.cal-book-month {
+  color: white;
+  font-size: 30px;
+}
+
+
+// .wrap-date {
+//   height: 30px;
+//   .wrap-hour-confirm-btn {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   }
+// }
+
+.wrap-date {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// ------------------------------------------------
+// HOURS IN CALENDAR
+// ------------------------------------------------
+.dropdown-scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+// .calendar-booking-wrapper {
+//   //background-color: yellow;
+//   padding: 10px;
+// }
+
+@media (min-width: 600px) {
+  .cal-book-day-btn {
+    width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cal-book-day-btn {
+    width: 30px;
+  }
+}
+
+.cal-book-day-btn {
+  background-color: rgba(200, 200, 200, 0.7);
+  border: 0px;
+  padding: 5px;
+}
+
+.cal-book-table th {
+  color: white;
+}
+
+.cal-book-table th, td {
+  text-align: center;
+  border: 0px;
+}
+
+
+
+
+
+.wrap-confirm-btn {
+  background-color: #213640;
+  color: white;
+  border: 0px;
+  // width: 60px;
+  // height: 20px;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 0px 10px;
+  margin-left: 10px;
+}
+
+.confirm-btn {
+  height: 30px;
+  background-color: #213640;
+  color: white;
+  border: 0px;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+}
+
+// ------------------------------------------------
+// BOOKED HOURS
+// ------------------------------------------------
+.booked-hour {
+  color: rgb(210, 210, 210);
+  margin: 0px 5px;
+  padding: 5px 16px;
+}
+
+
+// ------------------------------------------------
+// BOOKABLE HOURS
+// ------------------------------------------------
+
+.hour-wrapper {
+  // background-color: blue;
+  margin: 0px 5px;
+  padding: 5px 16px;
+}
+
+.hour-wrapper:hover {
+  background-color: #A0C814;
+  border-radius: 5px;
+  padding: 5px 16px;
+  cursor: pointer;
+}
+
+.book-wrap {
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+
+
+
+
+
+

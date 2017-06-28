@@ -2,22 +2,39 @@
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/locations" %>
 <%= content_for :link, hreff %>
 
-
-<div style='width: 100%; position: fixed; top: 60px; left: 0; bottom: 0;'>
-    <div id="directions" style='width: 100%; height: 400px;'></div>
+<div class="complete-location-show">
+<div class="location-image" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.1) 0%, rgba(0,36,61,0.6) 50%), url('<%= cl_image_path @location.photo.path if @location.photo? %>');">
+  <!-- <div class="location-banner-content"> -->
+  <div class="location-header">
+  <h1><%= @location.name %></h1>
+  <h5 style="color: white;"><%= @location.address %></h5 style="color: white;">
   </div>
 
-
-<div style="margin: 50px;">
-<p><%= @location.name %></p>
-<p><%= @location.address %></p>
-<p><%= @location.category %></p>
+ <!--  </div> -->
 </div>
 
 
+<div id="route-map">
+    <div id="directions" style='width: 100%; height: 250px;'></div>
+</div>
+
+<div class="calling text-center"><a href="tel:+1800229933">
+  <button id="cab-location" class="btn-medium-map btn-medium-yellow" style="border:none; padding: 10px 50px; font-size: 16px">CALL A CAB</button>
+</a>
+
+</div>
+
+<!--
+<div style="margin: 50px;">
+<p><%#= @location.name %></p>
+<p><%#= @location.address %></p>
+<p><%#= @location.category %></p>
+</div>
+ -->
 
 
 
+</div>
 
 
 

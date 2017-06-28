@@ -22,7 +22,7 @@ SERVICE_LIST = [ { title: "Restaurant", description: "Welcome to BRAVO24 where C
  { title: "Massage", description: "Boasts a brisk rub of freshly-grated ginger root and warm detoxifying essential oils, a cozy warming foil wrap, a 20-minute soak and a 100-minute body-melting massage.", end_time: "21:00", start_time: "10:00", price: 200 },
  { title: "Swimming Pool", description: "Take it outside to the terrace where perfect cocktails, light fare, small dishes, snacks, and tapas are inspired by Barcelona with a modern twist.", end_time: "23:00", start_time: "7:00" },
  { title: "Entertainment Room", description: "The best way to find game room ideas is to take a cue from your favorite activities and the things you do for fun.", end_time: "22:00", start_time: "18:00" },
- { title: "Transportation", description: "The journey time from the airport to the centre is between 20 to 30 minutes depending on the time of day.", end_time: "00:00", start_time: "23:59" }, { title: "Laundry", description: "Tell us when we should wash your dirty laundry", end_time: "00:00", start_time: "23:59" }
+ { title: "Transportation", description: "The journey time from the airport to the centre is between 20 to 30 minutes depending on the time of day.", end_time: "23:59", start_time: "00:00" }, { title: "Laundry", description: "Tell us when we should wash your dirty laundry", end_time: "23:59", start_time: "00:00" }
 ]
 
 # MESSAGE LIST
@@ -39,8 +39,9 @@ MESSAGE_LIST =[ { welcome: { "text": "Welcome to the our hotel" } },
 # ROOM TYPES
 ROOM_TYPE_LIST = ["Single", "Double", "Triple", "Suite", "Studio"]
 
-SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/swimming_muclek.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/entertainment_akwlvh.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410082/taxi_bx3fh8.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498410081/laundry_gxr9hg.jpg"]
+SERVICES_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498636625/restaurant_k6uge4.png", "http://res.cloudinary.com/montolio/image/upload/v1498410082/Thai-Massage_cn2wjv.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498636680/swimming_pool_naoxt1.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498636719/entretainment_room_kxkr3w.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498636768/cab_zcsxvu.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498636810/laundry_cuzpna.png"]
 LOCATIONS_URLS = ["http://res.cloudinary.com/montolio/image/upload/v1498483970/sagrada_familia_yc6s0o.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484022/park_guell_vl3bpi.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484064/la_rambla_smwgx0.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484124/ticket_restaurant_luybra.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484181/tapas_24_uscrme.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484221/el_atril_zqrotq.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484261/europcar_xf94lv.png", "http://res.cloudinary.com/montolio/image/upload/v1498484306/hertz_wzybeu.jpg", "http://res.cloudinary.com/montolio/image/upload/v1498484420/avis_lrscwa.jpg" ]
+CALL_TO_ACTION = ["Book a table", "Book a massage", "Where is it?", "Where is it?", "Get a cab", "Book a pick up time"]
 
 
 puts "Starting seeding process..."
@@ -152,10 +153,149 @@ services.each_with_index do |service, index|
   end
 end
 
-# RESTAURANTS
-start_booking_strings = ["06/26/2017 7:00 PM", "06/25/2017 6:00 PM", "06/25/2017 7:00 PM", "06/25/2017 8:00 PM", "06/24/2017 5:00 PM", "06/24/2017 7:00 PM", "06/24/2017 8:00 PM", "06/23/2017 7:00 PM", "05/22/2017 7:00 PM", "05/22/2017 8:00 PM", "05/21/2017 7:00 PM", "05/21/2017 9:00 PM", "05/20/2017 7:00 PM", "05/2/2017 8:00 PM", "04/20/2017 5:00 PM", "04/19/2017 6:00 PM", "04/19/2017 8:00 PM", "03/26/2017 4:00 PM", "03/26/2017 7:00 PM", "02/26/2017 6:00 PM", "02/26/2017 8:00 PM", "02/26/2017 9:00 PM", "01/10/2017 4:00 PM", "01/11/2017 8:00 PM", "01/12/2017 9:00 PM", "01/14/2017 7:00 PM"]
+# RESTAURANTS start
+start_booking_strings = [
+  "07/9/2017 9:00 PM",
+  "07/8/2017 7:00 PM",
+  "07/8/2017 6:00 PM",
+  "07/7/2017 6:00 PM",
+  "07/6/2017 8:00 PM",
+  "07/6/2017 7:00 PM",
+  "07/5/2017 6:00 PM",
+  "07/4/2017 8:00 PM",
+  "07/3/2017 9:00 PM",
+  "07/2/2017 7:00 PM",
+  "07/1/2017 6:00 PM",
+  "06/30/2017 6:00 PM",
+  "06/30/2017 8:00 PM",
+  "06/29/2017 7:00 PM",
+  "06/28/2017 6:00 PM",
+  "06/28/2017 8:00 PM",
+  "06/27/2017 7:00 PM",
+  "06/26/2017 7:00 PM",
+  "06/25/2017 7:00 PM",
+  "06/24/2017 5:00 PM",
+  "06/24/2017 7:00 PM",
+  "06/23/2017 7:00 PM",
+  "06/22/2017 6:00 PM",
+  "06/22/2017 8:00 PM",
+  "06/21/2017 7:00 PM",
+  "06/20/2017 6:00 PM",
+  "06/19/2017 8:00 PM",
+  "06/19/2017 7:00 PM",
+  "06/18/2017 7:00 PM",
+  "06/17/2017 7:00 PM",
+  "06/16/2017 5:00 PM",
+  "06/16/2017 7:00 PM",
+  "06/15/2017 7:00 PM",
+  "06/14/2017 7:00 PM",
+  "06/13/2017 6:00 PM",
+  "06/12/2017 8:00 PM",
+  "06/11/2017 7:00 PM",
+  "06/11/2017 6:00 PM",
+  "06/10/2017 6:00 PM",
+  "06/9/2017 8:00 PM",
+  "06/8/2017 7:00 PM",
+  "06/7/2017 7:00 PM",
+  "06/6/2017 7:00 PM",
+  "06/6/2017 8:00 PM",
+  "06/5/2017 5:00 PM",
+  "06/4/2017 7:00 PM",
+  "06/4/2017 9:00 PM",
+  "06/3/2017 7:00 PM",
+  "06/2/2017 7:00 PM",
+  "06/1/2017 5:00 PM",
+  "05/22/2017 7:00 PM",
+  "05/22/2017 8:00 PM",
+  "05/21/2017 7:00 PM",
+  "05/21/2017 9:00 PM",
+  "05/20/2017 7:00 PM",
+  "05/2/2017 8:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/19/2017 6:00 PM",
+  "04/19/2017 8:00 PM",
+  "03/26/2017 4:00 PM",
+  "03/26/2017 7:00 PM",
+  "02/26/2017 6:00 PM",
+  "02/26/2017 8:00 PM",
+  "02/26/2017 9:00 PM",
+  "01/10/2017 4:00 PM",
+  "01/11/2017 8:00 PM",
+  "01/12/2017 9:00 PM",
+  "01/14/2017 7:00 PM"
+]
 
-end_booking_strings = ["06/26/2017 7:59 PM", "06/25/2017 6:59 PM", "06/25/2017 7:59 PM", "06/25/2017 8:59 PM", "06/24/2017 5:59 PM", "06/24/2017 7:59 PM", "06/24/2017 8:59 PM", "06/23/2017 7:59 PM", "05/22/2017 7:59 PM", "05/22/2017 8:59 PM", "05/21/2017 7:59 PM", "05/21/2017 9:59 PM", "05/20/2017 7:59 PM", "05/2/2017 8:59 PM", "04/20/2017 5:59 PM", "04/19/2017 6:59 PM", "04/19/2017 8:59 PM", "03/26/2017 4:59 PM", "03/26/2017 7:59 PM", "02/26/2017 6:59 PM", "02/26/2017 8:59 PM", "02/26/2017 9:59 PM", "01/10/2017 4:59 PM", "01/11/2017 8:59 PM", "01/12/2017 9:59 PM", "01/14/2017 7:59 PM"]
+# RESTAURANTS end
+end_booking_strings = [
+  "07/9/2017 9:00 PM",
+  "07/8/2017 7:00 PM",
+  "07/8/2017 6:00 PM",
+  "07/7/2017 6:00 PM",
+  "07/6/2017 8:00 PM",
+  "07/6/2017 7:00 PM",
+  "07/5/2017 6:00 PM",
+  "07/4/2017 8:00 PM",
+  "07/3/2017 9:00 PM",
+  "07/2/2017 7:00 PM",
+  "07/1/2017 6:00 PM",
+  "06/30/2017 6:00 PM",
+  "06/30/2017 8:00 PM",
+  "06/29/2017 7:00 PM",
+  "06/28/2017 6:00 PM",
+  "06/28/2017 8:00 PM",
+  "06/27/2017 7:00 PM",
+  "06/26/2017 7:00 PM",
+  "06/25/2017 7:00 PM",
+  "06/24/2017 5:00 PM",
+  "06/24/2017 7:00 PM",
+  "06/23/2017 7:00 PM",
+  "06/22/2017 6:00 PM",
+  "06/22/2017 8:00 PM",
+  "06/21/2017 7:00 PM",
+  "06/20/2017 6:00 PM",
+  "06/19/2017 8:00 PM",
+  "06/19/2017 7:00 PM",
+  "06/18/2017 7:00 PM",
+  "06/17/2017 7:00 PM",
+  "06/16/2017 5:00 PM",
+  "06/16/2017 7:00 PM",
+  "06/15/2017 7:00 PM",
+  "06/14/2017 7:00 PM",
+  "06/13/2017 6:00 PM",
+  "06/12/2017 8:00 PM",
+  "06/11/2017 7:00 PM",
+  "06/11/2017 6:00 PM",
+  "06/10/2017 6:00 PM",
+  "06/9/2017 8:00 PM",
+  "06/8/2017 7:00 PM",
+  "06/7/2017 7:00 PM",
+  "06/6/2017 7:00 PM",
+  "06/6/2017 8:00 PM",
+  "06/5/2017 5:00 PM",
+  "06/4/2017 7:00 PM",
+  "06/4/2017 9:00 PM",
+  "06/3/2017 7:00 PM",
+  "06/2/2017 7:00 PM",
+  "06/1/2017 5:00 PM",
+  "05/22/2017 7:00 PM",
+  "05/22/2017 8:00 PM",
+  "05/21/2017 7:00 PM",
+  "05/21/2017 9:00 PM",
+  "05/20/2017 7:00 PM",
+  "05/2/2017 8:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/19/2017 6:00 PM",
+  "04/19/2017 8:00 PM",
+  "03/26/2017 4:00 PM",
+  "03/26/2017 7:00 PM",
+  "02/26/2017 6:00 PM",
+  "02/26/2017 8:00 PM",
+  "02/26/2017 9:00 PM",
+  "01/10/2017 4:00 PM",
+  "01/11/2017 8:00 PM",
+  "01/12/2017 9:00 PM",
+  "01/14/2017 7:00 PM"
+]
 
 start_datetimes_tobook = []
 start_booking_strings.each do |start_booking_string|
@@ -176,10 +316,84 @@ start_datetimes_tobook.size.times do
   i += 1
 end
 
-# MASSAGES
-start_booking_strings = ["06/26/2017 9:00 PM", "06/26/2017 7:00 PM", "06/25/2017 6:00 PM", "06/25/2017 7:00 PM", "06/25/2017 8:00 PM", "06/24/2017 5:00 PM", "06/24/2017 7:00 PM", "06/24/2017 8:00 PM", "06/23/2017 7:00 PM", "05/22/2017 7:00 PM", "05/22/2017 8:00 PM", "05/21/2017 7:00 PM", "05/21/2017 9:00 PM", "05/20/2017 7:00 PM", "05/2/2017 8:00 PM", "05/2/2017 9:00 PM", "04/20/2017 5:00 PM", "04/20/2017 5:00 PM", "04/19/2017 6:00 PM", "04/19/2017 8:00 PM", "03/26/2017 4:00 PM", "03/26/2017 7:00 PM", "02/26/2017 6:00 PM", "02/26/2017 8:00 PM", "02/26/2017 9:00 PM", "01/10/2017 4:00 PM", "01/11/2017 8:00 PM", "01/12/2017 9:00 PM", "01/14/2017 7:00 PM"]
+# MASSAGES ---------------------------------------------------------------------------------
+start_booking_strings = [
+  "07/5/2017 9:00 PM",
+  "07/4/2017 5:00 PM",
+  "07/3/2017 4:00 PM",
+  "07/2/2017 9:00 PM",
+  "07/1/2017 7:00 PM",
+  "06/29/2017 6:00 PM",
+  "06/28/2017 7:00 PM",
+  "06/27/2017 8:00 PM",
+  "06/26/2017 9:00 PM",
+  "06/26/2017 7:00 PM",
+  "06/25/2017 6:00 PM",
+  "06/25/2017 7:00 PM",
+  "06/25/2017 8:00 PM",
+  "06/24/2017 5:00 PM",
+  "06/24/2017 7:00 PM",
+  "06/24/2017 8:00 PM",
+  "06/23/2017 7:00 PM",
+  "05/22/2017 7:00 PM",
+  "05/22/2017 8:00 PM",
+  "05/21/2017 7:00 PM",
+  "05/21/2017 9:00 PM",
+  "05/20/2017 7:00 PM",
+  "05/2/2017 8:00 PM",
+  "05/2/2017 9:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/19/2017 6:00 PM",
+  "04/19/2017 8:00 PM",
+  "03/26/2017 4:00 PM",
+  "03/26/2017 7:00 PM",
+  "02/26/2017 6:00 PM",
+  "02/26/2017 8:00 PM",
+  "02/26/2017 9:00 PM",
+  "01/10/2017 4:00 PM",
+  "01/11/2017 8:00 PM",
+  "01/12/2017 9:00 PM",
+  "01/14/2017 7:00 PM"]
 
-end_booking_strings = ["06/26/2017 9:59 PM", "06/26/2017 7:59 PM", "06/25/2017 6:59 PM", "06/25/2017 7:59 PM", "06/25/2017 8:59 PM", "06/24/2017 5:59 PM", "06/24/2017 7:59 PM", "06/24/2017 8:59 PM", "06/23/2017 7:59 PM", "05/22/2017 7:59 PM", "05/22/2017 8:59 PM", "05/21/2017 7:59 PM", "05/21/2017 9:59 PM", "05/20/2017 7:59 PM", "05/2/2017 8:59 PM", "05/2/2017 9:59 PM", "04/20/2017 5:59 PM", "04/20/2017 5:59 PM", "04/19/2017 6:59 PM", "04/19/2017 8:59 PM", "03/26/2017 4:59 PM", "03/26/2017 7:59 PM", "02/26/2017 6:59 PM", "02/26/2017 8:59 PM", "02/26/2017 9:59 PM", "01/10/2017 4:59 PM", "01/11/2017 8:59 PM", "01/12/2017 9:59 PM", "01/14/2017 7:59 PM"]
+end_booking_strings = [
+  "07/5/2017 9:00 PM",
+  "07/4/2017 5:00 PM",
+  "07/3/2017 4:00 PM",
+  "07/2/2017 9:00 PM",
+  "07/1/2017 7:00 PM",
+  "06/29/2017 6:00 PM",
+  "06/28/2017 7:00 PM",
+  "06/27/2017 8:00 PM",
+  "06/26/2017 9:00 PM",
+  "06/26/2017 7:00 PM",
+  "06/25/2017 6:00 PM",
+  "06/25/2017 7:00 PM",
+  "06/25/2017 8:00 PM",
+  "06/24/2017 5:00 PM",
+  "06/24/2017 7:00 PM",
+  "06/24/2017 8:00 PM",
+  "06/23/2017 7:00 PM",
+  "05/22/2017 7:00 PM",
+  "05/22/2017 8:00 PM",
+  "05/21/2017 7:00 PM",
+  "05/21/2017 9:00 PM",
+  "05/20/2017 7:00 PM",
+  "05/2/2017 8:00 PM",
+  "05/2/2017 9:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/20/2017 5:00 PM",
+  "04/19/2017 6:00 PM",
+  "04/19/2017 8:00 PM",
+  "03/26/2017 4:00 PM",
+  "03/26/2017 7:00 PM",
+  "02/26/2017 6:00 PM",
+  "02/26/2017 8:00 PM",
+  "02/26/2017 9:00 PM",
+  "01/10/2017 4:00 PM",
+  "01/11/2017 8:00 PM",
+  "01/12/2017 9:00 PM",
+  "01/14/2017 7:00 PM"]
 
 start_datetimes_tobook = []
 start_booking_strings.each do |start_booking_string|
@@ -199,5 +413,11 @@ start_datetimes_tobook.size.times do
   booking.save
   i += 1
 end
+
+# HOTEL USER
+user = User.new(email: "ederik@bellboy.com", first_name: "Ederik", last_name: "Van Koldenhoven", passport: Faker::Number.number(8), password: "bellboy")
+user.save
+hotel. user = user
+hotel.save
 
 puts "Finished seeding process!"

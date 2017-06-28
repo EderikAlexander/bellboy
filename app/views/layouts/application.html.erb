@@ -11,12 +11,7 @@
   </head>
   <body>
   <% if user_signed_in? %>
-    <style>
-      body{
-        padding-top: 50px;
-      }
-    </style>
-    <%= render 'shared/navbar' %>
+    <%= render 'shared/navbar' unless @disable_nav %>
   <% end %>
     <%#= render 'shared/flashes' %>
     <%= yield %>
@@ -27,11 +22,8 @@
   <%= javascript_include_tag "https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js" %>
 
 
-
-
-
-
     <%= cloudinary_js_config %>
     <%= yield(:after_js) %>
+    <%= yield(:after_dropdown) %>
   </body>
 </html>

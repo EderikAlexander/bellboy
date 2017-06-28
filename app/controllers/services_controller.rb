@@ -1,5 +1,12 @@
 class ServicesController < ApplicationController
 
+  def introduction
+    @stay = Stay.first
+    @hotel = Hotel.first
+    @disable_nav = true
+  end
+
+
   def new
     @stay = Stay.first
     @hotel = Hotel.first
@@ -19,9 +26,11 @@ class ServicesController < ApplicationController
   end
 
   def index
+
     @stay = Stay.first
     @hotel = Hotel.first
     @services = Service.all
+
     # raise
   end
 

@@ -1,0 +1,74 @@
+#location-index-btns{
+
+  position: absolute;
+  margin-bottom: 15px;
+  top: 15px;
+
+}
+
+#locations-map {
+ position: relative;
+}
+
+
+
+#full-page-locations{
+  position: fixed;
+  width: 100%;
+  top: 58px;
+}
+
+ .please-work {
+  position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
+ }
+.the-flex{
+//   // postition: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.bellboy-btn-round{
+
+}
+
+.btn-medium-map {
+
+  // border: 1px solid #999999;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 1;
+  // color: white;
+
+  // height: 20px;
+}
+.btn-medium-map:hover {
+  opacity: 0.6;
+  text-decoration: none;
+  color: #213640;
+}
+
+.btn-medium-red {
+  background-color: #D25450;
+}
+
+.btn-medium-blue {
+  background-color: #213640;
+  // color: #FFD259;
+}
+
+.btn-medium-yellow {
+  background-color: #FFD259;
+  color: #213640;
+}
+
+.location-li{
+  margin-bottom: 15px;
+}
+
+// yellow #FFD259
+// blue 213640

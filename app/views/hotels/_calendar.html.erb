@@ -1,14 +1,9 @@
-<%#= we can not pass a url, we have to pass the current url %>
-<%= link_to "Previous", start_date: @date_range.first - 1.day  %>
-<%#= this should be customizable %>
-<%= @start_date.strftime("%B") %> <%= @start_date.year %>
-<%= link_to "Next", start_date: @date_range.last + 1.day  %>
 
 <table class="table table-striped">
   <thead>
   <tr>
     <% @date_range.slice(0,7).each do |day| %>
-      <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
+        <th class="text-center"><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
     <% end %>
   </tr>
 
@@ -23,19 +18,16 @@
             <% @hotel_bookings.select { |booking| booking.start_datetime.to_date == day }.sort_by(&:start_datetime).each do |booking| %>
               <%#= @service.title %> <%#= booking.start_datetime %>
               <% booking.service %>
-              <div>
+              <div class="booking-info">
                 <% if booking.service.title == "Restaurant" %>
                   <i class="fa fa-cutlery" aria-hidden="true"></i>
                   <%= booking.start_datetime.strftime("%H:%M") %>
                 <% end %>
                 <% if booking.service.title == "Massage" %>
                   <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                  <%= booking.start_datetime.strftime("%H:%M") %>
+                  <%= booking.start_datetime.strftime("%H:%M") %> - <%= booking.user.last_name %>
                 <% end %>
-
-                <%#= booking.service.title %> <%#= booking.start_datetime %>
               </div>
-              <div><%#= link_to booking.id, stay_hotel_service_booking_path(@stay, @hotel, booking.service, booking) %></div>
             <% end %>
           </td>
         <% end %>
