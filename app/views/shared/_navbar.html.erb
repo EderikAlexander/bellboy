@@ -1,6 +1,10 @@
 <div class="navbar-bellboy-wrapper">
   <div class="navbar-bellboy">
-
+  <% if params[:controller] == "services" && params[:action] == "show" %>
+<%= link_to stay_hotel_services_path, class: "navbar-arrow-back" do %>
+<i class="fa fa-chevron-left"></i> back
+<% end %>
+  <% end %>
     <a class="navbar-brand" style="color: white;" href="<%= yield(:link) %>"><%= yield(:nav_title) %></a>
 
     <a class="bellboy-burger-menu" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -15,13 +19,15 @@
         <% if @hotel.can_manage?(current_user) %>
 
         <li><%= link_to "Calendar", stay_hotel_calendar_mobile_path(@stay, @hotel) %></li>
-        <li><%= link_to "Analitics", stay_hotel_chart_path(@stay, @hotel) %></li>
+        <li><%= link_to "Analitics", stay_hotel_charts_path(@hotel) %></li>
 
         <% else %>
 
         <li><%= link_to "WIFI", stays_path %></li>
         <li><%= link_to "About Andy", stays_path %></li>
         <li><%= link_to "Profile", stays_path %></li>
+
+</li>
 
         <% end %>
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
