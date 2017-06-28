@@ -19,7 +19,7 @@
         <% if @hotel.can_manage?(current_user) %>
 
         <li><%= link_to "Calendar", stay_hotel_calendar_mobile_path(@stay, @hotel) %></li>
-        <li><%= link_to "Analitics", stay_hotel_charts_path(@hotel) %></li>
+        <li><%= link_to "Analitics", stay_hotel_charts_path(@stay, @hotel) %></li>
 
         <% else %>
 
