@@ -1,33 +1,115 @@
-<h1> Charts </h1>
+<div class="charts-page-wrapper">
+  <div class="title-charts text-center">
+    <h1> Hotel analytics </h1>
+  </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">pie chart</p>
-        <%= pie_chart Service.group(:title).count %>
+  <div class="container">
+    <div class="row">
+
+      <!-- ############################################################ -->
+      <!--          Evolution table bookings per month -->
+      <!-- ############################################################ -->
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Evolution table bookings per month</p>
+          </div>
+
+          <%= line_chart Booking.where(service_id: @restaurants_service_id).group_by_month(:start_datetime, format: "%b").count, xtitle: "Months", ytitle: "Number of bookings" %>
+          <%#= line_chart Booking.where(service_id: 174).group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
+          <%#= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
+        </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">Users per month</p>
-        <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
-        <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Evolution massage bookings per month</p>
+          </div>
+
+          <%= line_chart Booking.where(service_id: @massages_service_id).group_by_month(:start_datetime, format: "%b").count, xtitle: "Months", ytitle: "Number of bookings" %>
+          <%#= line_chart Booking.where(service_id: 174).group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
+          <%#= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
+        </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">Bookings per month</p>
-        <%= line_chart Booking.group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
-        <%#= line_chart Booking.where(service_id: 174).group_by_month(:start_datetime, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
-        <%#= line_chart({20.day.ago => 5, 15.day.ago => 5, 10.day.ago => 10}) %>
+
+      <!-- ############################################################ -->
+      <!--          Distribution table bookings per month -->
+      <!-- ############################################################ -->
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Distribution restaurant bookings per month</p>
+          </div>
+          <%= pie_chart Booking.where(service_id: @restaurants_service_id).group_by_month(:start_datetime, format: "%b").count %>
+          <%#= pie_chart Service.group(:title).count %>
+        </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="chart">
-        <p class="text-center">pie chart</p>
-        <%= column_chart Message.group_by_day(:created_at, format: "%d %m").count %>
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Distribution massage bookings per month</p>
+          </div>
+          <%= pie_chart Booking.where(service_id: @massages_service_id).group_by_month(:start_datetime, format: "%b").count %>
+          <%#= pie_chart Service.group(:title).count %>
+        </div>
       </div>
+
+      <!-- ############################################################ -->
+      <!-- comparison between services -->
+      <!-- ############################################################ -->
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Comparison restaurant vs. massage bookings</p>
+          </div>
+          <%= pie_chart Booking.joins(:service).group("services.title").count %>
+          <%#= pie_chart Service.group(:title).count %>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Guests per month</p>
+          </div>
+          <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
+          <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, xtitle: "Months", ytitle: "Number of guests" %>
+        </div>
+      </div>
+
+      <!-- ############################################################ -->
+      <!-- graphick 2 -->
+      <!-- ############################################################ -->
+
+      <!-- <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Users per month</p>
+          </div>
+          <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
+          <%#= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="chart">
+          <div class="chart-title">
+            <p class="text-center">Users per month</p>
+          </div>
+          <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
+          <%#= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, {library: {hAxis: {title: "months"}, vAxis: {title: "number customers"}}} %>
+        </div>
+      </div> -->
+
     </div>
   </div>
 </div>
+
+
+
+
