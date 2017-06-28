@@ -78,7 +78,7 @@
             <p class="text-center">Guests per month</p>
           </div>
           <%#= column_chart Stay.group_by_day(:start_booking_date, format: "%d %m").count %>
-          <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count %>
+          <%= column_chart Stay.group_by_month(:start_booking_date, format: "%b").count, xtitle: "Months", ytitle: "Number of guests" %>
         </div>
       </div>
 
