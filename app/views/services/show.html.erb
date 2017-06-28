@@ -1,18 +1,8 @@
-<%= content_for :nav_title, "back" %>
+<%= content_for :nav_title, "" %>
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
 
-<div style="background-color: yellow;">
-  <% if flash[:notice] %>
-    <%= flash[:notice] %>
-  <% end %>
-</div>
-
-<!--
-<div class="book-wrap" style="width:100%;height:100%; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
-         url('http://res.cloudinary.com/montolio/image/upload/v1498410081/restaurant_bxuxaw.jpg'); background-size:cover;"> -->
-  <div class="book-wrap" style="width:100%;height:100%; background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,30,50,0.3) 10%),
-         url('<%= cl_image_path @service.photo.path %>'); background-size:cover;">
+  <div class="book-wrap" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('<%= cl_image_path @service.photo.path %>'); background-size: cover;">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-offset-2 col-sm-8 fixing-paddings">
@@ -41,6 +31,8 @@
 </div>
 
 
+<!-- BOTTOM NAV BAR -->
+<%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
 
 
 

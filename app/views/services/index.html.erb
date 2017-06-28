@@ -1,5 +1,5 @@
 <!-- TOP NAVBAR -->
-<%= content_for :nav_title, "Services" %>
+<%= content_for :nav_title, "Hotel services" %>
 
 
 <!-- HOTEL CREATE BUTTON (ONLY DISPLAYS ON ADMIN LOGIN) -->
@@ -8,7 +8,7 @@
 <% end %>
 
 
-  <% call_to_action = ["Book a table", "Book a massage", "Where is it?", "Where is it?", "Get a cab", "Book a pick up time"] %>
+  <% call_to_action = ["Book a table", "Book a massage", "Go for a swim", "Enjoy our entertainment room", "Get a cab", "Get your laundry clean"] %>
   <% i = 0 %>
 
 <!-- DISPLAY ALL SERVICES AND CALL TO ACTIONS -->
@@ -49,13 +49,6 @@
 
   </div>
   <% end %>
-    <div style="background-color: yellow;">
-      <%= link_to stay_hotel_calendar_month_path(@stay, @hotel), class: "btn btn-primary" do %>
-        <p>to admin monthly calendar</p>
-      <% end %>
-    </div>
-
-
 </div>
 
 
