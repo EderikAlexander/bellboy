@@ -36,7 +36,9 @@ class HotelsController < ApplicationController
   end
 
   def charts
-
+    @hotel = Hotel.find(params[:hotel_id])
+    @restaurants_service_id = @hotel.services[0].id
+    @massages_service_id = @hotel.services[1].id
   end
 
   def calendar_info_generation

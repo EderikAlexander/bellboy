@@ -98,9 +98,9 @@
 // HOURS IN CALENDAR
 // ------------------------------------------------
 .dropdown-scrollable-menu {
-    height: auto;
-    max-height: 200px;
-    overflow-x: hidden;
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
 }
 
 // .calendar-booking-wrapper {
@@ -110,7 +110,7 @@
 
 @media (min-width: 600px) {
   .cal-book-day-btn {
-    width: 40px;
+    width: 100px;
   }
 }
 
@@ -121,14 +121,25 @@
 }
 
 .cal-book-day-btn {
-  background-color: rgba(200, 200, 200, 0.7);
+  background-color: transparent;
+  color: white;
+  font-weight: 900;
   border: 0px;
   padding: 5px;
 }
 
-.cal-book-table th {
-  color: white;
+.cal-book-table {
+  td:last-child {
+    border-right: none;
+  }
+  td {
+    border-right: 1px solid #ddd;
+  }
+  th {
+    color: white;
+  }
 }
+
 
 .cal-book-table th, td {
   text-align: center;

@@ -16,4 +16,8 @@ class Service < ApplicationRecord
   validates :title, uniqueness: true
   # END VALIDATIONS AND ASSOCIATIONS
 
+  # def name
+  #   return self.title
+  # end
+
 end
