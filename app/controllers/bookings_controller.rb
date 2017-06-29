@@ -67,6 +67,7 @@ class BookingsController < ApplicationController
       redirect_to stay_hotel_service_path(@stay, @hotel, @service)
     else
       @booking.save
+      flash[:notice] = @booking.id
       # session[:modal] = true
       redirect_to stay_hotel_services_path(@stay, @hotel) # working one
       # redirect_to stay_hotel_services_path(@stay, @hotel), flash: { manifesto_modal: true }
