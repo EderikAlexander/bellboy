@@ -1,3 +1,5 @@
+<%= content_for :meta_title, "Book it" %>
+
 <%= simple_form_for([@stay, @hotel, @service, @booking]) do |f| %>
   <%= f.input :start_datetime, as: :datetime %>
   <%= f.input :end_datetime, as: :datetime %>
