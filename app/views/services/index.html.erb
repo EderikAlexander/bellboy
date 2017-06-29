@@ -33,33 +33,50 @@
 
   <!-- LOOP THROUGH HOTEL SERVICES -->
   <% @services.each_with_index do |service, index| %>
-  <div class="row text-center">
+  <div class="row">
 
     <!-- ANCOR TO PHOTO GLOBAL LINK TO SERVICE -->
     <div class="col-xl-12 service-element">
 
       <!-- SERVICE PHOTO AND DESCRIPTION -->
-      <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
+
 
       <!-- SERVICE PHOTO -->
       <div class="service-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path service.photo.path %>')">
       </div>
 
-      <!-- SERVICE TITLE -->
-      <div class="service-title">
-        <h3><%= call_to_action[i] %></h3>
-      </div>
-
-      <!-- SERVICE TIMES -->
-      <div class="service-time">
-        <div class="service-hour">
+      <div class="service-header">
+        <h3 ><%= service.title %></h3>
+        <div class="service-hour text-center">
           <%= service.start_time %>
           <%= " - " %>
           <%= service.end_time %>
         </div>
+        <p><%= service.description %></p>
       </div>
-        <% i += 1 %>
+
+      <hr id="hr-card">
+       <!-- SERVICE TIMES -->
+      <!-- <div class="service-time">
+        <div class="service-hour">
+          <%#= service.start_time %>
+          <%#= " - " %>
+          <%#= service.end_time %>
+        </div>
+      </div> -->
+
+      <!-- SERVICE TITLE -->
+      <%= link_to stay_hotel_service_path(@stay, @hotel, service) do %>
+      <div class="service-title text-center">
+        <h3><%= call_to_action[i].upcase %></h3>
+      </div>
       <% end %>
+
+        <% i += 1 %>
+
+
+
+
     </div>
 
   </div>
@@ -67,8 +84,6 @@
 
 </div>
 
-
-
-
-<!-- BOTTOM NAV BAR -->
 <%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel)  %>
+
+
