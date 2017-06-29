@@ -8,12 +8,12 @@
 
   <%#  @last_booking = Booking.last %>
   <% if defined?(@last_booking) %>
-  <div class="container">
+  <div class="container" style="background-color: #FFD259;">
 
-    <div class="col-xs-12">
-      <div class="panel-confirmation-wrapper">
-        <div class="panel panel-confirmation text-center">
-          <p>Thank you for booking a <%= @last_booking.service.title %>! Your reservation is set on <%= @last_booking.start_datetime.to_date.strftime("%A") %>, at <%= @last_booking.start_datetime.strftime("%H:%M") %>. We are looking forward to see you! </p>
+    <div class="col-xs-12" style="background-color: #FFD259;">
+      <div class="panel-confirmation-wrapper" >
+        <div class="panel panel-confirmation text-center"  >
+          <p >Thank you for booking a <%= @last_booking.service.title %>! Your reservation is set on <%= @last_booking.start_datetime.to_date.strftime("%A") %>, at <%= @last_booking.start_datetime.strftime("%H:%M") %>. We are looking forward to see you! </p>
         </div>
       </div>
     </div>
@@ -87,6 +87,5 @@
 
 </div>
 
-<%= render 'shared/bottom-navbar', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel), edit: "border-top: none;"  %>
-
+<%= render 'shared/btm-nab', home: stay_hotel_path(@stay, @hotel), services: stay_hotel_services_path(@stay, @hotel), locations: stay_hotel_locations_path(@stay, @hotel), edit: "border-top: none;" %>
 

@@ -27,9 +27,9 @@
 
         <% else %>
 
-        <li><%= link_to "WIFI", stays_path %></li>
-        <li><%= link_to "About Andy", stays_path %></li>
-        <li><%= link_to "Profile", stays_path %></li>
+
+        <li><%= link_to "About", stay_hotel_services_path(@stay, @hotel) %></li>
+        <li><%= link_to "Contact", stay_hotel_services_path(@stay, @hotel) %></li>
 
       </li>
 

@@ -1,0 +1,59 @@
+<div id="tab-bar" class="navbar-wagon navbar-wagon-right navbar-fixed-bottom">
+
+
+  <!-- <div class="flex-item pressed text-center">
+      <%#= link_to home do %>
+      <i class="tab-bar-item fa fa-home lg"> </i>
+      <p style="font-size: 9px; color: white; margin-bottom: 0px;">Home</p>
+      <%# end %>
+    </div>
+ -->
+    <div class="flex-item text-center" style="margin-left: 30px;">
+      <%= link_to stay_hotel_services_path(@stay, @hotel) do %>
+      <i class="tab-bar-item fa fa-th-list lg"> </i>
+      <p style="font-size: 10px; margin-bottom: 0px;">Services</p>
+      <% end %>
+    </div>
+
+    <div class="andy text-center" >
+    <div id="circulo" >
+    <a href="https://m.me/bellboyapp?ref=<%= current_user.uid %>"><%= image_tag image_path('logoins.svg'), style: "width: 80px; height: 80px; margin-bottom: 0px;" %></a>
+
+
+
+    </div>
+    <p style="font-size: 9px; margin-bottom: 63px;">Talk With Andy</p>
+    <!-- <p style="font-size: 10px; margin-bottom: 10px;">Talk With Andy</p> -->
+  </div>
+
+    <div  class="flex-item text-center" style="margin-right: 30px;"><%= link_to stay_hotel_locations_path(@stay, @hotel) do %>
+      <i class="tab-bar-item fa fa-map-marker lg"> </i>
+      <p style="font-size: 9px;  margin-bottom: 0px;">Local Tips</p>
+      <% end %></div>
+
+      <!-- <div class="flex-item text-center">
+        <%#= link_to stay_path(@stay) do %>
+        <i class="tab-bar-item fa fa-key lg"> </i>
+        <p style="font-size: 9px; color: white; margin-bottom: 0px;">Room</p>
+        <%# end %>
+      </div> -->
+
+  </div>
+
+ <!-- <div id="tab-bar" class="navbar-wagon navbar-wagon-right navbar-fixed-bottom" style="border: none; padding: 0; display: flex; justify-content: center; padding-bottom: 60px"> -->
+  <!-- <div class="custom-tab-bar navbar-fixed-bottom" style="height: 140px; width: 100%; position: relative;"> -->
+  <!-- <div class="andy text-center" >
+    <div id="circulo" >
+    <%#= image_tag "/assets/Logo.svg", style: "width: 80px; height: 80px; margin-bottom: 0px;" %>
+    </div>
+    <p style="font-size: 10px; margin-bottom: 10px;">Talk With Andy</p>
+  </div> -->
+
+
+    <!-- <div style="height: 70px; width: 100%; position: absolute; bottom: 0; background-color: #3A485B">
+
+    </div> -->
+
+
+
+  <!-- </div> -->
