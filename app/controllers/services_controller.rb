@@ -4,9 +4,13 @@ class ServicesController < ApplicationController
     @stay = Stay.first
     @hotel = @stay.hotel
 
-    if current_user == @hotel.user
-      redirect_to stay_hotel_calendar_month_path(@stay, @hotel)
+
+    if @hotel
+      if current_user == @hotel.user
+        return redirect_to stay_hotel_calendar_month_path(@stay, @hotel)
+      end
     end
+
 
     @disable_nav = true
   end
