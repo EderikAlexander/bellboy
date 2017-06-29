@@ -11,7 +11,7 @@
 
 # curl -X POST -H "Content-Type: application/json" -d '{
 #   "whitelisted_domains":[
-#     "https://bellboy-app.herokuapp.com/", "https://www.facebook.com", "https://bellboy.fwd.wf/"
+#     "https://bellboy-app.herokuapp.com/", "https://www.facebook.com", "https://bellboy3.fwd.wf/"
 #   ]
 # }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAL09FQZA8ncBAPCbZCiM3O4LGt2ZA9bx361hO7v0WZBkiNxR34iZC1tYBWXsmrZCf03ZCrBbjFK8oslq7Kn82LH3r4Bt5hWKBGZC9J1on8Si1rY1epMKb3ZCSDpYi6ZBupgwwcEMJv1zwGL26oLZAxVBWsXImysjvP5UCnAw2jM9CmHg8FgBTfcl7cnhZBWazO9eXkZD"
 
