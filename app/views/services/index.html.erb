@@ -2,6 +2,23 @@
 <%= content_for :nav_title, "Hotel Services" %>
 
 
+
+  <%  @last_booking = Booking.last %>
+  <% if defined?(@last_booking) %>
+  <div class="container">
+
+    <div class="col-xs-12">
+      <div class="panel-confirmation-wrapper">
+        <div class="panel panel-confirmation text-center">
+          <p>Thank you for booking a <%= @last_booking.service.title %>! Your reservation is set on <%= @last_booking.start_datetime.to_date.strftime("%A") %>, at <%= @last_booking.start_datetime.strftime("%H:%M") %>. We are looking forward to see you! </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+
+
 <!-- HOTEL CREATE BUTTON (ONLY DISPLAYS ON ADMIN LOGIN) -->
 <% if @hotel.can_manage?(current_user) %>
 <%= link_to "Add service", new_stay_hotel_service_path(@stay, @hotel) %>
@@ -42,13 +59,12 @@
         </div>
       </div>
         <% i += 1 %>
-
       <% end %>
-
     </div>
 
   </div>
   <% end %>
+
 </div>
 
 

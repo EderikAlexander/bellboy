@@ -26,6 +26,15 @@ class ServicesController < ApplicationController
   end
 
   def index
+    booking_id = flash[:notice]
+
+    if booking_id.present?
+      begin
+        @last_booking = Booking.find(booking_id)
+      rescue Exception => e
+      end
+    end
+
     @stay = Stay.find(params[:stay_id])
     @hotel = Hotel.first
     @services = Service.all
