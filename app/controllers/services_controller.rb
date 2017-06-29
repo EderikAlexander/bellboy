@@ -3,6 +3,11 @@ class ServicesController < ApplicationController
   def introduction
     @stay = Stay.first
     @hotel = @stay.hotel
+
+    if current_user == @hotel.user
+      redirect_to stay_hotel_calendar_month_path(@stay, @hotel)
+    end
+
     @disable_nav = true
   end
 
