@@ -1,3 +1,5 @@
+<%= content_for :meta_title, @service.title %>
+
 <%= content_for :nav_title, "" %>
 <%  hreff = "/stays/#{@stay.id}/hotels/#{@hotel.id}/services" %>
 <%= content_for :link, hreff %>
